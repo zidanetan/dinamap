@@ -1,20 +1,19 @@
 using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace DinamapN
 {
-    
     public partial class frmMeasurement : Form
     {
         //Variable Global
         int nRegister;
-        
-        
+
         public frmMeasurement()
         {
             InitializeComponent();
@@ -63,10 +62,51 @@ namespace DinamapN
             comboBox2.Enabled = true;
         }
 
+        private Hashtable responseToArray()
+        {
+            Hashtable h = new Hashtable();
+            XmlDocument doc = new XmlDocument();
+            doc = Tool.Dina_GetState();
+
+            XmlNodeList doc_results = doc.GetElementsByTagName("Result");
+
+            MessageBox.Show("inside response to array");
+
+            foreach (XmlNode pnode in doc_results)
+            {
+                //MessageBox.Show("pnode");
+
+                foreach (XmlNode cnode in pnode.ChildNodes)
+                {
+                    //MessageBox.Show("cnode");
+                    if(cnode.Name == "Units")
+                    {
+                        h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, cnode.Attributes["name"].InnerText);
+                    }
+                    else if(cnode.Name == "Time_stamp")
+                    {
+                        DateTime d = new DateTime(
+                            Convert.ToInt32(cnode.Attributes["year"].InnerText),
+                            Convert.ToInt32(cnode.Attributes["month"].InnerText),
+                            Convert.ToInt32(cnode.Attributes["day"].InnerText),
+                            Convert.ToInt32(cnode.Attributes["hour"].InnerText),
+                            Convert.ToInt32(cnode.Attributes["minute"].InnerText),
+                            Convert.ToInt32(cnode.Attributes["second"].InnerText)); 
+                        
+                        h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, d);
+                    }
+                    else
+                        h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, cnode.InnerText);
+                }
+                
+            }
+
+            return h;
+        }
+
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
-            //Image imgStart = Image.FromFile("C:\\Users\\dlugokja\\Documents\\Downloads\\Knob_Buttons_Toolbar_icons_by_iTweek\\knobs\\PNG\\Knob Play Green.png");
-            //cmdStart.Image = imgStart;
+            this.responseToArray();
 
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;

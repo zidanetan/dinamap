@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Security.Permissions;
 using System.Runtime.InteropServices;
+using System.Xml;
 
 namespace DinamapN
 {
@@ -62,13 +63,14 @@ namespace DinamapN
             return bRet;
         }
 
-        public static string Dina_GetState()
+        public static XmlDocument Dina_GetState()
         {
-            string szState = "";
+            XmlDocument xmlData = new XmlDocument();
+            xmlData.Load("C:\\dinamap.xml");
+            return xmlData;
 
-            szState = getState();
+            //szState = getState();
 
-            return szState;
         }
 
         public static int Dina_GetBufferLength()

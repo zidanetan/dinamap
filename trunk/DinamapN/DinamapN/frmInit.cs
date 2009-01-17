@@ -73,5 +73,12 @@ namespace DinamapN
             }
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Upload fUp = new Upload();
+            this.Visible = false;
+            fUp.Show();
+        }
     }
 }
