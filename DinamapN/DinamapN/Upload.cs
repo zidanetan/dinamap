@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.Odbc;
+using System.Xml;
 
 namespace DinamapN
 {
@@ -18,17 +19,12 @@ namespace DinamapN
 
         private void Upload_Load(object sender, EventArgs e)
         {
-            OdbcConnection conn = new OdbcConnection();
-            conn.ConnectionString =
-            "Driver={MySql};" +
-            "Server=db.domain.com;" +
-            "Option=131072;" +
-            "Port=3306;" +
-            "Stmt=;" +
-            "DataBase=DataBaseName;" +
-            "Uid=UserName;" +
-            "Pwd=Secret;"; 
-            conn.Open();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            XmlTextReader textReader = new XmlTextReader("C:\\dinamap.xml");
+         
         }
 
     }
