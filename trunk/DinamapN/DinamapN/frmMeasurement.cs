@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
 
 namespace DinamapN
 {
@@ -27,12 +28,12 @@ namespace DinamapN
             if (min == "Min" || sec == "Sec" || (min == "0" && sec == "0"))
             {
                 MessageBox.Show("The interval must be set before measurements can be taken.");
-                panel4.BackColor = System.Drawing.Color.IndianRed;
+                panel4.BackColor = System.Drawing.Color.LightCoral;
             }
             else
 	        {
                 int interval = Convert.ToInt32(min) * 60 * 1000 + Convert.ToInt32(sec) * 1000;
-                MessageBox.Show(interval.ToString());
+                
                 timer1.Interval = interval;
                 timer1.Start();
                 cmdStart.Enabled = false;
@@ -45,11 +46,12 @@ namespace DinamapN
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Random random = new Random();
-
             nRegister++;
-            
-            this.mGrid.Rows.Add(lblTime.Text, random.Next(250), random.Next(250), random.Next(250), txtComment.Text.ToString());
+            Hashtable h = this.handleResponse();
+           
+            this.mGrid.Rows.Add(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay, h["Systolic_blood_pressure_Value"], 
+                h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
+           
             lblNum.Text = nRegister.ToString();        
         }
 
@@ -62,23 +64,38 @@ namespace DinamapN
             comboBox2.Enabled = true;
         }
 
-        private Hashtable responseToArray()
+        private Hashtable handleResponse()
+        {
+            XmlDocument myDoc = new XmlDocument();
+            myDoc = Tool.Dina_GetState();
+
+            this.saveLocal(myDoc);
+
+            return responseToArray(myDoc);
+        }
+
+        private void saveLocal(XmlDocument doc)
+        {
+            if(Directory.Exists("C:\\Dinamap\\Data\\Capture"))
+            {
+                
+            }
+            else
+            {
+                Directory.CreateDirectory("C:\\Dinamap\\Data\\Capture");
+            }
+        }
+
+        private Hashtable responseToArray(XmlDocument doc)
         {
             Hashtable h = new Hashtable();
-            XmlDocument doc = new XmlDocument();
-            doc = Tool.Dina_GetState();
 
             XmlNodeList doc_results = doc.GetElementsByTagName("Result");
 
-            MessageBox.Show("inside response to array");
-
             foreach (XmlNode pnode in doc_results)
             {
-                //MessageBox.Show("pnode");
-
                 foreach (XmlNode cnode in pnode.ChildNodes)
                 {
-                    //MessageBox.Show("cnode");
                     if(cnode.Name == "Units")
                     {
                         h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, cnode.Attributes["name"].InnerText);
@@ -97,8 +114,7 @@ namespace DinamapN
                     }
                     else
                         h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, cnode.InnerText);
-                }
-                
+                } 
             }
 
             return h;
@@ -106,8 +122,6 @@ namespace DinamapN
 
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
-            this.responseToArray();
-
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
 
@@ -119,7 +133,7 @@ namespace DinamapN
         private void sysTime_Tick(object sender, EventArgs e)
         {
             string szHour;
-            szHour = DateTime.Now.ToString("hh:mm:ss");
+            szHour = DateTime.Now.ToString("h:mm:ss");
             lblTime.Text = szHour;
         }
 
