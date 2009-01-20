@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DinamapN", "DinamapN\DinamapN.csproj", "{240C2C26-5B6E-4943-AF27-CA48BCF1D9DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{41AF5180-ECB3-4DDE-B515-49A80A611862}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\..\Downloads\Dinamap\Dinamap\GE dll and Sample App\DinaWin.dll = ..\..\..\..\..\Downloads\Dinamap\Dinamap\GE dll and Sample App\DinaWin.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True

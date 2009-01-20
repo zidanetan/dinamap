@@ -11,17 +11,17 @@ namespace DinamapN
     class Tool
     {
         //Las Funciones de la DLL DinaWin se declara en este punto.
-        [DllImport("dinawin.dll")]
-        internal static extern bool checkReadiness();
+        [DllImport("C:\\DinaWin.dll")]
+        public static extern bool checkReadiness();
 
-        [DllImport("dinawin.dll")]
-        internal static extern string getState();
+        [DllImport("C:\\DinaWin.dll")]
+        public static extern string getState();
 
-        [DllImport("dinawin.dll")]
-        internal static extern int getBufferLength();
+        [DllImport("C:\\DinaWin.dll")]
+        public static extern int getBufferLength();
 
-        [DllImport("dinawin.dll")]
-        internal static extern bool resetMonitor();
+        [DllImport("C:\\DinaWin.dll")]
+        public static extern bool resetMonitor();
 
         //Public Variables to the Class
         public static string szTitulo_APP = "(C)Dinamap - Monitoring Program";
@@ -66,11 +66,8 @@ namespace DinamapN
         public static XmlDocument Dina_GetState()
         {
             XmlDocument xmlData = new XmlDocument();
-            xmlData.Load("C:\\dinamap.xml");
+            xmlData.LoadXml(getState());
             return xmlData;
-
-            //szState = getState();
-
         }
 
         public static int Dina_GetBufferLength()
