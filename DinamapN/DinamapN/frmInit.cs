@@ -35,7 +35,7 @@ namespace DinamapN
             pnlPanel01.Location = PuntoXY;
             pnlPanel02.Location = PuntoXY;
             chkBoxURI.Checked = true;
-            pnlPanel01.Visible = false; 
+            pnlPanel01.Visible = false;
         }
 
         private void chkBoxURI_CheckedChanged(object sender, EventArgs e)
