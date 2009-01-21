@@ -42,32 +42,29 @@ namespace DinamapN
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            try
+            if (Tool.Dina_CheckReadiness())
             {
-                if (Tool.checkReadiness() == false)
-                {
-                    MessageBox.Show("Dinamap monitor not ready.");
-                    frmInit fInit = new frmInit();
-                    this.Close();
-                    fInit.Show();
-                }
-                else if (Tool.checkReadiness() == true)
-                {
-                    frmMeasurement newMDIChild = new frmMeasurement();
+                frmMeasurement newMDIChild = new frmMeasurement();
 
-                    scanMeasurementToolStripMenuItem.Enabled = false;
-                    newMDIChild.MdiParent = this;
-                    newMDIChild.WindowState = FormWindowState.Maximized;
-                    newMDIChild.Show(); 
-                }
+                scanMeasurementToolStripMenuItem.Enabled = false;
+                newMDIChild.MdiParent = this;
+                newMDIChild.WindowState = FormWindowState.Maximized;
+                newMDIChild.Show();
             }
-            catch(System.DllNotFoundException ex)
+            else
             {
-                MessageBox.Show("DinaWin.dll could not load.");
                 frmInit fInit = new frmInit();
                 this.Close();
                 fInit.Show();
             }
+         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmHelp newMDIChild = new frmHelp();
+            newMDIChild.MdiParent = this;
+            newMDIChild.WindowState = FormWindowState.Maximized;
+            newMDIChild.Show();
         }
     }
 }

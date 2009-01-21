@@ -37,6 +37,7 @@ namespace DinamapN
             this.generalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,6 +94,7 @@ namespace DinamapN
             // windoToolStripMenuItem
             // 
             this.windoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.helpToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.windoToolStripMenuItem.Name = "windoToolStripMenuItem";
             this.windoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
@@ -101,9 +103,16 @@ namespace DinamapN
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.aboutToolStripMenuItem.Text = "About ..";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -136,5 +145,6 @@ namespace DinamapN
         private System.Windows.Forms.ToolStripMenuItem windoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generalToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     }
 }
