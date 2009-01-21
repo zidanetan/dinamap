@@ -10,11 +10,24 @@ namespace DinamapN
     public partial class frmMeasurement : Form
     {
         //Variable Global
-        int nRegister;
+        int numMeasurements;
+        private string patientID;
+        private string studyID;
 
         public frmMeasurement()
         {
             InitializeComponent();
+        }
+
+        public frmMeasurement(string patient, string study)
+        {
+            InitializeComponent();
+            
+            patientID = patient;
+            studyID = study;
+
+            lblPatientID.Text = patient;
+            lblStudyID.Text = study;
         }
 
         private void cmdStart_Click(object sender, EventArgs e)
@@ -24,35 +37,35 @@ namespace DinamapN
             if (min == "Min")
             {
                 MessageBox.Show("The interval must be set before measurements can be taken.");
-                panel4.BackColor = System.Drawing.Color.LightCoral;
+                intervalPanel.BackColor = System.Drawing.Color.LightCoral;
             }
             else
 	        {
                 int interval = Convert.ToInt32(min) * 1000; //seconds, change to minutes
                 
-                timer1.Interval = interval;
-                timer1.Start();
+                measurementTimer.Interval = interval;
+                measurementTimer.Start();
                 cmdStart.Enabled = false;
                 cmdStop.Enabled = true;
-                panel4.BackColor = SystemColors.Control;
+                intervalPanel.BackColor = SystemColors.Control;
                 comboBox1.Enabled = false;
             }
         }
-
+        
         private void timer1_Tick(object sender, EventArgs e)
         {
-            nRegister++;
+            numMeasurements++;
             Hashtable h = this.handleResponse();
            
             this.mGrid.Rows.Add(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay, h["Systolic_blood_pressure_Value"], 
                 h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
            
-            lblNum.Text = nRegister.ToString();        
+            lblNum.Text = numMeasurements.ToString();        
         }
 
         private void cmdStop_Click(object sender, EventArgs e)
         {
-            timer1.Stop();
+            measurementTimer.Stop();
             cmdStop.Enabled = false;
             cmdStart.Enabled = true;
             comboBox1.Enabled = true;
@@ -60,6 +73,8 @@ namespace DinamapN
 
         private Hashtable handleResponse()
         {
+            Tool.resetMonitor();
+
             XmlDocument myDoc = new XmlDocument();
             myDoc = Tool.Dina_GetState();
 
@@ -70,14 +85,8 @@ namespace DinamapN
 
         private void saveLocal(XmlDocument doc)
         {
-            if(Directory.Exists("C:\\Dinamap\\Data\\Capture"))
-            {
-                
-            }
-            else
-            {
-                Directory.CreateDirectory("C:\\Dinamap\\Data\\Capture");
-            }
+            doc.PreserveWhitespace = false;
+            doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\"+numMeasurements+".xml");
         }
 
         private Hashtable responseToArray(XmlDocument doc)
@@ -120,7 +129,7 @@ namespace DinamapN
 
             cmdStart.Enabled = true;
             cmdStop.Enabled = false;
-            nRegister = 0;
+            numMeasurements = 0;
         }
 
         private void sysTime_Tick(object sender, EventArgs e)
@@ -132,7 +141,7 @@ namespace DinamapN
 
         private void frmMeasurement_Activated(object sender, System.EventArgs e)
         {
-            sysTime.Start();
+            sysTimer.Start();
         }
 
         private void frmMeasurement_FormClosing(object sender, FormClosingEventArgs e)

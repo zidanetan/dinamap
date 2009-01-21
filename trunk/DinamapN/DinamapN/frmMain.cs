@@ -10,9 +10,19 @@ namespace DinamapN
 {
     public partial class frmMain : Form
     {
+        private string patientID;
+        private string studyID;
+
         public frmMain()
         {
             InitializeComponent();
+        }
+
+        public frmMain(string patient, string study)
+        {
+            InitializeComponent();
+            patientID = patient;
+            studyID = study;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -22,6 +32,10 @@ namespace DinamapN
 
         private void scanMeasurementToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            frmMeasurement newMDIChild = new frmMeasurement();
+            newMDIChild.MdiParent = this;
+            newMDIChild.WindowState = FormWindowState.Maximized;
+            newMDIChild.Show();
         }
 
         private void generalToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,9 +58,9 @@ namespace DinamapN
         {
             if (Tool.Dina_CheckReadiness())
             {
-                frmMeasurement newMDIChild = new frmMeasurement();
+                frmMeasurement newMDIChild = new frmMeasurement(patientID, studyID);
 
-                scanMeasurementToolStripMenuItem.Enabled = false;
+                scanMeasurementToolStripMenuItem.Enabled = true;
                 newMDIChild.MdiParent = this;
                 newMDIChild.WindowState = FormWindowState.Maximized;
                 newMDIChild.Show();
@@ -61,10 +75,7 @@ namespace DinamapN
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmHelp newMDIChild = new frmHelp();
-            newMDIChild.MdiParent = this;
-            newMDIChild.WindowState = FormWindowState.Maximized;
-            newMDIChild.Show();
+
         }
     }
 }

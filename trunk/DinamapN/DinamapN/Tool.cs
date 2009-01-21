@@ -72,7 +72,8 @@ namespace DinamapN
             try
             {
                 XmlDocument xmlData = new XmlDocument();
-                xmlData.LoadXml(getState());
+                //xmlData.LoadXml(getState());
+                xmlData.Load("C:\\dinamap.xml");
                 return xmlData;
             }
             catch (System.DllNotFoundException ex)
