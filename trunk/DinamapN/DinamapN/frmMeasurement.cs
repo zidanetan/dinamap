@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
@@ -23,16 +20,15 @@ namespace DinamapN
         private void cmdStart_Click(object sender, EventArgs e)
         {
             string min = comboBox1.SelectedItem.ToString();
-            string sec = comboBox2.SelectedItem.ToString();
            
-            if (min == "Min" || sec == "Sec" || (min == "0" && sec == "0"))
+            if (min == "Min")
             {
                 MessageBox.Show("The interval must be set before measurements can be taken.");
                 panel4.BackColor = System.Drawing.Color.LightCoral;
             }
             else
 	        {
-                int interval = Convert.ToInt32(min) * 60 * 1000 + Convert.ToInt32(sec) * 1000;
+                int interval = Convert.ToInt32(min) * 1000; //seconds, change to minutes
                 
                 timer1.Interval = interval;
                 timer1.Start();
@@ -40,7 +36,6 @@ namespace DinamapN
                 cmdStop.Enabled = true;
                 panel4.BackColor = SystemColors.Control;
                 comboBox1.Enabled = false;
-                comboBox2.Enabled = false;
             }
         }
 
@@ -61,7 +56,6 @@ namespace DinamapN
             cmdStop.Enabled = false;
             cmdStart.Enabled = true;
             comboBox1.Enabled = true;
-            comboBox2.Enabled = true;
         }
 
         private Hashtable handleResponse()
@@ -123,7 +117,6 @@ namespace DinamapN
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
 
             cmdStart.Enabled = true;
             cmdStop.Enabled = false;

@@ -1,6 +1,6 @@
-namespace DinamapN
+﻿namespace DinamapN
 {
-    partial class frmAbout
+    partial class frmHelp
     {
         /// <summary>
         /// Required designer variable.
@@ -28,21 +28,33 @@ namespace DinamapN
         /// </summary>
         private void InitializeComponent()
         {
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
-            // frmAbout
+            // webBrowser1
+            // 
+            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(704, 567);
+            this.webBrowser1.TabIndex = 0;
+            this.webBrowser1.Url = new System.Uri("http://eecs.vanderbilt.edu/Courses/eece295/2008-2009/GCRC-Dinamap/", System.UriKind.Absolute);
+            // 
+            // frmHelp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(449, 319);
-            this.Name = "frmAbout";
-            this.Text = "About ...";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.ClientSize = new System.Drawing.Size(704, 567);
+            this.Controls.Add(this.webBrowser1);
+            this.Name = "frmHelp";
+            this.Text = "Online help";
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }

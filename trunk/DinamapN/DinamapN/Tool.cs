@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Forms;
-using System.Security.Permissions;
 using System.Runtime.InteropServices;
 using System.Xml;
 
@@ -12,16 +8,16 @@ namespace DinamapN
     {
         //Las Funciones de la DLL DinaWin se declara en este punto.
         [DllImport("C:\\DinaWin.dll")]
-        public static extern bool checkReadiness();
+        internal static extern bool checkReadiness();
 
         [DllImport("C:\\DinaWin.dll")]
-        public static extern string getState();
+        internal static extern string getState();
 
         [DllImport("C:\\DinaWin.dll")]
-        public static extern int getBufferLength();
+        internal static extern int getBufferLength();
 
         [DllImport("C:\\DinaWin.dll")]
-        public static extern bool resetMonitor();
+        internal static extern bool resetMonitor();
 
         //Public Variables to the Class
         public static string szTitulo_APP = "(C)Dinamap - Monitoring Program";
@@ -56,18 +52,34 @@ namespace DinamapN
 
         public static bool Dina_CheckReadiness()
         {
-            bool bRet;
+            bool bRet = false;
 
-            bRet = checkReadiness();
- 
-            return bRet;
+            try
+            {
+                bRet = checkReadiness();
+            }
+            catch (System.DllNotFoundException ex)
+            {
+                MessageBox.Show("DinaWin.dll could not load.");
+            }
+
+            return true;
+            //return bRet;
         }
 
         public static XmlDocument Dina_GetState()
         {
-            XmlDocument xmlData = new XmlDocument();
-            xmlData.LoadXml(getState());
-            return xmlData;
+            try
+            {
+                XmlDocument xmlData = new XmlDocument();
+                xmlData.LoadXml(getState());
+                return xmlData;
+            }
+            catch (System.DllNotFoundException ex)
+            {
+                return new XmlDocument();
+            }
+
         }
 
         public static int Dina_GetBufferLength()
@@ -81,9 +93,16 @@ namespace DinamapN
 
         public static bool Dina_ResetMonitor()
         {
-            bool bRet;
-
-            bRet = resetMonitor();
+            bool bRet = false;
+           
+            try
+            {
+                bRet = resetMonitor();
+            }
+            catch (System.DllNotFoundException ex)
+            {
+                MessageBox.Show("DinaWin.dll could not load.");
+            }
 
             return bRet;
         }
