@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Xml;
 using System.IO;
+using System.Text;
+using System.Data.Odbc;
 
 namespace DinamapN
 {
@@ -74,13 +76,17 @@ namespace DinamapN
         private Hashtable handleResponse()
         {
             Tool.resetMonitor();
-
+            Hashtable h = new Hashtable();
             XmlDocument myDoc = new XmlDocument();
             myDoc = Tool.Dina_GetState();
 
             this.saveLocal(myDoc);
+            
+            h = responseToHash(myDoc);
 
-            return responseToArray(myDoc);
+            this.saveDB(h);
+            
+            return h;
         }
 
         private void saveLocal(XmlDocument doc)
@@ -89,7 +95,71 @@ namespace DinamapN
             doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\"+numMeasurements+".xml");
         }
 
-        private Hashtable responseToArray(XmlDocument doc)
+        private void saveDB(Hashtable h)
+        {
+            string query = buildQueryString(h);
+
+            try
+            {
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                DbCommand.CommandText = query;
+                DbCommand.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                output.WriteLine(query);
+                output.Close();
+            }
+        }
+
+        private string buildQueryString(Hashtable h)
+        {
+            /*
+             INSERT INTO table
+                (column-1, column-2, ... column-n)
+                VALUES
+                (value-1, value-2, ... value-n);
+             */
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
+            sb.Append("(");
+            sb.Append("'");
+            sb.Append(studyID);
+            sb.Append("'");
+            sb.Append(",");
+            sb.Append("'");
+            sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
+            sb.Append("'");
+            sb.Append(",");
+            sb.Append("'");
+            sb.Append(h["Systolic_blood_pressure_Value"]);
+            sb.Append("'");
+            sb.Append(",");
+            sb.Append("'");
+            sb.Append(h["Diastolic_blood_pressure_Value"]);
+            sb.Append("'");
+            sb.Append(",");
+            sb.Append("'");
+            sb.Append(h["Mean_arterial_pressure_Value"]);
+            sb.Append("'");
+            sb.Append(",");
+            sb.Append("'"); 
+            sb.Append(h["Pulse_Value"]);
+            sb.Append("'");
+            sb.Append(",");
+            sb.Append("'");
+            sb.Append(this.txtComment.Text);
+            sb.Append("'");
+            sb.Append(");");
+
+            return sb.ToString();
+        }
+
+        private Hashtable responseToHash(XmlDocument doc)
         {
             Hashtable h = new Hashtable();
 
