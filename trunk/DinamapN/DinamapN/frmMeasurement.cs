@@ -15,6 +15,7 @@ namespace DinamapN
         int numMeasurements;
         private string patientID;
         private string studyID;
+        private XmlDocument lastMeasurement;
 
         public frmMeasurement()
         {
@@ -43,7 +44,7 @@ namespace DinamapN
             }
             else
 	        {
-                int interval = Convert.ToInt32(min) * 1000; //seconds, change to minutes
+	            int interval = Convert.ToInt32(min)*30*1000;
                 
                 measurementTimer.Interval = interval;
                 measurementTimer.Start();
@@ -56,13 +57,29 @@ namespace DinamapN
         
         private void timer1_Tick(object sender, EventArgs e)
         {
-            numMeasurements++;
-            Hashtable h = this.handleResponse();
-           
-            this.mGrid.Rows.Add(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay, h["Systolic_blood_pressure_Value"], 
-                h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
-           
-            lblNum.Text = numMeasurements.ToString();        
+            if (lastMeasurement != null)
+            {
+                XmlDocument currentMeasurement = new XmlDocument();
+                currentMeasurement = Tool.Dina_GetState();
+
+                if (!currentMeasurement.Equals(lastMeasurement))
+                {
+                    Hashtable h = this.handleResponse();
+
+                    try
+                    {
+                        this.mGrid.Rows.Add(((DateTime) h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay,
+                                            h["Systolic_blood_pressure_Value"],
+                                            h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
+                        numMeasurements++;
+                        lblNum.Text = numMeasurements.ToString();
+                    }
+                    catch(Exception)
+                    {
+                        this.mGrid.Rows.Add("**", "**", "**", "**", "No data returned.");
+                    }
+                }
+            }
         }
 
         private void cmdStop_Click(object sender, EventArgs e)
@@ -75,17 +92,15 @@ namespace DinamapN
 
         private Hashtable handleResponse()
         {
-            Tool.resetMonitor();
             Hashtable h = new Hashtable();
-            XmlDocument myDoc = new XmlDocument();
-            myDoc = Tool.Dina_GetState();
+            lastMeasurement = new XmlDocument();
+            lastMeasurement = Tool.Dina_GetState();
 
-            this.saveLocal(myDoc);
-            
-            h = responseToHash(myDoc);
+            this.saveLocal(lastMeasurement);
+
+            h = responseToHash(lastMeasurement);
 
             this.saveDB(h);
-            
             return h;
         }
 
@@ -117,44 +132,43 @@ namespace DinamapN
 
         private string buildQueryString(Hashtable h)
         {
-            /*
-             INSERT INTO table
-                (column-1, column-2, ... column-n)
-                VALUES
-                (value-1, value-2, ... value-n);
-             */
-
             StringBuilder sb = new StringBuilder();
-            sb.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
-            sb.Append("(");
-            sb.Append("'");
-            sb.Append(studyID);
-            sb.Append("'");
-            sb.Append(",");
-            sb.Append("'");
-            sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
-            sb.Append("'");
-            sb.Append(",");
-            sb.Append("'");
-            sb.Append(h["Systolic_blood_pressure_Value"]);
-            sb.Append("'");
-            sb.Append(",");
-            sb.Append("'");
-            sb.Append(h["Diastolic_blood_pressure_Value"]);
-            sb.Append("'");
-            sb.Append(",");
-            sb.Append("'");
-            sb.Append(h["Mean_arterial_pressure_Value"]);
-            sb.Append("'");
-            sb.Append(",");
-            sb.Append("'"); 
-            sb.Append(h["Pulse_Value"]);
-            sb.Append("'");
-            sb.Append(",");
-            sb.Append("'");
-            sb.Append(this.txtComment.Text);
-            sb.Append("'");
-            sb.Append(");");
+
+            try
+            {
+                sb.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
+                sb.Append("(");
+                sb.Append("'");
+                sb.Append(studyID);
+                sb.Append("'");
+                sb.Append(",");
+                sb.Append("'");
+                sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
+                sb.Append("'");
+                sb.Append(",");
+                sb.Append("'");
+                sb.Append(h["Systolic_blood_pressure_Value"]);
+                sb.Append("'");
+                sb.Append(",");
+                sb.Append("'");
+                sb.Append(h["Diastolic_blood_pressure_Value"]);
+                sb.Append("'");
+                sb.Append(",");
+                sb.Append("'");
+                sb.Append(h["Mean_arterial_pressure_Value"]);
+                sb.Append("'");
+                sb.Append(",");
+                sb.Append("'");
+                sb.Append(h["Pulse_Value"]);
+                sb.Append("'");
+                sb.Append(",");
+                sb.Append("'");
+                sb.Append(this.txtComment.Text);
+                sb.Append("'");
+                sb.Append(");");
+            }
+            catch (Exception)
+            {}
 
             return sb.ToString();
         }
