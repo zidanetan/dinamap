@@ -159,6 +159,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\graphimg.bmp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +181,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="dinamap.xml" />
+    <Content Include="DinaWin.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Health-care-shield.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

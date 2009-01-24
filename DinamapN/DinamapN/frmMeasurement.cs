@@ -15,7 +15,7 @@ namespace DinamapN
         int numMeasurements;
         private string patientID;
         private string studyID;
-        private XmlDocument lastMeasurement;
+        private XmlDocument lastMeasurement = new XmlDocument();
 
         public frmMeasurement()
         {
@@ -44,8 +44,8 @@ namespace DinamapN
             }
             else
 	        {
-	            int interval = Convert.ToInt32(min)*30*1000;
-                
+	            int interval = Convert.ToInt32(min)*1000;
+	            measurementTimer.Enabled = true;
                 measurementTimer.Interval = interval;
                 measurementTimer.Start();
                 cmdStart.Enabled = false;
@@ -55,14 +55,12 @@ namespace DinamapN
             }
         }
         
-        private void timer1_Tick(object sender, EventArgs e)
+        private void measurementTimer_Tick(object sender, EventArgs e)
         {
-            if (lastMeasurement != null)
-            {
                 XmlDocument currentMeasurement = new XmlDocument();
                 currentMeasurement = Tool.Dina_GetState();
-
-                if (!currentMeasurement.Equals(lastMeasurement))
+            
+                if (currentMeasurement.InnerText != lastMeasurement.InnerText)
                 {
                     Hashtable h = this.handleResponse();
 
@@ -76,10 +74,8 @@ namespace DinamapN
                     }
                     catch(Exception)
                     {
-                        this.mGrid.Rows.Add("**", "**", "**", "**", "No data returned.");
                     }
                 }
-            }
         }
 
         private void cmdStop_Click(object sender, EventArgs e)
@@ -93,7 +89,7 @@ namespace DinamapN
         private Hashtable handleResponse()
         {
             Hashtable h = new Hashtable();
-            lastMeasurement = new XmlDocument();
+
             lastMeasurement = Tool.Dina_GetState();
 
             this.saveLocal(lastMeasurement);
@@ -230,10 +226,7 @@ namespace DinamapN
 
         private void frmMeasurement_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to exit?", "Confirm exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                e.Cancel = true;
-            }
+
         }
     }
 }

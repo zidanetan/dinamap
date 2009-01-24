@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="DinamapN.frmAbout">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>frmAbout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.frmHelp">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAAACAAAACAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>frmHelp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.frmInit">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABQAAAACAAEBQAAACAAAACFAAQAAAAAAIAAAACAAA=</HashCode>
+      <FileName>frmInit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.frmMain">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BSCBRAAAADAAIAAAAACCAQACAAgAAAAAAgCAACAAAAI=</HashCode>
+      <FileName>frmMain.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.frmMeasurement">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ADIBQCAAAqAABBAYQICABAYCECA4BpFAACAAAQEADQA=</HashCode>
+      <FileName>frmMeasurement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.frmOptions">
+    <Position X="2.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAABAAAAiAAAACEAAAQBCABIADBQIAAAA=</HashCode>
+      <FileName>frmOptions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.Program">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.Tool">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UCAAAAAgAAAAAACAAAAEAQBAAEAAAEAAAAAAAABAAAA=</HashCode>
+      <FileName>Tool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.Upload">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACAAAACCAAIAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Upload.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.Properties.Resources">
+    <Position X="7.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DinamapN.Properties.Settings">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -75,7 +75,21 @@ namespace DinamapN
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            frmHelp newMDIChild = new frmHelp();
+            newMDIChild.MdiParent = this;
+            newMDIChild.WindowState = FormWindowState.Maximized;
+            newMDIChild.Show();
+        }
 
+        private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure you want to exit?", "Confirm exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                e.Cancel = true;
+        }
+
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+                Application.Exit();
         }
     }
 }

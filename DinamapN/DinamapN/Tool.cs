@@ -7,16 +7,16 @@ namespace DinamapN
     class Tool
     {
         //Las Funciones de la DLL DinaWin se declara en este punto.
-        [DllImport("C:\\DinaWin.dll")]
+        [DllImport("DinaWin.dll")] 
         internal static extern bool checkReadiness();
 
-        [DllImport("C:\\DinaWin.dll")]
+        [DllImport("DinaWin.dll")]
         internal static extern string getState();
 
-        [DllImport("C:\\DinaWin.dll")]
+        [DllImport("DinaWin.dll")]
         internal static extern int getBufferLength();
 
-        [DllImport("C:\\DinaWin.dll")]
+        [DllImport("DinaWin.dll")]
         internal static extern bool resetMonitor();
 
         //Public Variables to the Class
@@ -72,8 +72,9 @@ namespace DinamapN
             try
             {
                 XmlDocument xmlData = new XmlDocument();
-                //xmlData.LoadXml(getState());
-                xmlData.Load("C:\\dinamap.xml");
+                xmlData.LoadXml(getState());
+                //xmlData.Save("dinamap324.xml");
+                //xmlData.Load("C:\\dinamap.xml");
                 return xmlData;
             }
             catch (System.DllNotFoundException ex)
