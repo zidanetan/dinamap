@@ -385,7 +385,7 @@ namespace DinamapN
             // measurementTimer
             // 
             this.measurementTimer.Interval = 1000;
-            this.measurementTimer.Tick += new System.EventHandler(this.timer1_Tick);
+            this.measurementTimer.Tick += new System.EventHandler(this.measurementTimer_Tick);
             // 
             // sysTimer
             // 

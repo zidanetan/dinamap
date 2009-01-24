@@ -35,6 +35,7 @@ namespace DinamapN
                     frmMain fMain = new frmMain(patientID, studyID);
 
                     this.Visible = false;
+                    
                     fMain.Show();
                 }
                 else
