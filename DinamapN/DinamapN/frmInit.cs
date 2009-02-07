@@ -52,5 +52,14 @@ namespace DinamapN
         private void frmInit_Load(object sender, EventArgs e)
         {
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            frmStart fStart = new frmStart();
+
+            this.Visible = false;
+
+            fStart.Show();
+        }
     }
 }
