@@ -157,6 +157,7 @@ namespace DinamapN
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
             this.Load += new System.EventHandler(this.frmInit_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmInit_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -32,5 +32,11 @@ namespace DinamapN
 
             fSignup.Show();
         }
+
+        private void frmStart_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
     }
 }
