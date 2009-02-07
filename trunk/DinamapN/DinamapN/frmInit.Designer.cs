@@ -37,6 +37,7 @@ namespace DinamapN
             this.label3 = new System.Windows.Forms.Label();
             this.btnStudy = new System.Windows.Forms.Button();
             this.imgLogo = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -101,11 +102,13 @@ namespace DinamapN
             this.btnStudy.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStudy.Image = ((System.Drawing.Image)(resources.GetObject("btnStudy.Image")));
             this.btnStudy.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnStudy.Location = new System.Drawing.Point(147, 226);
+            this.btnStudy.Location = new System.Drawing.Point(215, 233);
             this.btnStudy.Name = "btnStudy";
-            this.btnStudy.Size = new System.Drawing.Size(227, 29);
+            this.btnStudy.Padding = new System.Windows.Forms.Padding(3);
+            this.btnStudy.Size = new System.Drawing.Size(214, 46);
             this.btnStudy.TabIndex = 6;
             this.btnStudy.Text = "Proceed with Study";
+            this.btnStudy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStudy.UseVisualStyleBackColor = true;
             this.btnStudy.Click += new System.EventHandler(this.btnStudy_Click);
             // 
@@ -119,12 +122,28 @@ namespace DinamapN
             this.imgLogo.TabIndex = 0;
             this.imgLogo.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
+            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button1.Location = new System.Drawing.Point(89, 234);
+            this.button1.Name = "button1";
+            this.button1.Padding = new System.Windows.Forms.Padding(3);
+            this.button1.Size = new System.Drawing.Size(104, 45);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Back";
+            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // frmInit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(496, 270);
+            this.ClientSize = new System.Drawing.Size(496, 291);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -154,6 +173,7 @@ namespace DinamapN
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

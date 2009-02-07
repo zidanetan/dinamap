@@ -16,6 +16,7 @@ namespace DinamapN
         private string patientID;
         private string studyID;
         private XmlDocument lastMeasurement = new XmlDocument();
+        
 
         public frmMeasurement()
         {
@@ -31,6 +32,8 @@ namespace DinamapN
 
             lblPatientID.Text = patient;
             lblStudyID.Text = study;
+
+            lastMeasurement.Load("C:\\dinamap.xml");
         }
 
         private void cmdStart_Click(object sender, EventArgs e)
