@@ -61,5 +61,10 @@ namespace DinamapN
 
             fStart.Show();
         }
+
+        private void frmInit_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
