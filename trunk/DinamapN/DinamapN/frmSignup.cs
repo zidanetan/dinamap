@@ -108,7 +108,39 @@ namespace DinamapN
 
         private Hashtable validateForm()
         {
-            Hashtable h = new Hashtable();
+            var h = new Hashtable();
+
+            if (txtFName.Text != "")
+                h["First_Name"] = txtFName.Text;
+            else
+                h["Errors"] += "First Name\n";
+
+            if (txtLName.Text != "")
+                h["Last_Name"] = txtLName.Text;
+            else
+                h["Errors"] += "Last Name\n";
+
+            if (txtGender.SelectedItem != null)
+                h["Gender"] = txtGender.SelectedItem.ToString();
+            else
+                h["Errors"] += "Gender\n";
+
+            if (txtDOB.MaskCompleted)
+                h["DOB"] = txtDOB.Text;
+            else
+                h["Errors"] += "DOB\n";
+
+            if (txtGender.SelectedItem != null)
+                h["Ethnicity"] = txtEth.SelectedItem.ToString();
+            else
+                h["Errors"] += "Ethnicity\n";
+
+            h["SSN"] = txtSSN.Text;
+            h["Diagnosis"] = txtDiag.Text;
+            h["Other_Diagnosis"] = txtODiag.Text;
+            h["Diagnosis_Questionable"] = txtQuestionable.Checked;
+            h["Comments"] = txtComments.Text;
+
             return h;
         }
 
