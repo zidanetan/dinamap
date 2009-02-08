@@ -136,8 +136,8 @@
   <data name="cmdStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCQAA
-        CwkBEvpHPgAAA3RJREFUOE9tk21MU2cUx5+qRazQZB1q5gfiC5JNmLCIJbxEMA0ypGprgmI0URMTY9wy
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCAAA
+        CwgBwL2l2gAAA3RJREFUOE9tk21MU2cUx5+qRazQZB1q5gfiC5JNmLCIJbxEMA0ypGprgmI0URMTY9wy
         hRFIjIiKkw+SYMyko65IeXNrR5cKSvF2lPJmbym3bahIWQpLdHEg2SR+Mcr9ey4jZtl2kpPnyb3n9z//
         c3KvjFF8XVrKrtfWMq1OF3uwqGh31KtXhz9UqXKWvXkTtwC8mJmfH4RK1dzLcQ9NRuP8paoqdpFyMSRY
         inNlZYmPg0H/r42NmL5yBeFjxzCm1Yr+/fsxcrgYQxUVC6MjI+PawsKUv8l/hAT7e3vnpq9dw9TRo+JU
@@ -158,8 +158,8 @@
   <data name="cmdStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCQAA
-        CwkBEvpHPgAAAm9JREFUOE+FkdlPU0Echcf/xBgXFJEKIiirEBpkaaAgKFUqArEtUkAo+yJlDyBKa1v2
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCAAA
+        CwgBwL2l2gAAAm9JREFUOE+FkdlPU0Echcf/xBgXFJEKIiirEBpkaaAgKFUqArEtUkAo+yJlDyBKa1v2
         Qou4ICBRRECkFAhQNqEUkQejoImJMT7b1uPcqzbhwTjJzW8ymW++nHP31c0VRNvs1j6r3Ursth+EmVY6
         bTY67X/nn7OfVvac3heT6mkZerab93z6bQ26t1To3GxC+0YjmtfqoV6tgWKpHI2mUkTUcEHkk+l7IN2W
         Gl1vlZj5PI5WcwM0b2qhXK7E3cUyNMwXoXY2F6HyQJDiVxIW1L9jLPegpZbt7xYwa+ubGYplalkoAY2E
