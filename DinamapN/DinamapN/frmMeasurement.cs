@@ -38,24 +38,12 @@ namespace DinamapN
 
         private void cmdStart_Click(object sender, EventArgs e)
         {
-            string min = comboBox1.SelectedItem.ToString();
-           
-            if (min == "Min")
-            {
-                MessageBox.Show("The interval must be set before measurements can be taken.");
-                intervalPanel.BackColor = System.Drawing.Color.LightCoral;
-            }
-            else
-	        {
-	            int interval = Convert.ToInt32(min)*1000;
+	            int interval = 10000;
 	            measurementTimer.Enabled = true;
                 measurementTimer.Interval = interval;
                 measurementTimer.Start();
                 cmdStart.Enabled = false;
                 cmdStop.Enabled = true;
-                intervalPanel.BackColor = SystemColors.Control;
-                comboBox1.Enabled = false;
-            }
         }
         
         private void measurementTimer_Tick(object sender, EventArgs e)
@@ -86,7 +74,6 @@ namespace DinamapN
             measurementTimer.Stop();
             cmdStop.Enabled = false;
             cmdStart.Enabled = true;
-            comboBox1.Enabled = true;
         }
 
         private Hashtable handleResponse()
@@ -99,7 +86,8 @@ namespace DinamapN
 
             h = responseToHash(lastMeasurement);
 
-            this.saveDB(h);
+            this.saveMySQL(h);
+            this.saveAccess(h);
             return h;
         }
 
@@ -109,13 +97,13 @@ namespace DinamapN
             doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\"+numMeasurements+".xml");
         }
 
-        private void saveDB(Hashtable h)
+        private void saveMySQL(Hashtable h)
         {
             string query = buildQueryString(h);
 
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
@@ -126,6 +114,24 @@ namespace DinamapN
                 StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
                 output.WriteLine(query);
                 output.Close();
+            }
+        }
+
+        private void saveAccess(Hashtable h)
+        {
+            string query = buildQueryString(h);
+
+            try
+            {
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapAccess");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                DbCommand.CommandText = query;
+                DbCommand.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -196,8 +202,6 @@ namespace DinamapN
 
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-
             cmdStart.Enabled = true;
             cmdStop.Enabled = false;
             numMeasurements = 0;
@@ -213,11 +217,6 @@ namespace DinamapN
         private void frmMeasurement_Activated(object sender, System.EventArgs e)
         {
             sysTimer.Start();
-        }
-
-        private void frmMeasurement_FormClosing(object sender, FormClosingEventArgs e)
-        {
-
         }
     }
 }
