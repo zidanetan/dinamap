@@ -120,7 +120,7 @@ namespace DinamapN
         private void saveAccess(Hashtable h)
         {
             string query = buildQueryString(h);
-
+            MessageBox.Show(query);
             try
             {
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapAccess");
