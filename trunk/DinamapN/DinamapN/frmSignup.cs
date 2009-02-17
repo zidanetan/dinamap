@@ -98,6 +98,7 @@ namespace DinamapN
            
             if(h["Errors"].ToString() == "")
             {
+                MessageBox.Show("Something is wrong");
                 saveDB(h);
             }
             else
@@ -130,7 +131,7 @@ namespace DinamapN
             else
                 h["Errors"] += "DOB\n";
 
-            if (txtGender.SelectedItem != null)
+            if (txtEth.SelectedItem != null)
                 h["Ethnicity"] = txtEth.SelectedItem.ToString();
             else
                 h["Errors"] += "Ethnicity\n";
@@ -147,6 +148,11 @@ namespace DinamapN
         private void frmSignup_FormClosed_1(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void txtEth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
