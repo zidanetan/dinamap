@@ -325,6 +325,7 @@
             this.txtEth.Name = "txtEth";
             this.txtEth.Size = new System.Drawing.Size(163, 24);
             this.txtEth.TabIndex = 42;
+            this.txtEth.SelectedIndexChanged += new System.EventHandler(this.txtEth_SelectedIndexChanged);
             // 
             // txtGender
             // 
