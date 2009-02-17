@@ -6,7 +6,7 @@ namespace DinamapN
 {
     class Tool
     {
-        //Las Funciones de la DLL DinaWin se declara en este punto.
+        //Declaration of Dinawin DLL functions.
         [DllImport("DinaWin.dll")] 
         internal static extern bool checkReadiness();
 
