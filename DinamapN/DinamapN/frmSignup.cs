@@ -98,7 +98,6 @@ namespace DinamapN
            
             if(h["Errors"].ToString() == "")
             {
-                MessageBox.Show("Something is wrong");
                 saveDB(h);
             }
             else
