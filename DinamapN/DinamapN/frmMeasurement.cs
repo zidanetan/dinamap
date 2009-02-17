@@ -103,7 +103,7 @@ namespace DinamapN
 
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL");
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
