@@ -13,6 +13,7 @@ namespace DinamapN
         public frmHelp()
         {
             InitializeComponent();
+            this.webBrowser1.Navigate(@"http://eecs.vanderbilt.edu/Courses/eece295/2008-2009/GCRC-Dinamap/onlinehelp.php");
         }
 
         private void button1_Click(object sender, EventArgs e)
