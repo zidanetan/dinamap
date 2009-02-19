@@ -99,7 +99,7 @@ namespace DinamapN
 
         private void saveMySQL(Hashtable h)
         {
-            string query = buildQueryString(h);
+            string query = buildQueryString(h, false);
 
             try
             {
@@ -119,7 +119,7 @@ namespace DinamapN
 
         private void saveAccess(Hashtable h)
         {
-            string query = buildQueryString(h);
+            string query = buildQueryString(h,true);
             MessageBox.Show(query);
             try
             {
@@ -135,18 +135,25 @@ namespace DinamapN
             }
         }
 
-        private string buildQueryString(Hashtable h)
+        private string buildQueryString(Hashtable h, Boolean access)
         {
             StringBuilder sb = new StringBuilder();
 
             try
             {
-                sb.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
+                if (access)
+                    sb.Append("INSERT INTO MeasurementsData (Study_ID, MeasurementTime, SP, DP, MAP, Pulse, Comments) VALUES");
+                else
+                    sb.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
                 sb.Append("(");
                 sb.Append("'");
                 sb.Append(studyID);
                 sb.Append("','");
-                sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
+                if (access)
+                    sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("MM/dd/yyyy HH:mm:ss"));
+
+                else
+                    sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
                 sb.Append("','");
                 sb.Append(h["Systolic_blood_pressure_Value"]);
                 sb.Append("','");
@@ -161,7 +168,7 @@ namespace DinamapN
                 sb.Append(");");
             }
             catch (Exception)
-            {}
+            { }
 
             return sb.ToString();
         }
