@@ -27,9 +27,9 @@ namespace DinamapN
         {
             frmStart fStart = new frmStart();
 
-            this.Visible = false;
-
             fStart.Show();
+
+            this.Visible = false;
         }
 
         private void saveDB(Hashtable h)
