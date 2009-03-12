@@ -13,8 +13,6 @@ namespace DinamapN
     {
         //Variable Global
         int numMeasurements;
-        int numMeasurementsS;
-        int numMeasurementsF;
         private string patientID;
         private string studyID;
         private XmlDocument lastMeasurement = new XmlDocument();
@@ -56,6 +54,18 @@ namespace DinamapN
                 if (currentMeasurement.InnerText != lastMeasurement.InnerText)
                 {
                     Hashtable h = this.handleResponse();
+
+                    try
+                    {
+                        this.mGrid.Rows.Add(((DateTime) h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay,
+                                            h["Systolic_blood_pressure_Value"],
+                                            h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
+                        numMeasurements++;
+                        lblNum.Text = numMeasurements.ToString();
+                    }
+                    catch(Exception)
+                    {
+                    }
                 }
         }
 
@@ -77,7 +87,7 @@ namespace DinamapN
             h = responseToHash(lastMeasurement);
 
             this.saveMySQL(h);
-            //this.saveAccess(h);
+            this.saveAccess(h);
             return h;
         }
 
@@ -98,50 +108,12 @@ namespace DinamapN
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 DbCommand.ExecuteNonQuery();
-                writeToGrid(true,h);
             }
             catch (Exception)
             {
                 StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
                 output.WriteLine(query);
                 output.Close();
-                writeToGrid(false,h);
-            }
-        }
-
-        public void writeToGrid(bool success,Hashtable h)
-        {
-            if (success)
-            {
-                try
-                {
-                    this.mGrid.Rows.Add(Image.FromFile("C:\\successful.png"), ((DateTime)h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay,
-                                        h["Systolic_blood_pressure_Value"],
-                                        h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
-                    numMeasurements++;
-                    numMeasurementsS++;
-                    toolStripStatusLabel2.Text = numMeasurementsS.ToString();
-                    lblNum.Text = numMeasurements.ToString();
-                }
-                catch (Exception)
-                {
-                }
-            }
-            else
-            {
-                try
-                {
-                    this.mGrid.Rows.Add(Image.FromFile("C:\\error.png"), ((DateTime)h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay,
-                                        h["Systolic_blood_pressure_Value"],
-                                        h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
-                    numMeasurements++;
-                    numMeasurementsF++;
-                    toolStripStatusLabel4.Text = numMeasurementsF.ToString();
-                    lblNum.Text = numMeasurements.ToString();
-                }
-                catch (Exception)
-                {
-                }
             }
         }
 
@@ -252,6 +224,18 @@ namespace DinamapN
         private void frmMeasurement_Activated(object sender, System.EventArgs e)
         {
             sysTimer.Start();
+        }
+
+        private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.Equals(""))
+            {
+                mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.White;
+            }
+            else
+            {
+                mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Yellow;
+            }
         }
     }
 }
