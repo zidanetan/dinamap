@@ -36,10 +36,10 @@ namespace DinamapN
         {
             
             string query = buildQueryString(h);
-
+            MessageBox.Show(query);
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
@@ -59,7 +59,7 @@ namespace DinamapN
 
             try
             {
-                sb.Append("INSERT INTO Patients (Last_Name, First_Name, Gender, Ethnicity, Comments, VUH, DOB, SSN, Diagnosis, Other_Diagnosis, Diagnosis_Questionable) VALUES");
+                sb.Append("INSERT INTO Patient (Last_Name, First_Name, Gender, Ethnicity, Comments, VUH, DOB, SSN, Diagnosis, Other_Diagnosis, Diagnosis_Questionable) VALUES");
                 sb.Append("(");
                 sb.Append("'");
                 sb.Append(h["Last_Name"]);
@@ -73,15 +73,21 @@ namespace DinamapN
                 sb.Append(h["Comments"]);
                 sb.Append("','");
                 sb.Append(h["VUH"]);
-                sb.Append("','");
+                sb.Append("',STR_TO_DATE('");
                 sb.Append(h["DOB"]);
-                sb.Append("','");
+                sb.Append("','%m/%d/%Y'),'");
                 sb.Append(h["SSN"]);
                 sb.Append("','");
                 sb.Append(h["Diagnosis"]);
                 sb.Append("','");
                 sb.Append(h["Other_Diagnosis"]);
                 sb.Append("','");
+
+                if (h["Diagnosis_Questionable"] == "False")
+                    h["Diagnosis_Questionable"] = "0";
+                else
+                    h["Diagnosis_Questionable"] = "1";
+
                 sb.Append(h["Diagnosis_Questionable"]);
                 sb.Append("'");
                 sb.Append(");");
@@ -108,7 +114,8 @@ namespace DinamapN
 
         private Hashtable validateForm()
         {
-            var h = new Hashtable();
+            Hashtable h = new Hashtable();
+            h["Errors"] = "";
 
             if (txtFName.Text != "")
                 h["First_Name"] = txtFName.Text;
@@ -135,7 +142,7 @@ namespace DinamapN
             else
                 h["Errors"] += "Ethnicity\n";
 
-            h["SSN"] = txtSSN.Text;
+            h["SSN"] = txtSSN.Text.Remove(6,1).Remove(3,1);
             h["Diagnosis"] = txtDiag.Text;
             h["Other_Diagnosis"] = txtODiag.Text;
             h["Diagnosis_Questionable"] = txtQuestionable.Checked;
