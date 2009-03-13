@@ -225,6 +225,23 @@ namespace DinamapN
         {
             sysTimer.Start();
         }
+<<<<<<< .mine
+
+        private void mGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+           
+        }
+
+        private void mGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+=======
 
         private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -237,5 +254,6 @@ namespace DinamapN
                 mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Yellow;
             }
         }
+>>>>>>> .r44
     }
 }

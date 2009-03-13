@@ -110,7 +110,13 @@ namespace DinamapN
             this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mGrid.Size = new System.Drawing.Size(770, 455);
             this.mGrid.TabIndex = 0;
+<<<<<<< .mine
+            this.mGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellDoubleClick);
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
+            this.mGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEnter);
+=======
+            this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
+>>>>>>> .r44
             // 
             // Column1
             // 

@@ -117,6 +117,27 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+<<<<<<< .mine
+  <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="mGrid.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="Uploaded.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="Uploaded.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALEAAA
+        CxABrSO9dQAAACVJREFUOE9j/P//PwNJAKiBJMBAkmqQc0Y1EBECo6FERCCRnpYA8jDQTTLRSQ8AAAAA
+        SUVORK5CYII=
+</value>
+  </data>
+=======
+>>>>>>> .r44
   <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -136,8 +157,13 @@
   <data name="cmdStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+<<<<<<< .mine
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAwAA
+        CwMBSY6M0gAAA3RJREFUOE9tk21MU2cUx5+qRazQZB1q5gfiC5JNmLCIJbxEMA0ypGprgmI0URMTY9wy
+=======
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALBwAA
         CwcBtnMLwAAAA3RJREFUOE9tk21MU2cUx5+qRazQZB1q5gfiC5JNmLCIJbxEMA0ypGprgmI0URMTY9wy
+>>>>>>> .r44
         hRFIjIiKkw+SYMyko65IeXNrR5cKSvF2lPJmbym3bahIWQpLdHEg2SR+Mcr9ey4jZtl2kpPnyb3n9z//
         c3KvjFF8XVrKrtfWMq1OF3uwqGh31KtXhz9UqXKWvXkTtwC8mJmfH4RK1dzLcQ9NRuP8paoqdpFyMSRY
         inNlZYmPg0H/r42NmL5yBeFjxzCm1Yr+/fsxcrgYQxUVC6MjI+PawsKUv8l/hAT7e3vnpq9dw9TRo+JU
@@ -158,8 +184,13 @@
   <data name="cmdStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+<<<<<<< .mine
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAwAA
+        CwMBSY6M0gAAAm9JREFUOE+FkdlPU0Echcf/xBgXFJEKIiirEBpkaaAgKFUqArEtUkAo+yJlDyBKa1v2
+=======
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALBwAA
         CwcBtnMLwAAAAm9JREFUOE+FkdlPU0Echcf/xBgXFJEKIiirEBpkaaAgKFUqArEtUkAo+yJlDyBKa1v2
+>>>>>>> .r44
         Qou4ICBRRECkFAhQNqEUkQejoImJMT7b1uPcqzbhwTjJzW8ymW++nHP31c0VRNvs1j6r3Ursth+EmVY6
         bTY67X/nn7OfVvac3heT6mkZerab93z6bQ26t1To3GxC+0YjmtfqoV6tgWKpHI2mUkTUcEHkk+l7IN2W
         Gl1vlZj5PI5WcwM0b2qhXK7E3cUyNMwXoXY2F6HyQJDiVxIW1L9jLPegpZbt7xYwa+ubGYplalkoAY2E
