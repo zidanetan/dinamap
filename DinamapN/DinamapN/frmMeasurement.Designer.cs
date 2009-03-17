@@ -32,13 +32,12 @@ namespace DinamapN
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
 
             this.panel1 = new System.Windows.Forms.Panel();
 
-
-            this.mGrid = new System.Windows.Forms.DataGridView();
+            //this.mGrid = new System.Windows.Forms.DataGridView();
 
             this.panel2 = new System.Windows.Forms.Panel();
             this.idPanel = new System.Windows.Forms.Panel();
@@ -61,14 +60,13 @@ namespace DinamapN
 
             this.mGrid = new System.Windows.Forms.DataGridView();
             this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
-
+            //this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            //this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+           // this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            //this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+           // this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            //this.panel1.SuspendLayout();
+            //this.statusStrip1.SuspendLayout();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -94,7 +92,6 @@ namespace DinamapN
             this.panel1.Size = new System.Drawing.Size(792, 297);
             this.panel1.TabIndex = 0;
             // 
-
             // mGrid
             // 
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -136,7 +133,6 @@ namespace DinamapN
             this.mGrid.TabIndex = 0;
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
             // 
-
             // panel2
             // 
             this.panel2.Controls.Add(this.idPanel);
@@ -328,10 +324,9 @@ namespace DinamapN
             this.sysTimer.Interval = 1000;
             this.sysTimer.Tick += new System.EventHandler(this.sysTime_Tick);
             // 
-
             // mGrid
             // 
-            this.mGrid.AllowUserToResizeColumns = false;
+            /*this.mGrid.AllowUserToResizeColumns = false;
             this.mGrid.AllowUserToResizeRows = false;
             this.mGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -362,15 +357,15 @@ namespace DinamapN
             this.mGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.mGrid.Location = new System.Drawing.Point(1, 149);
             this.mGrid.MultiSelect = false;
-            this.mGrid.Name = "mGrid";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.mGrid.Name = "mGrid";*/
+           /* dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;*/
             this.mGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.mGrid.Size = new System.Drawing.Size(770, 431);
             this.mGrid.TabIndex = 0;
@@ -393,7 +388,7 @@ namespace DinamapN
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "Time";
+            /*this.Column1.HeaderText = "Time";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Width = 120;
@@ -423,9 +418,8 @@ namespace DinamapN
             // 
             this.Column5.HeaderText = "Comments";
             this.Column5.Name = "Column5";
-            this.Column5.Width = 375;
+            this.Column5.Width = 375;*/
             // 
-
             // Column1
             // 
             this.Column1.HeaderText = "Time";
