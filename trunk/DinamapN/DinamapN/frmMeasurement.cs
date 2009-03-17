@@ -121,6 +121,11 @@ namespace DinamapN
 
             try
             {
+<<<<<<< .mine
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
+                MyConnection.Open();
+=======
+>>>>>>> .r47
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 DbCommand.ExecuteNonQuery();
@@ -142,7 +147,7 @@ namespace DinamapN
             MessageBox.Show(query);
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapAccess");
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
@@ -245,6 +250,13 @@ namespace DinamapN
         {
             sysTimer.Start();
         }
+<<<<<<< .mine
+
+        private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+=======
 
         private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -300,5 +312,6 @@ namespace DinamapN
             sb.Append("'));");
             return sb.ToString();
         }
+>>>>>>> .r47
     }
 }

@@ -29,12 +29,19 @@ namespace DinamapN
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+<<<<<<< .mine
+=======
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
+>>>>>>> .r47
             this.panel1 = new System.Windows.Forms.Panel();
+<<<<<<< .mine
+=======
             this.mGrid = new System.Windows.Forms.DataGridView();
+>>>>>>> .r47
             this.panel2 = new System.Windows.Forms.Panel();
             this.idPanel = new System.Windows.Forms.Panel();
             this.lblStudyID = new System.Windows.Forms.Label();
@@ -53,26 +60,44 @@ namespace DinamapN
             this.btnComment = new System.Windows.Forms.Button();
             this.measurementTimer = new System.Windows.Forms.Timer(this.components);
             this.sysTimer = new System.Windows.Forms.Timer(this.components);
+<<<<<<< .mine
+            this.mGrid = new System.Windows.Forms.DataGridView();
+            this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
+=======
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValueUploaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.mGrid)).BeginInit();
+>>>>>>> .r47
             this.panel2.SuspendLayout();
             this.idPanel.SuspendLayout();
             this.timePanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+<<<<<<< .mine
+            this.panel1.Location = new System.Drawing.Point(0, 308);
+=======
             this.panel1.Location = new System.Drawing.Point(0, 310);
+>>>>>>> .r47
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(792, 297);
             this.panel1.TabIndex = 0;
             // 
+<<<<<<< .mine
+=======
             // mGrid
             // 
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -114,6 +139,7 @@ namespace DinamapN
             this.mGrid.TabIndex = 0;
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
             // 
+>>>>>>> .r47
             // panel2
             // 
             this.panel2.Controls.Add(this.idPanel);
@@ -305,6 +331,104 @@ namespace DinamapN
             this.sysTimer.Interval = 1000;
             this.sysTimer.Tick += new System.EventHandler(this.sysTime_Tick);
             // 
+<<<<<<< .mine
+            // mGrid
+            // 
+            this.mGrid.AllowUserToResizeColumns = false;
+            this.mGrid.AllowUserToResizeRows = false;
+            this.mGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.mGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.mGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Uploaded,
+            this.Column1,
+            this.Column2,
+            this.Column3,
+            this.Column4,
+            this.Column5});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mGrid.DefaultCellStyle = dataGridViewCellStyle3;
+            this.mGrid.Location = new System.Drawing.Point(1, 149);
+            this.mGrid.MultiSelect = false;
+            this.mGrid.Name = "mGrid";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.mGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.mGrid.Size = new System.Drawing.Size(770, 431);
+            this.mGrid.TabIndex = 0;
+            this.mGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellContentClick);
+            // 
+            // Uploaded
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.NullValue = " ";
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Uploaded.HeaderText = "";
+            this.Uploaded.Image = ((System.Drawing.Image)(resources.GetObject("Uploaded.Image")));
+            this.Uploaded.Name = "Uploaded";
+            this.Uploaded.ReadOnly = true;
+            this.Uploaded.Width = 20;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Time";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 120;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "SP";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 75;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "DP";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 75;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Pulse";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 75;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Comments";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 375;
+            // 
+=======
             // Column1
             // 
             this.Column1.HeaderText = "Time";
@@ -345,12 +469,18 @@ namespace DinamapN
             this.ValueUploaded.HeaderText = "ValueUploaded";
             this.ValueUploaded.Name = "ValueUploaded";
             // 
+>>>>>>> .r47
             // frmMeasurement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+<<<<<<< .mine
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(772, 605);
+=======
             this.ClientSize = new System.Drawing.Size(772, 607);
+>>>>>>> .r47
             this.Controls.Add(this.mGrid);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -359,13 +489,13 @@ namespace DinamapN
             this.Text = "Scan Measurement";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMeasurement_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.mGrid)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.idPanel.ResumeLayout(false);
             this.idPanel.PerformLayout();
             this.timePanel.ResumeLayout(false);
             this.timePanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -391,7 +521,16 @@ namespace DinamapN
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblStudyID;
         private System.Windows.Forms.Label lblPatientID;
+<<<<<<< .mine
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.DataGridView mGrid;
+        private System.Windows.Forms.DataGridViewImageColumn Uploaded;
+=======
+>>>>>>> .r47
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
