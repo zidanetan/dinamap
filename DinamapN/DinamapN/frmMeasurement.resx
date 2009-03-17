@@ -117,9 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-<<<<<<< .mine
+
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-=======
+
   <metadata name="mGrid.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -138,7 +138,7 @@
   <metadata name="Column5.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
->>>>>>> .r47
+
   <metadata name="ValueUploaded.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -146,7 +146,7 @@
   <data name="cmdStop.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-<<<<<<< .mine
+
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAgAA
         CwIBm8luNgAAA3RJREFUOE9tk21MU2cUx5+qRazQZB1q5gfiC5JNmLCIJbxEMA0ypGprgmI0URMTY9wy
         hRFIjIiKkw+SYMyko65IeXNrR5cKSvF2lPJmbym3bahIWQpLdHEg2SR+Mcr9ey4jZtl2kpPnyb3n9z//
@@ -164,16 +164,16 @@
         hQuL5/nKyo+tZnPYbzKhiboYGBNtNIadTldiIiaqq9FWVzf3WVracSpX/ud/WHqw7KuSc1U9HBcIeh7N
         +jjuz1G3e87R2Tl1/MiRO1Szg1Lxv3DZ0l8pvVwul8ckfbot4ZPk5NRNW7akMpksfgmU/Rt+B0vI7mM+
         wcVRAAAAAElFTkSuQmCC
-=======
+
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAQAA
-        CwEBNnBPWwAAABVJREFUOE9jYBgFoyEwGgKjIQAJAQAEEAABcqUTdgAAAABJRU5ErkJggg==
->>>>>>> .r47
+        CwEBNnBPWwAAABVJREFUOE9jYBgFoyEwGgKjIQAJAQAEEAABcqUTdgAAAABJRU5ErkJggg
+
 </value>
   </data>
   <data name="cmdStart.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-<<<<<<< .mine
+
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAgAA
         CwIBm8luNgAAAm9JREFUOE+FkdlPU0Echcf/xBgXFJEKIiirEBpkaaAgKFUqArEtUkAo+yJlDyBKa1v2
         Qou4ICBRRECkFAhQNqEUkQejoImJMT7b1uPcqzbhwTjJzW8ymW++nHP31c0VRNvs1j6r3Ursth+EmVY6
@@ -186,10 +186,10 @@
         wyS1hEF4PxgC3TnEaX3AbzsNTtQRkNhOb7bivJdJYBqW0rJSB/jQLSlx7UEIruippdsPMR1eiGx1R7jG
         FS5hh0D47R6QvRAi81k80gYvQPQk8relNxjxugDEar0RTS28lpMIVR8HV+kEZ+4BEF4zRxSc74vArLPs
         //EVe+BMshs8ha5sCe40DyfKCSciDsP5/EEco9DRoP2iX27iIc8VBTIgAAAAAElFTkSuQmCC
-=======
+
         YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALAQAA
         CwEBNnBPWwAAABNJREFUOE9jYBgFoyEwGgLYQwAAAx4AASQPxjAAAAAASUVORK5CYII=
->>>>>>> .r47
+
 </value>
   </data>
   <metadata name="measurementTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -2743,7 +2743,7 @@
         lpaV/5WVlf+VlZT/lZWU/5SVlP+UlJP/lJST/5KTkv+4uLj/VlZWUTg4OBl1dXVUdXV1VHV1dVR1dXVU
         dXV1VHV1dVR1dXVUdXV1VHV1dVR1dXVUdXV1VHV1dVR1dXVUdXV1VDg4OBkAAAAAAAAAAAAAAAAAAAAA
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//+sQQAArEEAAKxB
-        AACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxB//+sQTE1MDg5Mg==
+        AACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAArEEAAKxB//+sQTE1MDg5Mg
 </value>
   </data>
 </root>
