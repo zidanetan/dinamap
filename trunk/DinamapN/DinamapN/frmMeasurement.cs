@@ -16,7 +16,7 @@ namespace DinamapN
         private string patientID;
         private string studyID;
         private XmlDocument lastMeasurement = new XmlDocument();
-        
+        private OdbcConnection MyConnection;
 
         public frmMeasurement()
         {
@@ -44,6 +44,7 @@ namespace DinamapN
                 measurementTimer.Start();
                 cmdStart.Enabled = false;
                 cmdStop.Enabled = true;
+                MyConnection.Open();
         }
         
         private void measurementTimer_Tick(object sender, EventArgs e)
@@ -57,9 +58,9 @@ namespace DinamapN
 
                     try
                     {
-                        this.mGrid.Rows.Add(((DateTime) h["Systolic_blood_pressure_Time_stamp"]).TimeOfDay,
+                       this.mGrid.Rows.Add(((DateTime) h["Systolic_blood_pressure_Time_stamp"]),
                                             h["Systolic_blood_pressure_Value"],
-                                            h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "");
+                                            h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",h["UploadSuccessful"]);
                         numMeasurements++;
                         lblNum.Text = numMeasurements.ToString();
                     }
@@ -74,6 +75,15 @@ namespace DinamapN
             measurementTimer.Stop();
             cmdStop.Enabled = false;
             cmdStart.Enabled = true;
+            switch (MessageBox.Show("Upload Comments to CRC database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
+            {
+                case DialogResult.Yes:
+                    uploadAllComments();
+                    break;
+                case DialogResult.No:
+                    break;
+            }
+            MyConnection.Close();
         }
 
         private Hashtable handleResponse()
@@ -86,8 +96,16 @@ namespace DinamapN
 
             h = responseToHash(lastMeasurement);
 
-            this.saveMySQL(h);
-            this.saveAccess(h);
+            if (saveMySQL(h))
+            {
+                h.Add("UploadSuccessful", true);
+            }
+            else
+            {
+                h.Add("UploadSuccessful", false);
+            }
+            
+            //this.saveAccess(h);
             return h;
         }
 
@@ -97,28 +115,29 @@ namespace DinamapN
             doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\"+numMeasurements+".xml");
         }
 
-        private void saveMySQL(Hashtable h)
+        private Boolean saveMySQL(Hashtable h)
         {
             string query = buildQueryString(h, false);
 
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
-                MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 DbCommand.ExecuteNonQuery();
+                return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show(ex.ToString());
                 StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
                 output.WriteLine(query);
                 output.Close();
+                return false;
             }
         }
-
+/*
         private void saveAccess(Hashtable h)
-        {
+       {
             string query = buildQueryString(h,true);
             MessageBox.Show(query);
             try
@@ -134,7 +153,7 @@ namespace DinamapN
                 MessageBox.Show(ex.ToString());
             }
         }
-
+*/
         private string buildQueryString(Hashtable h, Boolean access)
         {
             StringBuilder sb = new StringBuilder();
@@ -212,6 +231,7 @@ namespace DinamapN
             cmdStart.Enabled = true;
             cmdStop.Enabled = false;
             numMeasurements = 0;
+            MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
         }
 
         private void sysTime_Tick(object sender, EventArgs e)
@@ -225,23 +245,6 @@ namespace DinamapN
         {
             sysTimer.Start();
         }
-<<<<<<< .mine
-
-        private void mGrid_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
-        private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
-        {
-           
-        }
-
-        private void mGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-=======
 
         private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -254,6 +257,48 @@ namespace DinamapN
                 mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Yellow;
             }
         }
->>>>>>> .r44
+        
+        private void uploadAllComments()
+        {
+            DataGridViewRow inputRow;
+            string valueUploadStatus;
+            string insertStatement;
+            string commentText;
+
+            for (int i = 0; i < numMeasurements; i++)
+            {
+                inputRow = mGrid.Rows[i];
+                valueUploadStatus = inputRow.Cells[5].FormattedValue.ToString();
+                commentText = inputRow.Cells[4].FormattedValue.ToString();
+                if (valueUploadStatus.Equals("True") && !commentText.Equals(""))
+                {
+                    MessageBox.Show("Upload attempted!");
+                    insertStatement = buildCommentSQL(inputRow);
+                    OdbcCommand DbCommand = MyConnection.CreateCommand();
+                    DbCommand.CommandText = insertStatement;
+                    DbCommand.ExecuteNonQuery();
+                    mGrid.Rows[i].Cells[4].Style.BackColor = Color.Green;
+                }
+                else
+                {
+                    MessageBox.Show("Upload NOT attempted!");
+                }
+            }
+        }
+
+        private string buildCommentSQL(DataGridViewRow inputRow)
+        {
+            string commentText = inputRow.Cells[4].FormattedValue.ToString();
+            string commentTime = ((DateTime)inputRow.Cells[0].Value).ToString("yyyy:MM:dd HH:mm:ss");
+            StringBuilder sb = new StringBuilder();
+            sb.Append("UPDATE MeasurementsData SET Comments = '");
+            sb.Append(commentText);
+            sb.Append("' WHERE ((Study_ID = '");
+            sb.Append(studyID);
+            sb.Append("') AND (Time = '");
+            sb.Append(commentTime);
+            sb.Append("'));");
+            return sb.ToString();
+        }
     }
 }
