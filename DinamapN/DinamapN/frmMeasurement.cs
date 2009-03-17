@@ -250,6 +250,7 @@ namespace DinamapN
             sysTimer.Start();
         }
 
+
         private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
