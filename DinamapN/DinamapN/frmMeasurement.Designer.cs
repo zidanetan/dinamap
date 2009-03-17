@@ -35,11 +35,6 @@ namespace DinamapN
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
             this.panel1 = new System.Windows.Forms.Panel();
             this.mGrid = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.idPanel = new System.Windows.Forms.Panel();
             this.lblStudyID = new System.Windows.Forms.Label();
@@ -58,6 +53,12 @@ namespace DinamapN
             this.btnComment = new System.Windows.Forms.Button();
             this.measurementTimer = new System.Windows.Forms.Timer(this.components);
             this.sysTimer = new System.Windows.Forms.Timer(this.components);
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ValueUploaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.mGrid)).BeginInit();
             this.panel2.SuspendLayout();
             this.idPanel.SuspendLayout();
@@ -69,7 +70,7 @@ namespace DinamapN
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 310);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(772, 297);
+            this.panel1.Size = new System.Drawing.Size(792, 297);
             this.panel1.TabIndex = 0;
             // 
             // mGrid
@@ -88,7 +89,8 @@ namespace DinamapN
             this.Column2,
             this.Column3,
             this.Column4,
-            this.Column5});
+            this.Column5,
+            this.ValueUploaded});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -110,47 +112,7 @@ namespace DinamapN
             this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mGrid.Size = new System.Drawing.Size(770, 455);
             this.mGrid.TabIndex = 0;
-<<<<<<< .mine
-            this.mGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellDoubleClick);
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
-            this.mGrid.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEnter);
-=======
-            this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
->>>>>>> .r44
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Time";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Width = 120;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "SP";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.Width = 75;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "DP";
-            this.Column3.Name = "Column3";
-            this.Column3.ReadOnly = true;
-            this.Column3.Width = 75;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Pulse";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Width = 75;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Comments";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 375;
             // 
             // panel2
             // 
@@ -164,7 +126,7 @@ namespace DinamapN
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(772, 143);
+            this.panel2.Size = new System.Drawing.Size(792, 143);
             this.panel2.TabIndex = 1;
             // 
             // idPanel
@@ -343,6 +305,46 @@ namespace DinamapN
             this.sysTimer.Interval = 1000;
             this.sysTimer.Tick += new System.EventHandler(this.sysTime_Tick);
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Time";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Width = 120;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "SP";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            this.Column2.Width = 75;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "DP";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            this.Column3.Width = 75;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Pulse";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Width = 75;
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Comments";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 350;
+            // 
+            // ValueUploaded
+            // 
+            this.ValueUploaded.DataPropertyName = "(none)";
+            this.ValueUploaded.HeaderText = "ValueUploaded";
+            this.ValueUploaded.Name = "ValueUploaded";
+            // 
             // frmMeasurement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -389,11 +391,12 @@ namespace DinamapN
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblStudyID;
         private System.Windows.Forms.Label lblPatientID;
+        private System.Windows.Forms.DataGridView mGrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.DataGridView mGrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValueUploaded;
     }
 }
