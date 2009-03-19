@@ -44,7 +44,6 @@ namespace DinamapN
                 measurementTimer.Start();
                 cmdStart.Enabled = false;
                 cmdStop.Enabled = true;
-                MyConnection.Open();
         }
         
         private void measurementTimer_Tick(object sender, EventArgs e)
@@ -83,7 +82,6 @@ namespace DinamapN
                 case DialogResult.No:
                     break;
             }
-            MyConnection.Close();
         }
 
         private Hashtable handleResponse()
@@ -122,12 +120,12 @@ namespace DinamapN
             try
             {
 
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
                 MyConnection.Open();
 
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 DbCommand.ExecuteNonQuery();
+                MyConnection.Close();
                 return true;
             }
             catch (Exception ex)
@@ -283,16 +281,31 @@ namespace DinamapN
                 commentText = inputRow.Cells[4].FormattedValue.ToString();
                 if (valueUploadStatus.Equals("True") && !commentText.Equals(""))
                 {
-                    MessageBox.Show("Upload attempted!");
                     insertStatement = buildCommentSQL(inputRow);
-                    OdbcCommand DbCommand = MyConnection.CreateCommand();
-                    DbCommand.CommandText = insertStatement;
-                    DbCommand.ExecuteNonQuery();
-                    mGrid.Rows[i].Cells[4].Style.BackColor = Color.Green;
+                    try
+                    {
+                        MyConnection.Open();
+                        OdbcCommand DbCommand = MyConnection.CreateCommand();
+                        DbCommand.CommandText = insertStatement;
+                        DbCommand.ExecuteNonQuery();
+                        MyConnection.Close();
+                        mGrid.Rows[i].Cells[4].Style.BackColor = Color.Green;
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                        StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                        output.WriteLine(insertStatement);
+                        output.Close();
+                    }
                 }
-                else
+                else if (valueUploadStatus.Equals("False"))
                 {
-                    MessageBox.Show("Upload NOT attempted!");
+                    insertStatement = buildCommentSQL(inputRow);
+                    MessageBox.Show("Entry " + i.ToString() + " value record failed to upload previously.  Comment upload command stored locally.");
+                    StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                    output.WriteLine(insertStatement);
+                    output.Close();
                 }
             }
         }
