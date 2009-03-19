@@ -54,21 +54,31 @@ namespace DinamapN
             this.measurementTimer = new System.Windows.Forms.Timer(this.components);
             this.sysTimer = new System.Windows.Forms.Timer(this.components);
             this.mGrid = new System.Windows.Forms.DataGridView();
+            this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
+            this.Upload = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValueUploaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelUpload = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelNumSuccessful = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelNumFailed = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.idPanel.SuspendLayout();
             this.timePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mGrid)).BeginInit();
+            this.statusStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.statusStrip2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel1.Location = new System.Drawing.Point(0, 310);
             this.panel1.Name = "panel1";
@@ -279,6 +289,7 @@ namespace DinamapN
             this.mGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.mGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Upload,
             this.Column1,
             this.Column2,
             this.Column3,
@@ -310,6 +321,31 @@ namespace DinamapN
             this.mGrid.Size = new System.Drawing.Size(770, 431);
             this.mGrid.TabIndex = 0;
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
+            this.mGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellContentClick);
+            // 
+            // Uploaded
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.NullValue = " ";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle4;
+            this.Uploaded.HeaderText = "";
+            this.Uploaded.Image = ((System.Drawing.Image)(resources.GetObject("Uploaded.Image")));
+            this.Uploaded.Name = "Uploaded";
+            this.Uploaded.ReadOnly = true;
+            this.Uploaded.Width = 20;
+            // 
+            // Upload
+            // 
+            this.Upload.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.Upload.HeaderText = "";
+            this.Upload.Name = "Upload";
+            this.Upload.Width = 5;
             // 
             // Column1
             // 
@@ -352,22 +388,49 @@ namespace DinamapN
             this.ValueUploaded.Name = "ValueUploaded";
             this.ValueUploaded.Visible = false;
             // 
-            // Uploaded
+            // statusStrip2
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.NullValue = " ";
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle4;
-            this.Uploaded.HeaderText = "";
-            this.Uploaded.Image = ((System.Drawing.Image)(resources.GetObject("Uploaded.Image")));
-            this.Uploaded.Name = "Uploaded";
-            this.Uploaded.ReadOnly = true;
-            this.Uploaded.Width = 20;
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelUpload,
+            this.toolStripStatusLabel5,
+            this.toolStripStatusLabelNumSuccessful,
+            this.toolStripStatusLabel7,
+            this.toolStripStatusLabelNumFailed});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 275);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(772, 22);
+            this.statusStrip2.TabIndex = 3;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // toolStripStatusLabelUpload
+            // 
+            this.toolStripStatusLabelUpload.Name = "toolStripStatusLabelUpload";
+            this.toolStripStatusLabelUpload.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(102, 17);
+            this.toolStripStatusLabel5.Text = "Successful Uploads:";
+            this.toolStripStatusLabel5.Click += new System.EventHandler(this.toolStripStatusLabel5_Click);
+            // 
+            // toolStripStatusLabelNumSuccessful
+            // 
+            this.toolStripStatusLabelNumSuccessful.Name = "toolStripStatusLabelNumSuccessful";
+            this.toolStripStatusLabelNumSuccessful.Size = new System.Drawing.Size(19, 17);
+            this.toolStripStatusLabelNumSuccessful.Text = "__";
+            // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(80, 17);
+            this.toolStripStatusLabel7.Text = "Failed Uploads:";
+            // 
+            // toolStripStatusLabelNumFailed
+            // 
+            this.toolStripStatusLabelNumFailed.Name = "toolStripStatusLabelNumFailed";
+            this.toolStripStatusLabelNumFailed.Size = new System.Drawing.Size(19, 17);
+            this.toolStripStatusLabelNumFailed.Text = "__";
             // 
             // frmMeasurement
             // 
@@ -384,6 +447,8 @@ namespace DinamapN
             this.Text = "Scan Measurement";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmMeasurement_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.idPanel.ResumeLayout(false);
@@ -391,6 +456,8 @@ namespace DinamapN
             this.timePanel.ResumeLayout(false);
             this.timePanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mGrid)).EndInit();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -424,12 +491,18 @@ namespace DinamapN
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.DataGridView mGrid;
         private System.Windows.Forms.DataGridViewImageColumn Uploaded;
-
+        private System.Windows.Forms.DataGridViewImageColumn Upload;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValueUploaded;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelUpload;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelNumSuccessful;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel7;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelNumFailed;
     }
 }
