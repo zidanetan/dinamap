@@ -86,6 +86,13 @@ namespace DinamapN
         // When the user clicks the "Lookup" button...
         private void btnLookup_Click(object sender, EventArgs e)
         {
+            // If no data inputted...
+            if (txtFirstName.Text.Equals("") && txtLastName.Text.Equals("") && maskedTxtDOB.Text.Equals("  /  /"))
+            {
+                txtSearchStatus.Visible = true;         // Trigger message
+                txtSearchStatus.Text = "Please enter data before searching!";
+                return; // exit
+            }
             Cursor.Current = Cursors.WaitCursor;    // Trigger hourglass
             txtSearchStatus.Visible = true;         // Trigger "searching" message
             txtSearchStatus.Text = "Searching records...";
