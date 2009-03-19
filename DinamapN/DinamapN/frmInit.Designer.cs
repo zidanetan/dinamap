@@ -37,21 +37,22 @@ namespace DinamapN
             this.label2 = new System.Windows.Forms.Label();
             this.btnStudy = new System.Windows.Forms.Button();
             this.imgLogo = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnBack = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.maskedTextBox1 = new System.Windows.Forms.MaskedTextBox();
+            this.btnLookup = new System.Windows.Forms.Button();
+            this.txtLastName = new System.Windows.Forms.TextBox();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
+            this.maskedTxtDOB = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.resultsGrid = new System.Windows.Forms.DataGridView();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.txtSearchStatus = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@ namespace DinamapN
             this.lblTitle01.Location = new System.Drawing.Point(85, 77);
             this.lblTitle01.Name = "lblTitle01";
             this.lblTitle01.Size = new System.Drawing.Size(344, 23);
-            this.lblTitle01.TabIndex = 1;
+            this.lblTitle01.TabIndex = 7;
             this.lblTitle01.Text = "Dinamap - Monitoring Program";
             // 
             // txtPatientID
@@ -71,7 +72,7 @@ namespace DinamapN
             this.txtPatientID.Location = new System.Drawing.Point(226, 465);
             this.txtPatientID.Name = "txtPatientID";
             this.txtPatientID.Size = new System.Drawing.Size(148, 23);
-            this.txtPatientID.TabIndex = 7;
+            this.txtPatientID.TabIndex = 2;
             // 
             // txtStudyID
             // 
@@ -79,7 +80,7 @@ namespace DinamapN
             this.txtStudyID.Location = new System.Drawing.Point(226, 502);
             this.txtStudyID.Name = "txtStudyID";
             this.txtStudyID.Size = new System.Drawing.Size(148, 23);
-            this.txtStudyID.TabIndex = 8;
+            this.txtStudyID.TabIndex = 3;
             // 
             // label1
             // 
@@ -110,7 +111,7 @@ namespace DinamapN
             this.btnStudy.Name = "btnStudy";
             this.btnStudy.Padding = new System.Windows.Forms.Padding(3);
             this.btnStudy.Size = new System.Drawing.Size(214, 46);
-            this.btnStudy.TabIndex = 6;
+            this.btnStudy.TabIndex = 5;
             this.btnStudy.Text = "Proceed with Study";
             this.btnStudy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnStudy.UseVisualStyleBackColor = true;
@@ -123,31 +124,31 @@ namespace DinamapN
             this.imgLogo.Location = new System.Drawing.Point(0, -1);
             this.imgLogo.Name = "imgLogo";
             this.imgLogo.Size = new System.Drawing.Size(497, 75);
-            this.imgLogo.TabIndex = 0;
+            this.imgLogo.TabIndex = 99;
             this.imgLogo.TabStop = false;
             // 
-            // button1
+            // btnBack
             // 
-            this.button1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(89, 547);
-            this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(3);
-            this.button1.Size = new System.Drawing.Size(104, 45);
-            this.button1.TabIndex = 12;
-            this.button1.Text = "Back";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnBack.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
+            this.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnBack.Location = new System.Drawing.Point(89, 547);
+            this.btnBack.Name = "btnBack";
+            this.btnBack.Padding = new System.Windows.Forms.Padding(3);
+            this.btnBack.Size = new System.Drawing.Size(104, 45);
+            this.btnBack.TabIndex = 4;
+            this.btnBack.Text = "Back";
+            this.btnBack.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnBack.UseVisualStyleBackColor = true;
+            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.textBox2);
-            this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.maskedTextBox1);
+            this.panel1.Controls.Add(this.btnLookup);
+            this.panel1.Controls.Add(this.txtLastName);
+            this.panel1.Controls.Add(this.txtFirstName);
+            this.panel1.Controls.Add(this.maskedTxtDOB);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
@@ -155,48 +156,51 @@ namespace DinamapN
             this.panel1.Location = new System.Drawing.Point(12, 108);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(472, 154);
-            this.panel1.TabIndex = 21;
+            this.panel1.TabIndex = 0;
             // 
-            // button2
+            // btnLookup
             // 
-            this.button2.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Image = ((System.Drawing.Image)(resources.GetObject("button2.Image")));
-            this.button2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button2.Location = new System.Drawing.Point(327, 95);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(113, 42);
-            this.button2.TabIndex = 28;
-            this.button2.Text = "Lookup";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnLookup.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLookup.Image = ((System.Drawing.Image)(resources.GetObject("btnLookup.Image")));
+            this.btnLookup.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnLookup.Location = new System.Drawing.Point(327, 95);
+            this.btnLookup.Name = "btnLookup";
+            this.btnLookup.Size = new System.Drawing.Size(113, 42);
+            this.btnLookup.TabIndex = 3;
+            this.btnLookup.Text = "Lookup";
+            this.btnLookup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLookup.UseVisualStyleBackColor = true;
+            this.btnLookup.Click += new System.EventHandler(this.btnLookup_Click);
             // 
-            // textBox2
+            // txtLastName
             // 
-            this.textBox2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(156, 69);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(148, 23);
-            this.textBox2.TabIndex = 27;
-            this.textBox2.Click += new System.EventHandler(this.textBox2_Click);
+            this.txtLastName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLastName.Location = new System.Drawing.Point(156, 69);
+            this.txtLastName.Name = "txtLastName";
+            this.txtLastName.Size = new System.Drawing.Size(148, 23);
+            this.txtLastName.TabIndex = 1;
+            this.txtLastName.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.patientLookup_PreviewKeyDown);
             // 
-            // textBox1
+            // txtFirstName
             // 
-            this.textBox1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(156, 35);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(148, 23);
-            this.textBox1.TabIndex = 26;
+            this.txtFirstName.AcceptsReturn = true;
+            this.txtFirstName.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFirstName.Location = new System.Drawing.Point(156, 35);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.Size = new System.Drawing.Size(148, 23);
+            this.txtFirstName.TabIndex = 0;
+            this.txtFirstName.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.patientLookup_PreviewKeyDown);
             // 
-            // maskedTextBox1
+            // maskedTxtDOB
             // 
-            this.maskedTextBox1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maskedTextBox1.Location = new System.Drawing.Point(156, 101);
-            this.maskedTextBox1.Mask = "00/00/0000";
-            this.maskedTextBox1.Name = "maskedTextBox1";
-            this.maskedTextBox1.Size = new System.Drawing.Size(100, 23);
-            this.maskedTextBox1.TabIndex = 25;
-            this.maskedTextBox1.ValidatingType = typeof(System.DateTime);
+            this.maskedTxtDOB.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.maskedTxtDOB.Location = new System.Drawing.Point(156, 101);
+            this.maskedTxtDOB.Mask = "00/00/0000";
+            this.maskedTxtDOB.Name = "maskedTxtDOB";
+            this.maskedTxtDOB.Size = new System.Drawing.Size(100, 23);
+            this.maskedTxtDOB.TabIndex = 2;
+            this.maskedTxtDOB.ValidatingType = typeof(System.DateTime);
+            this.maskedTxtDOB.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.patientLookup_PreviewKeyDown);
             // 
             // label7
             // 
@@ -238,19 +242,34 @@ namespace DinamapN
             this.label4.TabIndex = 21;
             this.label4.Text = "Patient Lookup:";
             // 
-            // dataGridView1
+            // resultsGrid
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 278);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(472, 150);
-            this.dataGridView1.TabIndex = 22;
-            this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_Click);
+            this.resultsGrid.AllowUserToAddRows = false;
+            this.resultsGrid.AllowUserToDeleteRows = false;
+            this.resultsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.resultsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
+            this.resultsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.resultsGrid.Location = new System.Drawing.Point(12, 278);
+            this.resultsGrid.MultiSelect = false;
+            this.resultsGrid.Name = "resultsGrid";
+            this.resultsGrid.ReadOnly = true;
+            this.resultsGrid.RowHeadersVisible = false;
+            this.resultsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.resultsGrid.Size = new System.Drawing.Size(472, 150);
+            this.resultsGrid.TabIndex = 1;
+            this.resultsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultsGrid_CellClick);
+            // 
+            // txtSearchStatus
+            // 
+            this.txtSearchStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.txtSearchStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtSearchStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSearchStatus.Location = new System.Drawing.Point(12, 278);
+            this.txtSearchStatus.Name = "txtSearchStatus";
+            this.txtSearchStatus.ReadOnly = true;
+            this.txtSearchStatus.Size = new System.Drawing.Size(472, 20);
+            this.txtSearchStatus.TabIndex = 100;
+            this.txtSearchStatus.Visible = false;
             // 
             // frmInit
             // 
@@ -258,9 +277,10 @@ namespace DinamapN
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(496, 610);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.txtSearchStatus);
+            this.Controls.Add(this.resultsGrid);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnBack);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtStudyID);
@@ -277,7 +297,7 @@ namespace DinamapN
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resultsGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -293,18 +313,19 @@ namespace DinamapN
         private System.Windows.Forms.TextBox txtStudyID;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.MaskedTextBox maskedTextBox1;
+        private System.Windows.Forms.Button btnLookup;
+        private System.Windows.Forms.TextBox txtLastName;
+        private System.Windows.Forms.TextBox txtFirstName;
+        private System.Windows.Forms.MaskedTextBox maskedTxtDOB;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView resultsGrid;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private System.Windows.Forms.TextBox txtSearchStatus;
     }
 }
 
