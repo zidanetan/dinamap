@@ -34,7 +34,7 @@ namespace DinamapN
 
             lblPatientID.Text = patient;
             lblStudyID.Text = study;
-
+            
             lastMeasurement.Load("C:\\dinamap.xml");
         }
 
@@ -47,12 +47,16 @@ namespace DinamapN
                 measurementTimer.Start(); // Begin timer
                 cmdStart.Enabled = false; // Disable "Start" Icon
                 cmdStop.Enabled = true; // Enable "Stop" Icon
+                dinamapConnectedCheckBox.Enabled = false;
         }
 
         private void measurementTimer_Tick(object sender, EventArgs e)
         {
             XmlDocument currentMeasurement = new XmlDocument();
-            currentMeasurement = Tool.Dina_GetState();
+            if (dinamapConnectedCheckBox.Checked)
+                currentMeasurement = Tool.Dina_GetStateOn();
+            else
+                currentMeasurement = Tool.Dina_GetStateOff();
 
             if (currentMeasurement.InnerText != lastMeasurement.InnerText)
             {
@@ -66,6 +70,7 @@ namespace DinamapN
             measurementTimer.Stop(); // cease taking measurements
             cmdStop.Enabled = false; // Disable "Stop" icon
             cmdStart.Enabled = true; // Enable "Start" icon
+            dinamapConnectedCheckBox.Enabled = true;
             // Prompt user to upload comments
             switch (MessageBox.Show("Upload Comments to CRC database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
@@ -81,7 +86,10 @@ namespace DinamapN
         {
             Hashtable h = new Hashtable();
 
-            lastMeasurement = Tool.Dina_GetState();
+            if (dinamapConnectedCheckBox.Checked)
+                lastMeasurement = Tool.Dina_GetStateOn();
+            else
+                lastMeasurement = Tool.Dina_GetStateOff();
 
             this.saveLocal(lastMeasurement);
 
@@ -206,8 +214,7 @@ namespace DinamapN
                 queryBuilder.Append(h["Mean_arterial_pressure_Value"]);
                 queryBuilder.Append("','");
                 queryBuilder.Append(h["Pulse_Value"]);
-                queryBuilder.Append("','");
-                queryBuilder.Append(this.txtComment.Text);
+                queryBuilder.Append("','");             
                 queryBuilder.Append("'");
                 queryBuilder.Append(");");
             }
