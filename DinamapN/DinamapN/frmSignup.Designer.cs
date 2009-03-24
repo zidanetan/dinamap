@@ -74,7 +74,7 @@
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(3);
             this.button1.Size = new System.Drawing.Size(104, 45);
-            this.button1.TabIndex = 14;
+            this.button1.TabIndex = 13;
             this.button1.Text = "Back";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
@@ -89,7 +89,7 @@
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Padding = new System.Windows.Forms.Padding(3);
             this.btnRegister.Size = new System.Drawing.Size(193, 46);
-            this.btnRegister.TabIndex = 13;
+            this.btnRegister.TabIndex = 12;
             this.btnRegister.Text = "Register Patient";
             this.btnRegister.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRegister.UseVisualStyleBackColor = true;
@@ -107,7 +107,7 @@
             this.panel1.Location = new System.Drawing.Point(40, 279);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(413, 189);
-            this.panel1.TabIndex = 37;
+            this.panel1.TabIndex = 38;
             // 
             // txtQuestionable
             // 
@@ -115,7 +115,7 @@
             this.txtQuestionable.Location = new System.Drawing.Point(203, 158);
             this.txtQuestionable.Name = "txtQuestionable";
             this.txtQuestionable.Size = new System.Drawing.Size(15, 14);
-            this.txtQuestionable.TabIndex = 38;
+            this.txtQuestionable.TabIndex = 10;
             this.txtQuestionable.UseVisualStyleBackColor = true;
             // 
             // txtODiag
@@ -125,7 +125,7 @@
             this.txtODiag.Multiline = true;
             this.txtODiag.Name = "txtODiag";
             this.txtODiag.Size = new System.Drawing.Size(371, 44);
-            this.txtODiag.TabIndex = 37;
+            this.txtODiag.TabIndex = 9;
             // 
             // txtDiag
             // 
@@ -134,7 +134,7 @@
             this.txtDiag.Multiline = true;
             this.txtDiag.Name = "txtDiag";
             this.txtDiag.Size = new System.Drawing.Size(371, 44);
-            this.txtDiag.TabIndex = 36;
+            this.txtDiag.TabIndex = 8;
             // 
             // label9
             // 
@@ -174,7 +174,7 @@
             this.panel2.Location = new System.Drawing.Point(40, 478);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(413, 100);
-            this.panel2.TabIndex = 38;
+            this.panel2.TabIndex = 39;
             // 
             // txtComments
             // 
@@ -183,7 +183,7 @@
             this.txtComments.Multiline = true;
             this.txtComments.Name = "txtComments";
             this.txtComments.Size = new System.Drawing.Size(371, 58);
-            this.txtComments.TabIndex = 38;
+            this.txtComments.TabIndex = 11;
             // 
             // label12
             // 
@@ -201,7 +201,7 @@
             this.txtFName.Location = new System.Drawing.Point(131, 20);
             this.txtFName.Name = "txtFName";
             this.txtFName.Size = new System.Drawing.Size(163, 23);
-            this.txtFName.TabIndex = 19;
+            this.txtFName.TabIndex = 1;
             // 
             // label1
             // 
@@ -219,7 +219,7 @@
             this.txtLName.Location = new System.Drawing.Point(130, 49);
             this.txtLName.Name = "txtLName";
             this.txtLName.Size = new System.Drawing.Size(164, 23);
-            this.txtLName.TabIndex = 21;
+            this.txtLName.TabIndex = 2;
             // 
             // label2
             // 
@@ -254,7 +254,7 @@
             this.panel3.Location = new System.Drawing.Point(40, 40);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(413, 228);
-            this.panel3.TabIndex = 39;
+            this.panel3.TabIndex = 37;
             // 
             // label14
             // 
@@ -281,7 +281,7 @@
             this.txtDOB.Mask = "00/00/0000";
             this.txtDOB.Name = "txtDOB";
             this.txtDOB.Size = new System.Drawing.Size(121, 23);
-            this.txtDOB.TabIndex = 46;
+            this.txtDOB.TabIndex = 7;
             this.txtDOB.ValidatingType = typeof(System.DateTime);
             // 
             // label11
@@ -300,7 +300,7 @@
             this.txtVUH.Location = new System.Drawing.Point(131, 134);
             this.txtVUH.Name = "txtVUH";
             this.txtVUH.Size = new System.Drawing.Size(163, 23);
-            this.txtVUH.TabIndex = 44;
+            this.txtVUH.TabIndex = 5;
             // 
             // txtSSN
             // 
@@ -309,7 +309,7 @@
             this.txtSSN.Mask = "000-00-0000";
             this.txtSSN.Name = "txtSSN";
             this.txtSSN.Size = new System.Drawing.Size(120, 23);
-            this.txtSSN.TabIndex = 43;
+            this.txtSSN.TabIndex = 6;
             // 
             // txtEth
             // 
@@ -324,8 +324,7 @@
             this.txtEth.Location = new System.Drawing.Point(131, 105);
             this.txtEth.Name = "txtEth";
             this.txtEth.Size = new System.Drawing.Size(163, 24);
-            this.txtEth.TabIndex = 42;
-            this.txtEth.SelectedIndexChanged += new System.EventHandler(this.txtEth_SelectedIndexChanged);
+            this.txtEth.TabIndex = 4;
             // 
             // txtGender
             // 
@@ -338,7 +337,7 @@
             this.txtGender.Location = new System.Drawing.Point(131, 77);
             this.txtGender.Name = "txtGender";
             this.txtGender.Size = new System.Drawing.Size(163, 24);
-            this.txtGender.TabIndex = 41;
+            this.txtGender.TabIndex = 3;
             // 
             // label10
             // 
