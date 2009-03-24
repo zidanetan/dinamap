@@ -29,6 +29,7 @@ namespace DinamapN
             this.txtPatientID.Text = patientID;
             this.panel1.Enabled = false;
             this.resultsGrid.Enabled = false;
+            txtStudyID.Select();
         }
 
         // When the user clicks the "Proceed to Study" button...
