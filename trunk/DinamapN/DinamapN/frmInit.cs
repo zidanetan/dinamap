@@ -21,6 +21,13 @@ namespace DinamapN
             InitializeComponent();
         }
 
+        public frmInit(String patient)
+        {
+            InitializeComponent();
+            patientID = patient;
+            this.txtPatientID.Text = patientID;
+        }
+
         // When the user clicks the "Proceed to Study" button...
         private void btnStudy_Click(object sender, EventArgs e)
         {
@@ -131,8 +138,7 @@ namespace DinamapN
                 MyConnection.Open(); // Open database connection
                 DataTable t = new DataTable(); // Pull data from query
                 dataAdapter.Fill(t);
-                bindingSource1.DataSource = t; // Fill grid with data
-
+                bindingSource1.DataSource = t; // Fill grid with datas
                 // Set only some fields visible (sensitive info in others)
                 resultsGrid.Columns[0].Visible=false;
                 resultsGrid.Columns[4].Visible = false;
