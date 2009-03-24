@@ -38,14 +38,15 @@ namespace DinamapN
             lastMeasurement.Load("C:\\dinamap.xml");
         }
 
+        // If someone clicks "Start"...
         private void cmdStart_Click(object sender, EventArgs e)
         {
-	            int interval = 10000;
-	            measurementTimer.Enabled = true;
-                measurementTimer.Interval = interval;
-                measurementTimer.Start();
-                cmdStart.Enabled = false;
-                cmdStop.Enabled = true;
+	            int interval = 10000;  // Set time interval for measurements
+	            measurementTimer.Enabled = true; // Enable timer
+                measurementTimer.Interval = interval; // Assign interval to timer
+                measurementTimer.Start(); // Begin timer
+                cmdStart.Enabled = false; // Disable "Start" Icon
+                cmdStop.Enabled = true; // Enable "Stop" Icon
         }
 
         private void measurementTimer_Tick(object sender, EventArgs e)
@@ -59,19 +60,20 @@ namespace DinamapN
             }
         }
 
-
+        // If someone clicks "Stop"...
         private void cmdStop_Click(object sender, EventArgs e)
         {
-            measurementTimer.Stop();
-            cmdStop.Enabled = false;
-            cmdStart.Enabled = true;
+            measurementTimer.Stop(); // cease taking measurements
+            cmdStop.Enabled = false; // Disable "Stop" icon
+            cmdStart.Enabled = true; // Enable "Start" icon
+            // Prompt user to upload comments
             switch (MessageBox.Show("Upload Comments to CRC database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
             {
                 case DialogResult.Yes:
                     uploadAllComments();
-                    break;
+                    return;
                 case DialogResult.No:
-                    break;
+                    return;
             }
         }
 
@@ -121,26 +123,27 @@ namespace DinamapN
         {
             if (success)
             {
-                try
-                {
-                    this.mGrid.Rows.Add(Image.FromFile("C:\\successful.png"), ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
+                //try
+                //{
+                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.successful, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
                                         h["Systolic_blood_pressure_Value"],
                                         h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",true);
                     numMeasurements++;
                     numMeasurementsS++;
                     toolStripStatusLabelNumSuccessful.Text = numMeasurementsS.ToString();                    
                     lblNum.Text = numMeasurements.ToString();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message.ToString());
+                //}
             }
             else
             {
                 try
                 {
-                    this.mGrid.Rows.Add(Image.FromFile("C:\\error.png"), ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
+                    
+                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.error, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
                                         h["Systolic_blood_pressure_Value"],
                                         h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",false);
                     numMeasurements++;
@@ -174,42 +177,44 @@ namespace DinamapN
             }
         }
 */
+        // Constructs query from hashtable built from a successful measurement
         private string buildQueryString(Hashtable h, Boolean access)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder queryBuilder = new StringBuilder();
 
             try
             {
+                // "Time" is reserved keyword for MsAccess, use "MeasurementTime instead
                 if (access)
-                    sb.Append("INSERT INTO MeasurementsData (Study_ID, MeasurementTime, SP, DP, MAP, Pulse, Comments) VALUES");
+                    queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, MeasurementTime, SP, DP, MAP, Pulse, Comments) VALUES");
                 else
-                    sb.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
-                sb.Append("(");
-                sb.Append("'");
-                sb.Append(studyID);
-                sb.Append("','");
+                    queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
+                queryBuilder.Append("(");
+                queryBuilder.Append("'");
+                queryBuilder.Append(studyID);
+                queryBuilder.Append("','");
+                // Use different date/time convention for MS access
                 if (access)
-                    sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("MM/dd/yyyy HH:mm:ss"));
-
+                    queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("MM/dd/yyyy HH:mm:ss"));
                 else
-                    sb.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
-                sb.Append("','");
-                sb.Append(h["Systolic_blood_pressure_Value"]);
-                sb.Append("','");
-                sb.Append(h["Diastolic_blood_pressure_Value"]);
-                sb.Append("','");
-                sb.Append(h["Mean_arterial_pressure_Value"]);
-                sb.Append("','");
-                sb.Append(h["Pulse_Value"]);
-                sb.Append("','");
-                sb.Append(this.txtComment.Text);
-                sb.Append("'");
-                sb.Append(");");
+                    queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
+                queryBuilder.Append("','");
+                queryBuilder.Append(h["Systolic_blood_pressure_Value"]);
+                queryBuilder.Append("','");
+                queryBuilder.Append(h["Diastolic_blood_pressure_Value"]);
+                queryBuilder.Append("','");
+                queryBuilder.Append(h["Mean_arterial_pressure_Value"]);
+                queryBuilder.Append("','");
+                queryBuilder.Append(h["Pulse_Value"]);
+                queryBuilder.Append("','");
+                queryBuilder.Append(this.txtComment.Text);
+                queryBuilder.Append("'");
+                queryBuilder.Append(");");
             }
             catch (Exception)
             { }
 
-            return sb.ToString();
+            return queryBuilder.ToString();
         }
 
         private Hashtable responseToHash(XmlDocument doc)
@@ -321,19 +326,21 @@ namespace DinamapN
             }
         }
 
+        // Constructs SQL update statement string  to commit comments
+        // for a given row from the grid viewer
         private string buildCommentSQL(DataGridViewRow inputRow)
         {
-            string commentText = inputRow.Cells[5].FormattedValue.ToString();
-            string commentTime = ((DateTime)inputRow.Cells[1].Value).ToString("yyyy:MM:dd HH:mm:ss");
-            StringBuilder sb = new StringBuilder();
-            sb.Append("UPDATE MeasurementsData SET Comments = '");
-            sb.Append(commentText);
-            sb.Append("' WHERE ((Study_ID = '");
-            sb.Append(studyID);
-            sb.Append("') AND (Time = '");
-            sb.Append(commentTime);
-            sb.Append("'));");
-            return sb.ToString();
+            string commentText = inputRow.Cells[5].FormattedValue.ToString(); // Grab comment from row
+            string commentTime = ((DateTime)inputRow.Cells[1].Value).ToString("yyyy:MM:dd HH:mm:ss"); // Grab date from row, convert for SQL
+            StringBuilder queryBuilder = new StringBuilder();
+            queryBuilder.Append("UPDATE MeasurementsData SET Comments = '");
+            queryBuilder.Append(commentText);
+            queryBuilder.Append("' WHERE ((Study_ID = '");
+            queryBuilder.Append(studyID);
+            queryBuilder.Append("') AND (Time = '");
+            queryBuilder.Append(commentTime);
+            queryBuilder.Append("'));");
+            return queryBuilder.ToString();
         }
 
         private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
