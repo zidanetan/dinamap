@@ -67,13 +67,26 @@ namespace DinamapN
             //return bRet;
         }
 
-        public static XmlDocument Dina_GetState()
+        public static XmlDocument Dina_GetStateOn()
         {
             try
             {
                 XmlDocument xmlData = new XmlDocument();
-                //xmlData.LoadXml(getState());
-                //xmlData.Save("dinamap324.xml");
+                xmlData.LoadXml(getState());
+                return xmlData;
+            }
+            catch (System.DllNotFoundException ex)
+            {
+                return new XmlDocument();
+            }
+
+        }
+
+        public static XmlDocument Dina_GetStateOff()
+        {
+            try
+            {
+                XmlDocument xmlData = new XmlDocument();
                 xmlData.Load("C:\\2.xml");
                 return xmlData;
             }
