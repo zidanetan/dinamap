@@ -179,6 +179,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="ClassDiagram1.cd" />
     <None Include="ClassDiagram2.cd" />
     <None Include="Resources\graphimg.bmp" />
@@ -206,6 +207,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Health-care-shield.ico" />
+    <EmbeddedResource Include="Resources\blank.png">
+      <CustomToolNamespace>images</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\error.png">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\successful.png">
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
