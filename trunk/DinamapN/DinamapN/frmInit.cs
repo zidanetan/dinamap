@@ -25,7 +25,10 @@ namespace DinamapN
         {
             InitializeComponent();
             patientID = patient;
+            this.txtPatientID.ReadOnly = true;
             this.txtPatientID.Text = patientID;
+            this.panel1.Enabled = false;
+            this.resultsGrid.Enabled = false;
         }
 
         // When the user clicks the "Proceed to Study" button...
