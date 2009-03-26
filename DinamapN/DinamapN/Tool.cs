@@ -63,8 +63,8 @@ namespace DinamapN
                 MessageBox.Show("DinaWin.dll could not load.");
             }
 
-            return true;
-            //return bRet;
+            //return true;
+            return bRet;
         }
 
         public static XmlDocument Dina_GetStateOn()
