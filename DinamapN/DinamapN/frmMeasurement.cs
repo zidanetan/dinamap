@@ -350,15 +350,5 @@ namespace DinamapN
             return queryBuilder.ToString();
         }
 
-        private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void toolStripStatusLabel5_Click(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }
