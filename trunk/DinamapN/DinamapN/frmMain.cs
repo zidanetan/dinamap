@@ -67,9 +67,9 @@ namespace DinamapN
             }
             else
             {
-                frmInit fInit = new frmInit();
-                this.Close();
-                fInit.Show();
+                //frmInit fInit = new frmInit();
+                //this.Close();
+                //fInit.Show();
             }
          }
 
