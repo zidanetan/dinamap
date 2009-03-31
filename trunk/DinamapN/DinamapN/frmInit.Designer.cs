@@ -71,6 +71,7 @@ namespace DinamapN
             this.txtPatientID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPatientID.Location = new System.Drawing.Point(226, 465);
             this.txtPatientID.Name = "txtPatientID";
+            this.txtPatientID.ReadOnly = true;
             this.txtPatientID.Size = new System.Drawing.Size(148, 23);
             this.txtPatientID.TabIndex = 2;
             // 
