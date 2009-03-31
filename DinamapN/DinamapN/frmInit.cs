@@ -35,7 +35,6 @@ namespace DinamapN
         // When the user clicks the "Proceed to Study" button...
         private void btnStudy_Click(object sender, EventArgs e)
         {
-
             try
             {
                 // If Patient and study ID input fields aren't blank...
