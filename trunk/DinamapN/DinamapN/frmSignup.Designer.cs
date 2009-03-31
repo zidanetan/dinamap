@@ -415,6 +415,7 @@
             this.Text = "frmSignup";
             this.Load += new System.EventHandler(this.frmSignup_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmSignup_FormClosed_1);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.frmSignup_KeyPress);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
