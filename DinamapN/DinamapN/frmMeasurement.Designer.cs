@@ -29,20 +29,12 @@ namespace DinamapN
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
             this.bodyPanel = new System.Windows.Forms.Panel();
-            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelUpload = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelNumSuccessful = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelNumFailed = new System.Windows.Forms.ToolStripStatusLabel();
-            this.measurementTimer = new System.Windows.Forms.Timer(this.components);
-            this.sysTimer = new System.Windows.Forms.Timer(this.components);
             this.mGrid = new System.Windows.Forms.DataGridView();
             this.Upload = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,6 +43,14 @@ namespace DinamapN
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValueUploaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelUpload = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelNumSuccessful = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel7 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelNumFailed = new System.Windows.Forms.ToolStripStatusLabel();
+            this.measurementTimer = new System.Windows.Forms.Timer(this.components);
+            this.sysTimer = new System.Windows.Forms.Timer(this.components);
             this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
             this.timePanel = new System.Windows.Forms.Panel();
             this.lblNum = new System.Windows.Forms.Label();
@@ -68,8 +68,8 @@ namespace DinamapN
             this.dinamapConnectedCheckBox = new System.Windows.Forms.CheckBox();
             this.headPanel = new System.Windows.Forms.Panel();
             this.bodyPanel.SuspendLayout();
-            this.statusStrip2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mGrid)).BeginInit();
+            this.statusStrip2.SuspendLayout();
             this.timePanel.SuspendLayout();
             this.idPanel.SuspendLayout();
             this.headPanel.SuspendLayout();
@@ -82,76 +82,22 @@ namespace DinamapN
             this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.bodyPanel.Location = new System.Drawing.Point(0, 134);
             this.bodyPanel.Name = "bodyPanel";
-            this.bodyPanel.Size = new System.Drawing.Size(792, 489);
+            this.bodyPanel.Size = new System.Drawing.Size(777, 489);
             this.bodyPanel.TabIndex = 0;
             this.bodyPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.bodyPanel_Paint);
-            // 
-            // statusStrip2
-            // 
-            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabelUpload,
-            this.toolStripStatusLabel5,
-            this.toolStripStatusLabelNumSuccessful,
-            this.toolStripStatusLabel7,
-            this.toolStripStatusLabelNumFailed});
-            this.statusStrip2.Location = new System.Drawing.Point(0, 467);
-            this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(792, 22);
-            this.statusStrip2.TabIndex = 3;
-            this.statusStrip2.Text = "statusStrip2";
-            // 
-            // toolStripStatusLabelUpload
-            // 
-            this.toolStripStatusLabelUpload.Name = "toolStripStatusLabelUpload";
-            this.toolStripStatusLabelUpload.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(102, 17);
-            this.toolStripStatusLabel5.Text = "Successful Uploads:";
-            // 
-            // toolStripStatusLabelNumSuccessful
-            // 
-            this.toolStripStatusLabelNumSuccessful.Name = "toolStripStatusLabelNumSuccessful";
-            this.toolStripStatusLabelNumSuccessful.Size = new System.Drawing.Size(19, 17);
-            this.toolStripStatusLabelNumSuccessful.Text = "__";
-            // 
-            // toolStripStatusLabel7
-            // 
-            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
-            this.toolStripStatusLabel7.Size = new System.Drawing.Size(80, 17);
-            this.toolStripStatusLabel7.Text = "Failed Uploads:";
-            // 
-            // toolStripStatusLabelNumFailed
-            // 
-            this.toolStripStatusLabelNumFailed.Name = "toolStripStatusLabelNumFailed";
-            this.toolStripStatusLabelNumFailed.Size = new System.Drawing.Size(19, 17);
-            this.toolStripStatusLabelNumFailed.Text = "__";
-            // 
-            // measurementTimer
-            // 
-            this.measurementTimer.Interval = 1000;
-            this.measurementTimer.Tick += new System.EventHandler(this.measurementTimer_Tick);
-            // 
-            // sysTimer
-            // 
-            this.sysTimer.Enabled = true;
-            this.sysTimer.Interval = 1000;
-            this.sysTimer.Tick += new System.EventHandler(this.sysTime_Tick);
             // 
             // mGrid
             // 
             this.mGrid.AllowUserToAddRows = false;
             this.mGrid.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.mGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Upload,
@@ -161,31 +107,31 @@ namespace DinamapN
             this.Column4,
             this.Column5,
             this.ValueUploaded});
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.NullValue = " ";
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mGrid.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.NullValue = " ";
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.mGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
             this.mGrid.Location = new System.Drawing.Point(0, 0);
             this.mGrid.MultiSelect = false;
             this.mGrid.Name = "mGrid";
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.mGrid.RowHeadersVisible = false;
             this.mGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.mGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.mGrid.Size = new System.Drawing.Size(780, 467);
+            this.mGrid.Size = new System.Drawing.Size(771, 464);
             this.mGrid.TabIndex = 0;
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
             this.mGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellClick);
@@ -242,17 +188,71 @@ namespace DinamapN
             this.ValueUploaded.Visible = false;
             this.ValueUploaded.Width = 400;
             // 
+            // statusStrip2
+            // 
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelUpload,
+            this.toolStripStatusLabel5,
+            this.toolStripStatusLabelNumSuccessful,
+            this.toolStripStatusLabel7,
+            this.toolStripStatusLabelNumFailed});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 467);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.Size = new System.Drawing.Size(777, 22);
+            this.statusStrip2.TabIndex = 3;
+            this.statusStrip2.Text = "statusStrip2";
+            // 
+            // toolStripStatusLabelUpload
+            // 
+            this.toolStripStatusLabelUpload.Name = "toolStripStatusLabelUpload";
+            this.toolStripStatusLabelUpload.Size = new System.Drawing.Size(0, 17);
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(102, 17);
+            this.toolStripStatusLabel5.Text = "Successful Uploads:";
+            // 
+            // toolStripStatusLabelNumSuccessful
+            // 
+            this.toolStripStatusLabelNumSuccessful.Name = "toolStripStatusLabelNumSuccessful";
+            this.toolStripStatusLabelNumSuccessful.Size = new System.Drawing.Size(19, 17);
+            this.toolStripStatusLabelNumSuccessful.Text = "__";
+            // 
+            // toolStripStatusLabel7
+            // 
+            this.toolStripStatusLabel7.Name = "toolStripStatusLabel7";
+            this.toolStripStatusLabel7.Size = new System.Drawing.Size(80, 17);
+            this.toolStripStatusLabel7.Text = "Failed Uploads:";
+            // 
+            // toolStripStatusLabelNumFailed
+            // 
+            this.toolStripStatusLabelNumFailed.Name = "toolStripStatusLabelNumFailed";
+            this.toolStripStatusLabelNumFailed.Size = new System.Drawing.Size(19, 17);
+            this.toolStripStatusLabelNumFailed.Text = "__";
+            // 
+            // measurementTimer
+            // 
+            this.measurementTimer.Interval = 1000;
+            this.measurementTimer.Tick += new System.EventHandler(this.measurementTimer_Tick);
+            // 
+            // sysTimer
+            // 
+            this.sysTimer.Enabled = true;
+            this.sysTimer.Interval = 1000;
+            this.sysTimer.Tick += new System.EventHandler(this.sysTime_Tick);
+            // 
             // Uploaded
             // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.NullValue = " ";
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.NullValue = " ";
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle4;
             this.Uploaded.HeaderText = "";
             this.Uploaded.Image = ((System.Drawing.Image)(resources.GetObject("Uploaded.Image")));
             this.Uploaded.Name = "Uploaded";
@@ -432,7 +432,7 @@ namespace DinamapN
             this.headPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.headPanel.Location = new System.Drawing.Point(0, 0);
             this.headPanel.Name = "headPanel";
-            this.headPanel.Size = new System.Drawing.Size(792, 128);
+            this.headPanel.Size = new System.Drawing.Size(777, 128);
             this.headPanel.TabIndex = 1;
             this.headPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.headPanel_Paint);
             // 
@@ -441,7 +441,7 @@ namespace DinamapN
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(792, 623);
+            this.ClientSize = new System.Drawing.Size(777, 623);
             this.Controls.Add(this.bodyPanel);
             this.Controls.Add(this.headPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -451,9 +451,9 @@ namespace DinamapN
             this.Load += new System.EventHandler(this.frmMeasurement_Load);
             this.bodyPanel.ResumeLayout(false);
             this.bodyPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mGrid)).EndInit();
             this.statusStrip2.ResumeLayout(false);
             this.statusStrip2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.mGrid)).EndInit();
             this.timePanel.ResumeLayout(false);
             this.timePanel.PerformLayout();
             this.idPanel.ResumeLayout(false);
