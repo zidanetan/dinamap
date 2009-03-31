@@ -46,6 +46,7 @@
             this.txtLName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.txtDOB = new System.Windows.Forms.MaskedTextBox();
@@ -60,7 +61,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblTitle01 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -71,7 +71,7 @@
             this.button1.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
             this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(72, 596);
+            this.button1.Location = new System.Drawing.Point(287, 308);
             this.button1.Name = "button1";
             this.button1.Padding = new System.Windows.Forms.Padding(3);
             this.button1.Size = new System.Drawing.Size(104, 45);
@@ -86,7 +86,7 @@
             this.btnRegister.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRegister.Image = ((System.Drawing.Image)(resources.GetObject("btnRegister.Image")));
             this.btnRegister.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnRegister.Location = new System.Drawing.Point(232, 595);
+            this.btnRegister.Location = new System.Drawing.Point(447, 307);
             this.btnRegister.Name = "btnRegister";
             this.btnRegister.Padding = new System.Windows.Forms.Padding(3);
             this.btnRegister.Size = new System.Drawing.Size(193, 46);
@@ -105,15 +105,15 @@
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.label7);
-            this.panel1.Location = new System.Drawing.Point(40, 286);
+            this.panel1.Location = new System.Drawing.Point(447, 40);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(413, 182);
+            this.panel1.Size = new System.Drawing.Size(413, 155);
             this.panel1.TabIndex = 38;
             // 
             // txtQuestionable
             // 
             this.txtQuestionable.AutoSize = true;
-            this.txtQuestionable.Location = new System.Drawing.Point(203, 158);
+            this.txtQuestionable.Location = new System.Drawing.Point(203, 124);
             this.txtQuestionable.Name = "txtQuestionable";
             this.txtQuestionable.Size = new System.Drawing.Size(15, 14);
             this.txtQuestionable.TabIndex = 10;
@@ -122,10 +122,11 @@
             // txtODiag
             // 
             this.txtODiag.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtODiag.Location = new System.Drawing.Point(23, 104);
+            this.txtODiag.Location = new System.Drawing.Point(23, 86);
             this.txtODiag.Multiline = true;
             this.txtODiag.Name = "txtODiag";
-            this.txtODiag.Size = new System.Drawing.Size(371, 44);
+            this.txtODiag.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtODiag.Size = new System.Drawing.Size(371, 25);
             this.txtODiag.TabIndex = 9;
             // 
             // txtDiag
@@ -134,14 +135,15 @@
             this.txtDiag.Location = new System.Drawing.Point(23, 34);
             this.txtDiag.Multiline = true;
             this.txtDiag.Name = "txtDiag";
-            this.txtDiag.Size = new System.Drawing.Size(371, 44);
+            this.txtDiag.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtDiag.Size = new System.Drawing.Size(371, 25);
             this.txtDiag.TabIndex = 8;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(20, 156);
+            this.label9.Location = new System.Drawing.Point(20, 122);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(186, 18);
             this.label9.TabIndex = 35;
@@ -151,7 +153,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(20, 84);
+            this.label8.Location = new System.Drawing.Point(20, 66);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(132, 18);
             this.label8.TabIndex = 34;
@@ -172,25 +174,26 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.txtComments);
             this.panel2.Controls.Add(this.label12);
-            this.panel2.Location = new System.Drawing.Point(40, 478);
+            this.panel2.Location = new System.Drawing.Point(447, 212);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(413, 100);
+            this.panel2.Size = new System.Drawing.Size(413, 79);
             this.panel2.TabIndex = 39;
             // 
             // txtComments
             // 
             this.txtComments.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtComments.Location = new System.Drawing.Point(21, 32);
+            this.txtComments.Location = new System.Drawing.Point(21, 35);
             this.txtComments.Multiline = true;
             this.txtComments.Name = "txtComments";
-            this.txtComments.Size = new System.Drawing.Size(371, 58);
+            this.txtComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtComments.Size = new System.Drawing.Size(371, 25);
             this.txtComments.TabIndex = 11;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(16, 12);
+            this.label12.Location = new System.Drawing.Point(16, 15);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(103, 18);
             this.label12.TabIndex = 37;
@@ -253,10 +256,20 @@
             this.panel3.Controls.Add(this.txtLName);
             this.panel3.Controls.Add(this.label1);
             this.panel3.Controls.Add(this.txtFName);
-            this.panel3.Location = new System.Drawing.Point(40, 40);
+            this.panel3.Location = new System.Drawing.Point(12, 40);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(413, 240);
+            this.panel3.Size = new System.Drawing.Size(413, 251);
             this.panel3.TabIndex = 37;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Verdana", 10F);
+            this.label15.Location = new System.Drawing.Point(3, 221);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(176, 17);
+            this.label15.TabIndex = 49;
+            this.label15.Text = "*Indicates required field";
             // 
             // label14
             // 
@@ -395,27 +408,17 @@
             // 
             this.lblTitle01.AutoSize = true;
             this.lblTitle01.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle01.Location = new System.Drawing.Point(82, 9);
+            this.lblTitle01.Location = new System.Drawing.Point(270, 9);
             this.lblTitle01.Name = "lblTitle01";
             this.lblTitle01.Size = new System.Drawing.Size(344, 23);
             this.lblTitle01.TabIndex = 40;
             this.lblTitle01.Text = "Dinamap - Monitoring Program";
             // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Verdana", 10F);
-            this.label15.Location = new System.Drawing.Point(3, 221);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(176, 17);
-            this.label15.TabIndex = 49;
-            this.label15.Text = "*Indicates required field";
-            // 
             // frmSignup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(496, 651);
+            this.ClientSize = new System.Drawing.Size(875, 363);
             this.Controls.Add(this.lblTitle01);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
