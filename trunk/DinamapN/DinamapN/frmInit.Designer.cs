@@ -36,7 +36,6 @@ namespace DinamapN
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnStudy = new System.Windows.Forms.Button();
-            this.imgLogo = new System.Windows.Forms.PictureBox();
             this.btnBack = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnLookup = new System.Windows.Forms.Button();
@@ -50,7 +49,6 @@ namespace DinamapN
             this.resultsGrid = new System.Windows.Forms.DataGridView();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.txtSearchStatus = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -60,7 +58,7 @@ namespace DinamapN
             // 
             this.lblTitle01.AutoSize = true;
             this.lblTitle01.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitle01.Location = new System.Drawing.Point(85, 77);
+            this.lblTitle01.Location = new System.Drawing.Point(85, 5);
             this.lblTitle01.Name = "lblTitle01";
             this.lblTitle01.Size = new System.Drawing.Size(344, 23);
             this.lblTitle01.TabIndex = 7;
@@ -69,7 +67,7 @@ namespace DinamapN
             // txtPatientID
             // 
             this.txtPatientID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPatientID.Location = new System.Drawing.Point(226, 465);
+            this.txtPatientID.Location = new System.Drawing.Point(226, 298);
             this.txtPatientID.Name = "txtPatientID";
             this.txtPatientID.ReadOnly = true;
             this.txtPatientID.Size = new System.Drawing.Size(148, 23);
@@ -78,7 +76,7 @@ namespace DinamapN
             // txtStudyID
             // 
             this.txtStudyID.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtStudyID.Location = new System.Drawing.Point(226, 502);
+            this.txtStudyID.Location = new System.Drawing.Point(226, 335);
             this.txtStudyID.Name = "txtStudyID";
             this.txtStudyID.Size = new System.Drawing.Size(148, 23);
             this.txtStudyID.TabIndex = 3;
@@ -87,7 +85,7 @@ namespace DinamapN
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(128, 466);
+            this.label1.Location = new System.Drawing.Point(128, 299);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(92, 18);
             this.label1.TabIndex = 9;
@@ -97,7 +95,7 @@ namespace DinamapN
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(136, 504);
+            this.label2.Location = new System.Drawing.Point(136, 337);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 18);
             this.label2.TabIndex = 10;
@@ -108,7 +106,7 @@ namespace DinamapN
             this.btnStudy.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStudy.Image = ((System.Drawing.Image)(resources.GetObject("btnStudy.Image")));
             this.btnStudy.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnStudy.Location = new System.Drawing.Point(215, 546);
+            this.btnStudy.Location = new System.Drawing.Point(215, 379);
             this.btnStudy.Name = "btnStudy";
             this.btnStudy.Padding = new System.Windows.Forms.Padding(3);
             this.btnStudy.Size = new System.Drawing.Size(214, 46);
@@ -118,22 +116,12 @@ namespace DinamapN
             this.btnStudy.UseVisualStyleBackColor = true;
             this.btnStudy.Click += new System.EventHandler(this.btnStudy_Click);
             // 
-            // imgLogo
-            // 
-            this.imgLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.imgLogo.Image = ((System.Drawing.Image)(resources.GetObject("imgLogo.Image")));
-            this.imgLogo.Location = new System.Drawing.Point(0, -1);
-            this.imgLogo.Name = "imgLogo";
-            this.imgLogo.Size = new System.Drawing.Size(497, 75);
-            this.imgLogo.TabIndex = 99;
-            this.imgLogo.TabStop = false;
-            // 
             // btnBack
             // 
             this.btnBack.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBack.Image = ((System.Drawing.Image)(resources.GetObject("btnBack.Image")));
             this.btnBack.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnBack.Location = new System.Drawing.Point(89, 547);
+            this.btnBack.Location = new System.Drawing.Point(89, 380);
             this.btnBack.Name = "btnBack";
             this.btnBack.Padding = new System.Windows.Forms.Padding(3);
             this.btnBack.Size = new System.Drawing.Size(104, 45);
@@ -154,7 +142,7 @@ namespace DinamapN
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(12, 108);
+            this.panel1.Location = new System.Drawing.Point(12, 36);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(472, 154);
             this.panel1.TabIndex = 0;
@@ -250,13 +238,13 @@ namespace DinamapN
             this.resultsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.resultsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.resultsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.resultsGrid.Location = new System.Drawing.Point(12, 278);
+            this.resultsGrid.Location = new System.Drawing.Point(12, 206);
             this.resultsGrid.MultiSelect = false;
             this.resultsGrid.Name = "resultsGrid";
             this.resultsGrid.ReadOnly = true;
             this.resultsGrid.RowHeadersVisible = false;
             this.resultsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.resultsGrid.Size = new System.Drawing.Size(472, 150);
+            this.resultsGrid.Size = new System.Drawing.Size(472, 77);
             this.resultsGrid.TabIndex = 1;
             this.resultsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultsGrid_CellClick);
             // 
@@ -265,7 +253,7 @@ namespace DinamapN
             this.txtSearchStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearchStatus.Location = new System.Drawing.Point(12, 278);
+            this.txtSearchStatus.Location = new System.Drawing.Point(12, 206);
             this.txtSearchStatus.Name = "txtSearchStatus";
             this.txtSearchStatus.ReadOnly = true;
             this.txtSearchStatus.Size = new System.Drawing.Size(472, 20);
@@ -277,7 +265,7 @@ namespace DinamapN
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(496, 610);
+            this.ClientSize = new System.Drawing.Size(496, 436);
             this.Controls.Add(this.txtSearchStatus);
             this.Controls.Add(this.resultsGrid);
             this.Controls.Add(this.panel1);
@@ -288,14 +276,12 @@ namespace DinamapN
             this.Controls.Add(this.txtPatientID);
             this.Controls.Add(this.btnStudy);
             this.Controls.Add(this.lblTitle01);
-            this.Controls.Add(this.imgLogo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmInit";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Register";
             this.Load += new System.EventHandler(this.frmInit_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmInit_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultsGrid)).EndInit();
@@ -307,7 +293,6 @@ namespace DinamapN
 
         #endregion
 
-        private System.Windows.Forms.PictureBox imgLogo;
         private System.Windows.Forms.Label lblTitle01;
         private System.Windows.Forms.Button btnStudy;
         private System.Windows.Forms.TextBox txtPatientID;
