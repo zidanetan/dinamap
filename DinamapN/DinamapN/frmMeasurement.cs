@@ -72,18 +72,19 @@ namespace DinamapN
         {
             // Check that Dinamap is connected if desired.  Break if not.
             if (dinamapConnectedCheckBox.Checked && !Tool.Dina_CheckReadiness())
+                MessageBox.Show(
+                    "Dinamap machine not ready!  Please check power, connection, or ensure that USB-serial adapter driver is installed.");
+            else
             {
-                MessageBox.Show("Dinamap machine not ready!  Please check power, connection, or ensure that USB-serial adapter driver is installed.");
-                return;
+                int interval = 10000; // Set time interval for measurements (10 seconds)
+                measurementTimer.Enabled = true; // Enable timer
+                measurementTimer.Interval = interval; // Assign interval to timer
+                measurementTimer.Start(); // Begin timer
+                cmdStart.Enabled = false; // Disable "Start" Icon
+                cmdStop.Enabled = true; // Enable "Stop" Icon
+                dinamapConnectedCheckBox.Enabled = false;
             }
-	        int interval = 10000;  // Set time interval for measurements (10 seconds)
-	        measurementTimer.Enabled = true; // Enable timer
-            measurementTimer.Interval = interval; // Assign interval to timer
-            measurementTimer.Start(); // Begin timer
-            cmdStart.Enabled = false; // Disable "Start" Icon
-            cmdStop.Enabled = true; // Enable "Stop" Icon
-            dinamapConnectedCheckBox.Enabled = false;
-        }
+    }
 
         private void measurementTimer_Tick(object sender, EventArgs e)
         {
