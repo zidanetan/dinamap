@@ -56,21 +56,12 @@ namespace DinamapN
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            if (Tool.Dina_CheckReadiness())
-            {
                 frmMeasurement newMDIChild = new frmMeasurement(patientID, studyID);
 
                 scanMeasurementToolStripMenuItem.Enabled = true;
                 newMDIChild.MdiParent = this;
                 newMDIChild.WindowState = FormWindowState.Maximized;
                 newMDIChild.Show();
-            }
-            else
-            {
-                //frmInit fInit = new frmInit();
-                //this.Close();
-                //fInit.Show();
-            }
          }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
