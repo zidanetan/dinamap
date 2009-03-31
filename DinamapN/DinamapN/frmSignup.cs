@@ -249,5 +249,11 @@ namespace DinamapN
             Application.Exit();
         }
 
+
+        private void frmSignup_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.Equals(Keys.Enter))
+                btnRegister_Click(null, null);
+        }
     }
 }
