@@ -13,8 +13,9 @@ namespace DinamapN
     {
         //Variable Global
         int numMeasurements;
-        int numMeasurementsS;
-        int numMeasurementsF;
+        int numMeasurementsSuccessful;
+        int numMeasurementsFailed;
+        int numCommentMarker;
         private string patientID;
         private string studyID;
         private XmlDocument lastMeasurement = new XmlDocument();
@@ -23,41 +24,78 @@ namespace DinamapN
         public frmMeasurement()
         {
             InitializeComponent();
+            
+            //FOR DEBUGGING ONLY!
+            
+            
+            // Store Patient & Study ID's for later use
+            patientID = "123";
+            studyID = "4125";
+
+            // Show ID's on form
+            lblPatientID.Text = patientID;
+            lblStudyID.Text = studyID;
+
+            Directory.CreateDirectory("C:\\" + studyID + "_" + patientID);
+            Directory.CreateDirectory("C:\\" + studyID + "_" + patientID + "\\raw_xml");
+            Directory.CreateDirectory("C:\\" + studyID + "_" + patientID + "\\queued_sql");
+            
+
         }
 
         public frmMeasurement(string patient, string study)
         {
             InitializeComponent();
             
+            // Store Patient & Study ID's for later use
             patientID = patient;
             studyID = study;
 
+            // Show ID's on form
             lblPatientID.Text = patient;
             lblStudyID.Text = study;
             
-            lastMeasurement.Load("C:\\dinamap.xml");
+            // Load reference XML (necessary for first comparison)
+            try
+            {
+                lastMeasurement.Load("C:\\dinamap.xml");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not load reference XML file: " + ex.ToString());
+            }
+
         }
 
         // If someone clicks "Start"...
         private void cmdStart_Click(object sender, EventArgs e)
         {
-	            int interval = 10000;  // Set time interval for measurements
-	            measurementTimer.Enabled = true; // Enable timer
-                measurementTimer.Interval = interval; // Assign interval to timer
-                measurementTimer.Start(); // Begin timer
-                cmdStart.Enabled = false; // Disable "Start" Icon
-                cmdStop.Enabled = true; // Enable "Stop" Icon
-                dinamapConnectedCheckBox.Enabled = false;
+            // Check that Dinamap is connected if desired.  Break if not.
+            if (dinamapConnectedCheckBox.Checked && !Tool.Dina_CheckReadiness())
+            {
+                MessageBox.Show("Dinamap machine not ready!  Please check power, connection, or ensure that USB-serial adapter driver is installed.");
+                return;
+            }
+	        int interval = 10000;  // Set time interval for measurements (10 seconds)
+	        measurementTimer.Enabled = true; // Enable timer
+            measurementTimer.Interval = interval; // Assign interval to timer
+            measurementTimer.Start(); // Begin timer
+            cmdStart.Enabled = false; // Disable "Start" Icon
+            cmdStop.Enabled = true; // Enable "Stop" Icon
+            dinamapConnectedCheckBox.Enabled = false;
         }
 
         private void measurementTimer_Tick(object sender, EventArgs e)
         {
             XmlDocument currentMeasurement = new XmlDocument();
+
+            // If dinamap not connected, use different pull function for debugging
             if (dinamapConnectedCheckBox.Checked)
                 currentMeasurement = Tool.Dina_GetStateOn();
             else
                 currentMeasurement = Tool.Dina_GetStateOff();
 
+            // If pulled measurement is not the same as the last one, handle it
             if (currentMeasurement.InnerText != lastMeasurement.InnerText)
             {
                 Hashtable h = this.handleResponse();
@@ -71,38 +109,36 @@ namespace DinamapN
             cmdStop.Enabled = false; // Disable "Stop" icon
             cmdStart.Enabled = true; // Enable "Start" icon
             dinamapConnectedCheckBox.Enabled = true;
-            // Prompt user to upload comments
-            switch (MessageBox.Show("Upload Comments to CRC database?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
-            {
-                case DialogResult.Yes:
-                    uploadAllComments();
-                    return;
-                case DialogResult.No:
-                    return;
-            }
+            uploadAllComments(); // Upload comments
         }
 
         private Hashtable handleResponse()
         {
             Hashtable h = new Hashtable();
-
             if (dinamapConnectedCheckBox.Checked)
                 lastMeasurement = Tool.Dina_GetStateOn();
             else
                 lastMeasurement = Tool.Dina_GetStateOff();
 
-            this.saveLocal(lastMeasurement);
-
+            this.saveLocalXML(lastMeasurement);
             h = responseToHash(lastMeasurement);
             this.saveMySQL(h);
             //this.saveAccess(h);
             return h;
         }
 
-        private void saveLocal(XmlDocument doc)
+        // Saves XML from measurement locally
+        private void saveLocalXML(XmlDocument doc)
         {
             doc.PreserveWhitespace = false;
-            doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\"+numMeasurements+".xml");
+            try
+            {
+                doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error saving XML locally: " + ex.ToString());
+            }
         }
 
         private void saveMySQL(Hashtable h)
@@ -120,49 +156,34 @@ namespace DinamapN
             }
             catch (Exception)
             {
-                StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
-                output.WriteLine(query);
-                output.Close();
+                saveLocalSQL(query);
                 writeToGrid(false, h);
             }
         }
 
         public void writeToGrid(bool success, Hashtable h)
         {
+            // Show measurement with "success" icon and field
             if (success)
             {
-                //try
-                //{
-                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.successful, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
-                                        h["Systolic_blood_pressure_Value"],
-                                        h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",true);
-                    numMeasurements++;
-                    numMeasurementsS++;
-                    toolStripStatusLabelNumSuccessful.Text = numMeasurementsS.ToString();                    
-                    lblNum.Text = numMeasurements.ToString();
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show(ex.Message.ToString());
-                //}
+                this.mGrid.Rows.Add(DinamapN.Properties.Resources.successful, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
+                    h["Systolic_blood_pressure_Value"],
+                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",true);
+                numMeasurementsSuccessful++;
             }
+            // Show measurement with "failed" icon and field
             else
             {
-                try
-                {
-                    
-                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.error, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
-                                        h["Systolic_blood_pressure_Value"],
-                                        h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",false);
-                    numMeasurements++;
-                    numMeasurementsF++;
-                    toolStripStatusLabelNumFailed.Text = numMeasurementsS.ToString();
-                    lblNum.Text = numMeasurements.ToString();
-                }
-                catch (Exception)
-                {
-                }
+                this.mGrid.Rows.Add(DinamapN.Properties.Resources.error, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
+                    h["Systolic_blood_pressure_Value"],
+                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",false);
+                numMeasurementsFailed++;
             }
+            // Update measurement stats and display
+            numMeasurements++;
+            lblNum.Text = numMeasurements.ToString();
+            toolStripStatusLabelNumSuccessful.Text = numMeasurementsSuccessful.ToString();                    
+            toolStripStatusLabelNumFailed.Text = numMeasurementsFailed.ToString();
         }
 
 
@@ -185,6 +206,7 @@ namespace DinamapN
             }
         }
 */
+
         // Constructs query from hashtable built from a successful measurement
         private string buildQueryString(Hashtable h, Boolean access)
         {
@@ -193,18 +215,18 @@ namespace DinamapN
             try
             {
                 // "Time" is reserved keyword for MsAccess, use "MeasurementTime instead
-                if (access)
-                    queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, MeasurementTime, SP, DP, MAP, Pulse, Comments) VALUES");
-                else
+                //if (access)
+                //    queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, MeasurementTime, SP, DP, MAP, Pulse, Comments) VALUES");
+                //else
                     queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
                 queryBuilder.Append("(");
                 queryBuilder.Append("'");
                 queryBuilder.Append(studyID);
                 queryBuilder.Append("','");
                 // Use different date/time convention for MS access
-                if (access)
-                    queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("MM/dd/yyyy HH:mm:ss"));
-                else
+                //if (access)
+                //    queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("MM/dd/yyyy HH:mm:ss"));
+                //else
                     queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
                 queryBuilder.Append("','");
                 queryBuilder.Append(h["Systolic_blood_pressure_Value"]);
@@ -218,8 +240,10 @@ namespace DinamapN
                 queryBuilder.Append("'");
                 queryBuilder.Append(");");
             }
-            catch (Exception)
-            { }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error building SQL query string: " + ex.ToString());
+            }
 
             return queryBuilder.ToString();
         }
@@ -263,7 +287,17 @@ namespace DinamapN
             cmdStart.Enabled = true;
             cmdStop.Enabled = false;
             numMeasurements = 0;
-            MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+            numCommentMarker = 0;
+
+            // Load database connection
+            try
+            {
+                MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+            }
+            catch
+            {
+                MessageBox.Show("DSN does not exist or contains errors.  See administrator.  Measurements will be saved locally.");
+            }
         }
 
         private void sysTime_Tick(object sender, EventArgs e)
@@ -278,6 +312,7 @@ namespace DinamapN
             sysTimer.Start();
         }
 
+        // Change comment cell color after user enters something
         private void mGrid_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.Equals(""))
@@ -288,8 +323,10 @@ namespace DinamapN
             {
                 mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Yellow;
             }
+            mGrid.ClearSelection();
         }
         
+        // Attempt to upload comments to database
         private void uploadAllComments()
         {
             DataGridViewRow inputRow;
@@ -297,14 +334,20 @@ namespace DinamapN
             string insertStatement;
             string commentText;
 
-            for (int i = 0; i < numMeasurements; i++)
+            // Go through all rows, start after the last one handled
+            for (int i = numCommentMarker; i < numMeasurements; i++)
             {
-                inputRow = mGrid.Rows[i];
-                valueUploadStatus = inputRow.Cells[6].FormattedValue.ToString();
-                commentText = inputRow.Cells[5].FormattedValue.ToString();
+                numCommentMarker++;  // Show this row was handled
+                inputRow = mGrid.Rows[i]; // pull row
+                valueUploadStatus = inputRow.Cells[6].FormattedValue.ToString(); // Find if measurement was uploaded
+                commentText = inputRow.Cells[5].FormattedValue.ToString(); // Pull comment
+                insertStatement = buildCommentSQL(inputRow); // Build SQL string
+
+                // Only attempt upload if comment exists and measurement was
+                // successfully uploaded
                 if (valueUploadStatus.Equals("True") && !commentText.Equals(""))
                 {
-                    insertStatement = buildCommentSQL(inputRow);
+                    // Upload value 
                     try
                     {
                         MyConnection.Open();
@@ -314,21 +357,19 @@ namespace DinamapN
                         MyConnection.Close();
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Green;
                     }
+                    // Save locally if unsuccessful
                     catch(Exception ex)
                     {
+                        saveLocalSQL(insertStatement);
                         MessageBox.Show(ex.ToString());
-                        StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
-                        output.WriteLine(insertStatement);
-                        output.Close();
+                        mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                     }
                 }
+                // Save locally if measurement failed.
                 else if (valueUploadStatus.Equals("False"))
                 {
-                    insertStatement = buildCommentSQL(inputRow);
                     MessageBox.Show("Entry " + i.ToString() + " value record failed to upload previously.  Comment upload command stored locally.");
-                    StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
-                    output.WriteLine(insertStatement);
-                    output.Close();
+                    saveLocalSQL(insertStatement);
                 }
             }
         }
@@ -350,5 +391,34 @@ namespace DinamapN
             return queryBuilder.ToString();
         }
 
+        // Saves SQL statements to local directory for uploading later
+        private void saveLocalSQL(string statement)
+        {
+            try
+            {
+                StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                output.WriteLine(statement);
+                output.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error saving SQL locally! " + ex.ToString());
+            }
+        }
+
+        private void mGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            mGrid.BeginEdit(true);
+        }
+
+        private void headPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void bodyPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

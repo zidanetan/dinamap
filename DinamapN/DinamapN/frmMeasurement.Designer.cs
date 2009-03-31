@@ -29,10 +29,10 @@ namespace DinamapN
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMeasurement));
             this.bodyPanel = new System.Windows.Forms.Panel();
             this.statusStrip2 = new System.Windows.Forms.StatusStrip();
@@ -44,7 +44,6 @@ namespace DinamapN
             this.measurementTimer = new System.Windows.Forms.Timer(this.components);
             this.sysTimer = new System.Windows.Forms.Timer(this.components);
             this.mGrid = new System.Windows.Forms.DataGridView();
-            this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
             this.Upload = new System.Windows.Forms.DataGridViewImageColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -52,19 +51,20 @@ namespace DinamapN
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ValueUploaded = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Uploaded = new System.Windows.Forms.DataGridViewImageColumn();
             this.timePanel = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblTime = new System.Windows.Forms.Label();
             this.lblNum = new System.Windows.Forms.Label();
+            this.lblTime = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.cmdStart = new System.Windows.Forms.Button();
             this.cmdStop = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.idPanel = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.lblPatientID = new System.Windows.Forms.Label();
             this.lblStudyID = new System.Windows.Forms.Label();
+            this.lblPatientID = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.dinamapConnectedCheckBox = new System.Windows.Forms.CheckBox();
             this.headPanel = new System.Windows.Forms.Panel();
             this.bodyPanel.SuspendLayout();
@@ -77,12 +77,14 @@ namespace DinamapN
             // 
             // bodyPanel
             // 
+            this.bodyPanel.Controls.Add(this.mGrid);
             this.bodyPanel.Controls.Add(this.statusStrip2);
             this.bodyPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.bodyPanel.Location = new System.Drawing.Point(0, 115);
+            this.bodyPanel.Location = new System.Drawing.Point(0, 134);
             this.bodyPanel.Name = "bodyPanel";
-            this.bodyPanel.Size = new System.Drawing.Size(772, 492);
+            this.bodyPanel.Size = new System.Drawing.Size(792, 489);
             this.bodyPanel.TabIndex = 0;
+            this.bodyPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.bodyPanel_Paint);
             // 
             // statusStrip2
             // 
@@ -92,9 +94,9 @@ namespace DinamapN
             this.toolStripStatusLabelNumSuccessful,
             this.toolStripStatusLabel7,
             this.toolStripStatusLabelNumFailed});
-            this.statusStrip2.Location = new System.Drawing.Point(0, 470);
+            this.statusStrip2.Location = new System.Drawing.Point(0, 467);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(772, 22);
+            this.statusStrip2.Size = new System.Drawing.Size(792, 22);
             this.statusStrip2.TabIndex = 3;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -142,14 +144,14 @@ namespace DinamapN
             // 
             this.mGrid.AllowUserToAddRows = false;
             this.mGrid.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.mGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.mGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Upload,
@@ -159,49 +161,34 @@ namespace DinamapN
             this.Column4,
             this.Column5,
             this.ValueUploaded});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.NullValue = " ";
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.mGrid.DefaultCellStyle = dataGridViewCellStyle6;
-            this.mGrid.Location = new System.Drawing.Point(0, 115);
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.NullValue = " ";
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.mGrid.DefaultCellStyle = dataGridViewCellStyle10;
+            this.mGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnKeystroke;
+            this.mGrid.Location = new System.Drawing.Point(0, 0);
             this.mGrid.MultiSelect = false;
             this.mGrid.Name = "mGrid";
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.mGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.mGrid.RowHeadersVisible = false;
             this.mGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.mGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.mGrid.Size = new System.Drawing.Size(770, 467);
+            this.mGrid.Size = new System.Drawing.Size(780, 467);
             this.mGrid.TabIndex = 0;
             this.mGrid.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellEndEdit);
-            // 
-            // Uploaded
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.NullValue = " ";
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle8;
-            this.Uploaded.HeaderText = "";
-            this.Uploaded.Image = ((System.Drawing.Image)(resources.GetObject("Uploaded.Image")));
-            this.Uploaded.Name = "Uploaded";
-            this.Uploaded.ReadOnly = true;
-            this.Uploaded.Width = 20;
+            this.mGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.mGrid_CellClick);
             // 
             // Upload
             // 
@@ -255,6 +242,23 @@ namespace DinamapN
             this.ValueUploaded.Visible = false;
             this.ValueUploaded.Width = 400;
             // 
+            // Uploaded
+            // 
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.NullValue = " ";
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.Uploaded.DefaultCellStyle = dataGridViewCellStyle12;
+            this.Uploaded.HeaderText = "";
+            this.Uploaded.Image = ((System.Drawing.Image)(resources.GetObject("Uploaded.Image")));
+            this.Uploaded.Name = "Uploaded";
+            this.Uploaded.ReadOnly = true;
+            this.Uploaded.Width = 20;
+            // 
             // timePanel
             // 
             this.timePanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -269,25 +273,16 @@ namespace DinamapN
             this.timePanel.Size = new System.Drawing.Size(295, 70);
             this.timePanel.TabIndex = 2;
             // 
-            // label1
+            // lblNum
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(15, 15);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Current Time:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 40);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(148, 16);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Total Measurements:";
+            this.lblNum.AutoSize = true;
+            this.lblNum.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNum.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.lblNum.Location = new System.Drawing.Point(180, 40);
+            this.lblNum.Name = "lblNum";
+            this.lblNum.Size = new System.Drawing.Size(19, 18);
+            this.lblNum.TabIndex = 3;
+            this.lblNum.Text = "0";
             // 
             // lblTime
             // 
@@ -300,16 +295,25 @@ namespace DinamapN
             this.lblTime.TabIndex = 2;
             this.lblTime.Text = "00:00:00";
             // 
-            // lblNum
+            // label2
             // 
-            this.lblNum.AutoSize = true;
-            this.lblNum.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNum.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.lblNum.Location = new System.Drawing.Point(180, 40);
-            this.lblNum.Name = "lblNum";
-            this.lblNum.Size = new System.Drawing.Size(19, 18);
-            this.lblNum.TabIndex = 3;
-            this.lblNum.Text = "0";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(15, 40);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(148, 16);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Total Measurements:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 15);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Current Time:";
             // 
             // cmdStart
             // 
@@ -368,15 +372,23 @@ namespace DinamapN
             this.idPanel.Size = new System.Drawing.Size(260, 70);
             this.idPanel.TabIndex = 10;
             // 
-            // label5
+            // lblStudyID
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(15, 40);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Study ID:";
+            this.lblStudyID.AutoSize = true;
+            this.lblStudyID.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStudyID.Location = new System.Drawing.Point(95, 40);
+            this.lblStudyID.Name = "lblStudyID";
+            this.lblStudyID.Size = new System.Drawing.Size(0, 14);
+            this.lblStudyID.TabIndex = 14;
+            // 
+            // lblPatientID
+            // 
+            this.lblPatientID.AutoSize = true;
+            this.lblPatientID.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPatientID.Location = new System.Drawing.Point(95, 15);
+            this.lblPatientID.Name = "lblPatientID";
+            this.lblPatientID.Size = new System.Drawing.Size(0, 14);
+            this.lblPatientID.TabIndex = 13;
             // 
             // label7
             // 
@@ -388,23 +400,15 @@ namespace DinamapN
             this.label7.TabIndex = 12;
             this.label7.Text = "Patient ID:";
             // 
-            // lblPatientID
+            // label5
             // 
-            this.lblPatientID.AutoSize = true;
-            this.lblPatientID.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPatientID.Location = new System.Drawing.Point(95, 15);
-            this.lblPatientID.Name = "lblPatientID";
-            this.lblPatientID.Size = new System.Drawing.Size(0, 14);
-            this.lblPatientID.TabIndex = 13;
-            // 
-            // lblStudyID
-            // 
-            this.lblStudyID.AutoSize = true;
-            this.lblStudyID.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStudyID.Location = new System.Drawing.Point(95, 40);
-            this.lblStudyID.Name = "lblStudyID";
-            this.lblStudyID.Size = new System.Drawing.Size(0, 14);
-            this.lblStudyID.TabIndex = 14;
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(15, 40);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Study ID:";
             // 
             // dinamapConnectedCheckBox
             // 
@@ -428,19 +432,18 @@ namespace DinamapN
             this.headPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.headPanel.Location = new System.Drawing.Point(0, 0);
             this.headPanel.Name = "headPanel";
-            this.headPanel.Size = new System.Drawing.Size(772, 109);
+            this.headPanel.Size = new System.Drawing.Size(792, 128);
             this.headPanel.TabIndex = 1;
+            this.headPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.headPanel_Paint);
             // 
             // frmMeasurement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(772, 607);
-            this.Controls.Add(this.mGrid);
-            this.Controls.Add(this.headPanel);
+            this.ClientSize = new System.Drawing.Size(792, 623);
             this.Controls.Add(this.bodyPanel);
+            this.Controls.Add(this.headPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmMeasurement";
             this.Text = "Scan Measurement";
