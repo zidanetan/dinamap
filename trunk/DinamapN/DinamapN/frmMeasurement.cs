@@ -419,7 +419,7 @@ namespace DinamapN
                 // Scan all files in the current path
                 foreach (FileInfo file in directory.GetFiles())
                 {
-                    if (file.Name.EndsWith(".sql"));
+                    if (file.Name.EndsWith(".sql"))
                             readFileSQL(file);
                 }
 
