@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_C0AFF269181C48F0900CAAE80C5F510B"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_1E0ADA4BB01A4E5190AB2EE5F05BBDC8"
         "MsmSig" = "8:_UNDEFINED"
@@ -93,6 +99,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5"
+                    {
+                    "Name" = "8:.NET Framework 3.5"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -143,12 +162,44 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C0AFF269181C48F0900CAAE80C5F510B"
+            {
+            "SourcePath" = "8:C:\\dinamap.xml"
+            "TargetName" = "8:dinamap.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_0236902C25EA40438DB32C9FA8F797E9"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
         }
         "Folder"
         {
+            "{994432C3-9487-495D-8656-3E829A8DBDDE}:_0236902C25EA40438DB32C9FA8F797E9"
+            {
+            "DefaultLocation" = "8:[WindowsFolder]"
+            "Name" = "8:Windows Folder"
+            "AlwaysCreate" = "11:TRUE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:NEWPROPERTY1"
+                "Folders"
+                {
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_0BBB3D24555B4B17A6EF37B5737C0CC0"
             {
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
@@ -200,7 +251,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:DinamapSetup"
         "ProductCode" = "8:{9F5BAE7A-FFE3-480A-99D5-AA585FD5DBA1}"
-        "PackageCode" = "8:{6506B5C8-559E-4C4A-9FD4-DC9B38C489D5}"
+        "PackageCode" = "8:{9AE7A7E7-C829-4619-BCA2-47C991FF6D59}"
         "UpgradeCode" = "8:{6E942553-B756-4303-9C03-EAB29FB57A39}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -319,6 +370,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1E8B65C1495745D89C661C8245E92AED"
+            {
+            "Name" = "8:Shortcut to Primary output from DinamapN (Active)"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_1E0ADA4BB01A4E5190AB2EE5F05BBDC8"
+            "Folder" = "8:_842C6FA27D4A4FCAA63D4463CCD78EA3"
+            "WorkingFolder" = "8:_0BBB3D24555B4B17A6EF37B5737C0CC0"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B759E9E438BD4EEBB261A27BEBE72AA1"
+            {
+            "Name" = "8:Shortcut to Primary output from DinamapN (Active)"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_1E0ADA4BB01A4E5190AB2EE5F05BBDC8"
+            "Folder" = "8:_81EF2825094F452A847B6C998E690810"
+            "WorkingFolder" = "8:_0BBB3D24555B4B17A6EF37B5737C0CC0"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {
