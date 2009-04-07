@@ -411,15 +411,5 @@ namespace DinamapN
         {
             mGrid.BeginEdit(true);
         }
-
-        private void headPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void bodyPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }
