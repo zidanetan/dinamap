@@ -24,22 +24,6 @@ namespace DinamapN
         public frmMeasurement()
         {
             InitializeComponent();
-            
-            //FOR DEBUGGING ONLY!
-            
-            
-            // Store Patient & Study ID's for later use
-            patientID = "123";
-            studyID = "4125";
-
-            // Show ID's on form
-            lblPatientID.Text = patientID;
-            lblStudyID.Text = studyID;
-
-            Directory.CreateDirectory("C:\\" + studyID + "_" + patientID);
-            Directory.CreateDirectory("C:\\" + studyID + "_" + patientID + "\\raw_xml");
-            Directory.CreateDirectory("C:\\" + studyID + "_" + patientID + "\\queued_sql");
-            
 
         }
 
@@ -65,6 +49,8 @@ namespace DinamapN
                 MessageBox.Show("Could not load reference XML file: " + ex.ToString());
             }
 
+            ScanDirectory stepThru = new ScanDirectory();
+            stepThru.WalkDirectory("C:\\Dinamap");
         }
 
         // If someone clicks "Start"...
@@ -76,7 +62,7 @@ namespace DinamapN
                     "Dinamap machine not ready!  Please check power, connection, or ensure that USB-serial adapter driver is installed.");
             else
             {
-                int interval = 10000; // Set time interval for measurements (10 seconds)
+                int interval = 1000; // Set time interval for measurements (10 seconds)
                 measurementTimer.Enabled = true; // Enable timer
                 measurementTimer.Interval = interval; // Assign interval to timer
                 measurementTimer.Start(); // Begin timer
@@ -134,7 +120,7 @@ namespace DinamapN
             doc.PreserveWhitespace = false;
             try
             {
-                doc.Save("C:\\" + studyID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
+                doc.Save("C:\\Dinamap\\" + studyID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
             }
             catch(Exception ex)
             {
@@ -362,16 +348,17 @@ namespace DinamapN
                     catch(Exception ex)
                     {
                         saveLocalSQL(insertStatement);
-                        MessageBox.Show(ex.ToString());
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                     }
                 }
                 // Save locally if measurement failed.
-                else if (valueUploadStatus.Equals("False"))
+                else if (valueUploadStatus.Equals("False") && !commentText.Equals(""))
                 {
                     MessageBox.Show("Entry " + i.ToString() + " value record failed to upload previously.  Comment upload command stored locally.");
                     saveLocalSQL(insertStatement);
+                    mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                 }
+                mGrid.Rows[i].Cells[5].ReadOnly = true;
             }
         }
 
@@ -380,6 +367,7 @@ namespace DinamapN
         private string buildCommentSQL(DataGridViewRow inputRow)
         {
             string commentText = inputRow.Cells[5].FormattedValue.ToString(); // Grab comment from row
+            commentText = commentText.Replace("'", "''"); // Correct for SQL format
             string commentTime = ((DateTime)inputRow.Cells[1].Value).ToString("yyyy:MM:dd HH:mm:ss"); // Grab date from row, convert for SQL
             StringBuilder queryBuilder = new StringBuilder();
             queryBuilder.Append("UPDATE MeasurementsData SET Comments = '");
@@ -397,7 +385,7 @@ namespace DinamapN
         {
             try
             {
-                StreamWriter output = new StreamWriter("C:\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                StreamWriter output = new StreamWriter("C:\\Dinamap\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
                 output.WriteLine(statement);
                 output.Close();
             }
@@ -409,7 +397,92 @@ namespace DinamapN
 
         private void mGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            mGrid.BeginEdit(true);
+            if (!mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].ReadOnly)
+                mGrid.BeginEdit(true);
+            mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
         }
+
+        private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
+        }
+
+        public class ScanDirectory
+        {
+            public void WalkDirectory(string directory)
+            {
+                WalkDirectory(new DirectoryInfo(directory));
+            }
+
+            private void WalkDirectory(DirectoryInfo directory)
+            {
+                // Scan all files in the current path
+                foreach (FileInfo file in directory.GetFiles())
+                {
+                    if (file.Name.EndsWith(".sql"));
+                            readFileSQL(file);
+                }
+
+                DirectoryInfo[] subDirectories = directory.GetDirectories();
+
+                // Scan the directories in the current directory and call this method 
+                // again to go one level into the directory tree
+                foreach (DirectoryInfo subDirectory in subDirectories)
+                {
+                    WalkDirectory(subDirectory);
+                }
+            }
+
+            private void readFileSQL(FileInfo file)
+            {
+                Boolean failures = false;
+                StreamReader reader = new StreamReader(file.FullName);
+                FileInfo file2 = new FileInfo(file.FullName + "2");
+                StreamWriter writer = new StreamWriter(file2.FullName, true);                
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                try 
+                {
+                    MyConnection.Open();
+                }
+                catch 
+                {
+                    reader.Close();
+                    writer.Close();
+                    file2.Delete();
+                    return;
+                }
+                
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                string SQLstatement;
+
+                while (!reader.EndOfStream)
+                {
+                    SQLstatement = reader.ReadLine();
+
+                    try
+                    {
+                        DbCommand.CommandText = SQLstatement;
+                        DbCommand.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        writer.WriteLine(SQLstatement);
+                        failures = true;
+                    }
+                }
+
+                reader.Close();
+                writer.Close();
+                file.Delete();
+                if (failures)
+                    file2.MoveTo(file.FullName);
+                else
+                    file2.Delete();
+                MessageBox.Show("Uploaded queued SQL and deleted file: " + file.FullName);
+            }
+        }
+
+
+
     }
 }
