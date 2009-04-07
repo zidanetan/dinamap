@@ -41,7 +41,7 @@ namespace DinamapN
             // Load reference XML (necessary for first comparison)
             try
             {
-                lastMeasurement.Load("C:\\dinamap.xml");
+                lastMeasurement.Load("C:\\Windows\\dinamap.xml");
             }
             catch (Exception ex)
             {
@@ -130,7 +130,7 @@ namespace DinamapN
         private void saveMySQL(Hashtable h)
         {
             // Get query string for uploading measurement record
-            string query = buildMeasurementSQL(h, false);
+            string query = buildMeasurementSQL(h);
 
             try
             {
@@ -174,29 +174,8 @@ namespace DinamapN
             toolStripStatusLabelNumFailed.Text = numMeasurementsFailed.ToString();
         }
 
-
-/*
-        private void saveAccess(Hashtable h)
-       {
-            string query = buildQueryString(h,true);
-            MessageBox.Show(query);
-            try
-            {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamap");
-                MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = query;
-                DbCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-*/
-
         // Constructs query from hashtable built from a successful measurement
-        private string buildMeasurementSQL(Hashtable h, Boolean access)
+        private string buildMeasurementSQL(Hashtable h)
         {
             StringBuilder queryBuilder = new StringBuilder();
 
@@ -284,6 +263,7 @@ namespace DinamapN
         {
             string szHour;
             szHour = DateTime.Now.ToString("h:mm:ss");
+            lblTime.ForeColor = Color.Black;
             lblTime.Text = szHour;
         }
 
