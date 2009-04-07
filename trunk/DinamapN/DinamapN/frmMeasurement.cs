@@ -48,8 +48,8 @@ namespace DinamapN
                 MessageBox.Show("Could not load reference XML file: " + ex.ToString());
             }
 
-            ScanDirectory stepThru = new ScanDirectory();
-            stepThru.WalkDirectory("C:\\Dinamap");
+            //ScanDirectory stepThru = new ScanDirectory();
+            //stepThru.WalkDirectory("C:\\Dinamap");
         }
 
         // If someone clicks "Start"...
