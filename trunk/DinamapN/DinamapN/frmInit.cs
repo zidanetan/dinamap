@@ -45,9 +45,11 @@ namespace DinamapN
                     studyID = txtStudyID.Text;
 
                     // Create directories to store data locally
-                    Directory.CreateDirectory("C:\\" + studyID + "_" + patientID);
-                    Directory.CreateDirectory("C:\\" + studyID + "_" + patientID + "\\raw_xml");
-                    Directory.CreateDirectory("C:\\" + studyID + "_" + patientID + "\\queued_sql");
+                    if (!Directory.Exists("C:\\Dinamap"))
+                        Directory.CreateDirectory("C:\\Dinamap");
+                    Directory.CreateDirectory("C:\\Dinamap\\" + studyID + "_" + patientID);
+                    Directory.CreateDirectory("C:\\Dinamap\\" + studyID + "_" + patientID + "\\raw_xml");
+                    Directory.CreateDirectory("C:\\Dinamap\\" + studyID + "_" + patientID + "\\queued_sql");
                
                     // Open study measurements window
                     frmMain fMain = new frmMain(patientID, studyID);
@@ -65,9 +67,9 @@ namespace DinamapN
                     MessageBox.Show("Please enter Patient ID and Study ID.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Local directory could not be created.");
+                MessageBox.Show("Local directory could not be created.: " + ex.ToString());
             }
         }
 
