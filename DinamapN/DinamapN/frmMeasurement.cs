@@ -24,7 +24,6 @@ namespace DinamapN
         public frmMeasurement()
         {
             InitializeComponent();
-
         }
 
         public frmMeasurement(string patient, string study)
@@ -58,8 +57,8 @@ namespace DinamapN
         {
             // Check that Dinamap is connected if desired.  Break if not.
             if (dinamapConnectedCheckBox.Checked && !Tool.Dina_CheckReadiness())
-                MessageBox.Show(
-                    "Dinamap machine not ready!  Please check power, connection, or ensure that USB-serial adapter driver is installed.");
+                MessageBox.Show("Dinamap machine not ready!  " + 
+                    "Please check power, connection, or ensure that USB-serial adapter driver is installed.");
             else
             {
                 int interval = 1000; // Set time interval for measurements (10 seconds)
@@ -130,21 +129,23 @@ namespace DinamapN
 
         private void saveMySQL(Hashtable h)
         {
-            string query = buildQueryString(h, false);
+            // Get query string for uploading measurement record
+            string query = buildMeasurementSQL(h, false);
 
             try
             {
+                // Try to upload measurement
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 DbCommand.ExecuteNonQuery();
-                writeToGrid(true, h);
+                writeToGrid(true, h); // Update on GUI
             }
             catch (Exception)
             {
-                saveLocalSQL(query);
-                writeToGrid(false, h);
+                saveLocalSQL(query); // Save failed upload
+                writeToGrid(false, h); // Update on GUI
             }
         }
 
@@ -195,26 +196,18 @@ namespace DinamapN
 */
 
         // Constructs query from hashtable built from a successful measurement
-        private string buildQueryString(Hashtable h, Boolean access)
+        private string buildMeasurementSQL(Hashtable h, Boolean access)
         {
             StringBuilder queryBuilder = new StringBuilder();
 
             try
             {
-                // "Time" is reserved keyword for MsAccess, use "MeasurementTime instead
-                //if (access)
-                //    queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, MeasurementTime, SP, DP, MAP, Pulse, Comments) VALUES");
-                //else
-                    queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
+                queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
                 queryBuilder.Append("(");
                 queryBuilder.Append("'");
                 queryBuilder.Append(studyID);
                 queryBuilder.Append("','");
-                // Use different date/time convention for MS access
-                //if (access)
-                //    queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("MM/dd/yyyy HH:mm:ss"));
-                //else
-                    queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
+                queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
                 queryBuilder.Append("','");
                 queryBuilder.Append(h["Systolic_blood_pressure_Value"]);
                 queryBuilder.Append("','");
@@ -231,7 +224,6 @@ namespace DinamapN
             {
                 MessageBox.Show("Error building SQL query string: " + ex.ToString());
             }
-
             return queryBuilder.ToString();
         }
 
@@ -269,6 +261,7 @@ namespace DinamapN
             return h;
         }
 
+        // Upon loading...
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
             cmdStart.Enabled = true;
