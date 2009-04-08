@@ -20,7 +20,7 @@ namespace DinamapN
         private string studyID;
         private XmlDocument lastMeasurement = new XmlDocument();
         private OdbcConnection MyConnection;
-
+        
         // Constructor w/out arguments (loaded from menu)
         public frmMeasurement()
         {
@@ -322,6 +322,7 @@ namespace DinamapN
                         OdbcCommand DbCommand = MyConnection.CreateCommand();
                         DbCommand.CommandText = insertStatement;
                         DbCommand.ExecuteNonQuery();
+                        Convert.ToInt32(DbCommand.ExecuteScalar().ToString())
                         MyConnection.Close();
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Green;
                     }
