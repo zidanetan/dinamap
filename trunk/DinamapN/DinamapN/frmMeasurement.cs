@@ -31,7 +31,7 @@ namespace DinamapN
         public frmMeasurement(string patient, string study)
         {
             InitializeComponent();
-            
+
             // Store Patient & Study ID's for later use
             patientID = patient;
             studyID = study;
@@ -39,7 +39,7 @@ namespace DinamapN
             // Show ID's on form
             lblPatientID.Text = patient;
             lblStudyID.Text = study;
-            
+
             // Load reference XML (necessary for first comparison)
             try
             {
@@ -59,7 +59,7 @@ namespace DinamapN
         {
             // Check that Dinamap is connected if desired.  Break if not.
             if (dinamapConnectedCheckBox.Checked && !Tool.Dina_CheckReadiness())
-                MessageBox.Show("Dinamap machine not ready!  " + 
+                MessageBox.Show("Dinamap machine not ready!  " +
                     "Please check power, connection, or ensure that USB-serial adapter driver is installed.");
             else
             {
@@ -71,7 +71,7 @@ namespace DinamapN
                 cmdStop.Enabled = true; // Enable "Stop" Icon
                 dinamapConnectedCheckBox.Enabled = false;
             }
-    }
+        }
 
         // Every second...
         private void measurementTimer_Tick(object sender, EventArgs e)
@@ -124,7 +124,7 @@ namespace DinamapN
             {
                 doc.Save("C:\\Dinamap\\" + studyID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Error saving XML locally: " + ex.ToString());
             }
@@ -161,7 +161,7 @@ namespace DinamapN
             {
                 this.mGrid.Rows.Add(DinamapN.Properties.Resources.successful, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
                     h["Systolic_blood_pressure_Value"],
-                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",true);
+                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", true);
                 numMeasurementsSuccessful++;
             }
             // Show measurement with "failed" icon and field
@@ -169,13 +169,13 @@ namespace DinamapN
             {
                 this.mGrid.Rows.Add(DinamapN.Properties.Resources.error, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
                     h["Systolic_blood_pressure_Value"],
-                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "",false);
+                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", false);
                 numMeasurementsFailed++;
             }
             // Update measurement stats and display
             numMeasurements++;
             lblNum.Text = numMeasurements.ToString();
-            toolStripStatusLabelNumSuccessful.Text = numMeasurementsSuccessful.ToString();                    
+            toolStripStatusLabelNumSuccessful.Text = numMeasurementsSuccessful.ToString();
             toolStripStatusLabelNumFailed.Text = numMeasurementsFailed.ToString();
         }
 
@@ -200,7 +200,7 @@ namespace DinamapN
                 queryBuilder.Append(h["Mean_arterial_pressure_Value"]);
                 queryBuilder.Append("','");
                 queryBuilder.Append(h["Pulse_Value"]);
-                queryBuilder.Append("','");             
+                queryBuilder.Append("','");
                 queryBuilder.Append("'");
                 queryBuilder.Append(");");
             }
@@ -222,11 +222,11 @@ namespace DinamapN
             {
                 foreach (XmlNode cnode in pnode.ChildNodes)
                 {
-                    if(cnode.Name == "Units")
+                    if (cnode.Name == "Units")
                     {
                         h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, cnode.Attributes["name"].InnerText);
                     }
-                    else if(cnode.Name == "Time_stamp")
+                    else if (cnode.Name == "Time_stamp")
                     {
                         DateTime d = new DateTime(
                             Convert.ToInt32(cnode.Attributes["year"].InnerText),
@@ -234,13 +234,13 @@ namespace DinamapN
                             Convert.ToInt32(cnode.Attributes["day"].InnerText),
                             Convert.ToInt32(cnode.Attributes["hour"].InnerText),
                             Convert.ToInt32(cnode.Attributes["minute"].InnerText),
-                            Convert.ToInt32(cnode.Attributes["second"].InnerText)); 
-                        
+                            Convert.ToInt32(cnode.Attributes["second"].InnerText));
+
                         h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, d);
                     }
                     else
                         h.Add(pnode.Attributes["name"].InnerText + "_" + cnode.Name, cnode.InnerText);
-                } 
+                }
             }
 
             return h;
@@ -293,7 +293,7 @@ namespace DinamapN
             }
             mGrid.ClearSelection();
         }
-        
+
         // Attempt to upload comments to database
         private void uploadAllComments()
         {
@@ -326,7 +326,7 @@ namespace DinamapN
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Green;
                     }
                     // Save locally if unsuccessful
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         saveLocalSQL(insertStatement);
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
@@ -387,82 +387,6 @@ namespace DinamapN
         private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
-        }
-
-        //Scan for saved .sql files and upload them, delete if successful
-        public class ScanDirectory
-        {
-            public void WalkDirectory(string directory)
-            {
-                WalkDirectory(new DirectoryInfo(directory));
-            }
-
-            private void WalkDirectory(DirectoryInfo directory)
-            {
-                // Scan all files in the current path
-                foreach (FileInfo file in directory.GetFiles())
-                {
-                    if (file.Name.EndsWith(".sql"))
-                            readFileSQL(file);
-                }
-
-                DirectoryInfo[] subDirectories = directory.GetDirectories();
-
-                // Scan the directories in the current directory and call this method 
-                // again to go one level into the directory tree
-                foreach (DirectoryInfo subDirectory in subDirectories)
-                {
-                    WalkDirectory(subDirectory);
-                }
-            }
-
-            private void readFileSQL(FileInfo file)
-            {
-                Boolean failures = false;
-                StreamReader reader = new StreamReader(file.FullName);
-                FileInfo file2 = new FileInfo(file.FullName + "2");
-                StreamWriter writer = new StreamWriter(file2.FullName, true);                
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
-                try 
-                {
-                    MyConnection.Open();
-                }
-                catch 
-                {
-                    reader.Close();
-                    writer.Close();
-                    file2.Delete();
-                    return;
-                }
-                
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                string SQLstatement;
-
-                while (!reader.EndOfStream)
-                {
-                    SQLstatement = reader.ReadLine();
-
-                    try
-                    {
-                        DbCommand.CommandText = SQLstatement;
-                        DbCommand.ExecuteNonQuery();
-                    }
-                    catch
-                    {
-                        writer.WriteLine(SQLstatement);
-                        failures = true;
-                    }
-                }
-
-                reader.Close();
-                writer.Close();
-                file.Delete();
-                if (failures)
-                    file2.MoveTo(file.FullName);
-                else
-                    file2.Delete();
-                MessageBox.Show("Uploaded queued SQL and deleted file: " + file.FullName);
-            }
         }
     }
 }

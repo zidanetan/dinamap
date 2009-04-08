@@ -170,6 +170,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ScanDirectory.cs" />
     <Compile Include="Tool.cs" />
     <Compile Include="Upload.cs">
       <SubType>Form</SubType>
