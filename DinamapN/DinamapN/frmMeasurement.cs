@@ -21,11 +21,13 @@ namespace DinamapN
         private XmlDocument lastMeasurement = new XmlDocument();
         private OdbcConnection MyConnection;
 
+        // Constructor w/out arguments (loaded from menu)
         public frmMeasurement()
         {
             InitializeComponent();
         }
 
+        // Constructor w/ arguments (loaded from FormInit)
         public frmMeasurement(string patient, string study)
         {
             InitializeComponent();
@@ -71,6 +73,7 @@ namespace DinamapN
             }
     }
 
+        // Every second...
         private void measurementTimer_Tick(object sender, EventArgs e)
         {
             XmlDocument currentMeasurement = new XmlDocument();
@@ -98,6 +101,7 @@ namespace DinamapN
             uploadAllComments(); // Upload comments
         }
 
+        // When a new measurement is found...
         private Hashtable handleResponse()
         {
             Hashtable h = new Hashtable();
@@ -127,6 +131,7 @@ namespace DinamapN
             }
         }
 
+        // Attempt to upload measurement data to SQL database
         private void saveMySQL(Hashtable h)
         {
             // Get query string for uploading measurement record
@@ -149,6 +154,7 @@ namespace DinamapN
             }
         }
 
+        // Put new measurement on display grid
         public void writeToGrid(bool success, Hashtable h)
         {
             // Show measurement with "success" icon and field
@@ -206,6 +212,7 @@ namespace DinamapN
             return queryBuilder.ToString();
         }
 
+        // Build hash from XML data
         private Hashtable responseToHash(XmlDocument doc)
         {
             Hashtable h = new Hashtable();
@@ -240,7 +247,7 @@ namespace DinamapN
             return h;
         }
 
-        // Upon loading...
+        // Upon loading form...
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
             cmdStart.Enabled = true;
@@ -259,6 +266,7 @@ namespace DinamapN
             }
         }
 
+        // Every time timer is called by system...
         private void sysTime_Tick(object sender, EventArgs e)
         {
             string szHour;
@@ -267,6 +275,7 @@ namespace DinamapN
             lblTime.Text = szHour;
         }
 
+        // When form is activated...
         private void frmMeasurement_Activated(object sender, System.EventArgs e)
         {
             sysTimer.Start();
@@ -368,6 +377,7 @@ namespace DinamapN
             }
         }
 
+        //Allow user to edit comment cell on click without selecting it
         private void mGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (!mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].ReadOnly)
@@ -375,11 +385,13 @@ namespace DinamapN
             mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
         }
 
+        //Another check to make sure selection does not occur.
         private void mGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             mGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Selected = false;
         }
 
+        //Scan for saved .sql files and upload them, delete if successful
         public class ScanDirectory
         {
             public void WalkDirectory(string directory)
@@ -454,8 +466,5 @@ namespace DinamapN
                 MessageBox.Show("Uploaded queued SQL and deleted file: " + file.FullName);
             }
         }
-
-
-
     }
 }
