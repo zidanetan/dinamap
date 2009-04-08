@@ -299,7 +299,7 @@ namespace DinamapN
         {
             DataGridViewRow inputRow;
             string valueUploadStatus;
-            string insertStatement;
+            OdbcCommand insertCommand;
             string commentText;
 
             // Go through all rows, start after the last one handled
@@ -309,7 +309,7 @@ namespace DinamapN
                 inputRow = mGrid.Rows[i]; // pull row
                 valueUploadStatus = inputRow.Cells[6].FormattedValue.ToString(); // Find if measurement was uploaded
                 commentText = inputRow.Cells[5].FormattedValue.ToString(); // Pull comment
-                insertStatement = buildCommentSQL(inputRow); // Build SQL string
+                insertCommand = buildCommentSQL(inputRow); // Build SQL string
 
                 // Only attempt upload if comment exists and measurement was
                 // successfully uploaded
@@ -319,24 +319,21 @@ namespace DinamapN
                     try
                     {
                         MyConnection.Open();
-                        OdbcCommand DbCommand = MyConnection.CreateCommand();
-                        DbCommand.CommandText = insertStatement;
-                        DbCommand.ExecuteNonQuery();
-                        Convert.ToInt32(DbCommand.ExecuteScalar().ToString())
+                        insertCommand.ExecuteNonQuery();
                         MyConnection.Close();
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Green;
                     }
                     // Save locally if unsuccessful
                     catch (Exception ex)
                     {
-                        saveLocalSQL(insertStatement);
+                        saveLocalSQL(insertCommand.CommandText);
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                     }
                 }
                 // Save locally if measurement failed.
                 else if (valueUploadStatus.Equals("False") && !commentText.Equals(""))
                 {
-                    saveLocalSQL(insertStatement);
+                    saveLocalSQL(insertCommand.CommandText);
                     mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                 }
                 mGrid.Rows[i].Cells[5].ReadOnly = true;
@@ -345,20 +342,23 @@ namespace DinamapN
 
         // Constructs SQL update statement string  to commit comments
         // for a given row from the grid viewer
-        private string buildCommentSQL(DataGridViewRow inputRow)
+        private OdbcCommand buildCommentSQL(DataGridViewRow inputRow)
         {
+            OdbcCommand updateComment = MyConnection.CreateCommand();
             string commentText = inputRow.Cells[5].FormattedValue.ToString(); // Grab comment from row
             commentText = commentText.Replace("'", "''"); // Correct for SQL format
             string commentTime = ((DateTime)inputRow.Cells[1].Value).ToString("yyyy:MM:dd HH:mm:ss"); // Grab date from row, convert for SQL
             StringBuilder queryBuilder = new StringBuilder();
             queryBuilder.Append("UPDATE MeasurementsData SET Comments = '");
-            queryBuilder.Append(commentText);
+            queryBuilder.Append("@Comment");
             queryBuilder.Append("' WHERE ((Study_ID = '");
             queryBuilder.Append(studyID);
             queryBuilder.Append("') AND (Time = '");
             queryBuilder.Append(commentTime);
             queryBuilder.Append("'));");
-            return queryBuilder.ToString();
+            updateComment.CommandText = queryBuilder.ToString();
+            updateComment.Parameters.Add("@Comment", OdbcType.Text).Value = commentText;
+            return updateComment;
         }
 
         // Saves SQL statements to local directory for uploading later
