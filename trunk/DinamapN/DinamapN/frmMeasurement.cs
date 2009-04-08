@@ -113,7 +113,6 @@ namespace DinamapN
             this.saveLocalXML(lastMeasurement);
             h = responseToHash(lastMeasurement);
             this.saveMySQL(h);
-            //this.saveAccess(h);
             return h;
         }
 
@@ -336,7 +335,6 @@ namespace DinamapN
                 // Save locally if measurement failed.
                 else if (valueUploadStatus.Equals("False") && !commentText.Equals(""))
                 {
-                    MessageBox.Show("Entry " + i.ToString() + " value record failed to upload previously.  Comment upload command stored locally.");
                     saveLocalSQL(insertStatement);
                     mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                 }
