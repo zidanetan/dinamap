@@ -204,7 +204,7 @@ namespace DinamapN
             {
                 while (MyReader.Read())
                 {
-                    txtProtocolID.Items.Insert(MyReader["Protocol_ID"].ToString().TrimStart("pf"),MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
+                    txtProtocolID.Items.Insert(Convert.ToInt16(MyReader["Protocol_ID"].ToString().Remove(0,2)),MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
                 }
             }
             DbCommand.CommandText = "SELECT Title, Study_ID from Study";
@@ -213,7 +213,7 @@ namespace DinamapN
             {
                 while (MyReader2.Read())
                 {
-                    txtStudyID.Items.Insert(MyReader2["Study_ID"],MyReader2["Title"]);
+                    txtStudyID.Items.Insert(Convert.ToInt16(MyReader2["Study_ID"]),MyReader2["Title"]);
                 }
             }
             txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
