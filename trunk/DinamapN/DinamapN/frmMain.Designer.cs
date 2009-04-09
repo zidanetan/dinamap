@@ -33,8 +33,6 @@ namespace DinamapN
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scanMeasurementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,7 +43,6 @@ namespace DinamapN
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.settingsToolStripMenuItem,
             this.windoToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -76,21 +73,6 @@ namespace DinamapN
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generalToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // generalToolStripMenuItem
-            // 
-            this.generalToolStripMenuItem.Name = "generalToolStripMenuItem";
-            this.generalToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-            this.generalToolStripMenuItem.Text = "Dinamap Options";
-            this.generalToolStripMenuItem.Click += new System.EventHandler(this.generalToolStripMenuItem_Click);
-            // 
             // windoToolStripMenuItem
             // 
             this.windoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -103,14 +85,14 @@ namespace DinamapN
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -143,10 +125,8 @@ namespace DinamapN
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem scanMeasurementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem generalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     }
 }
