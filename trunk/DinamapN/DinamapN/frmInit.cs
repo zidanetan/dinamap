@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,10 @@ namespace DinamapN
     {
         private string patientID;
         private string studyID;
+        private string protocolID;
+        private string nurse;
+        private string physician;
+        private string visitID;
 
         public frmInit()
         {
@@ -29,43 +34,158 @@ namespace DinamapN
             this.txtPatientID.Text = patientID;
             this.panel1.Enabled = false;
             this.resultsGrid.Enabled = false;
-            txtStudyID.Select();
+        }
+
+        private string buildQueryString(Hashtable h)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                sb.Append("INSERT INTO Visit (Patient_ID, Study_ID, Protocol_ID, Date, Nurse, Physician) VALUES");
+                sb.Append("(");
+                sb.Append("'");
+                sb.Append(h["Patient_ID"]);
+                sb.Append("','");
+                sb.Append(h["Study_ID"]);
+                sb.Append("','");
+                sb.Append(h["Protocol_ID"]);
+                sb.Append("','");
+                sb.Append(h[DateTime.Now.ToString("yyyy:MM:dd HH:mm:ss")]);
+                sb.Append("','");
+                sb.Append(h["Nurse"]);
+                sb.Append("','");
+                sb.Append(h["Physician"]);
+                sb.Append("'");
+                sb.Append(");");
+            }
+            catch (Exception)
+            {
+                
+            }
+
+            return sb.ToString();
+        }
+
+        private Hashtable validateForm()
+        {
+            Hashtable h = new Hashtable();
+            h["Errors"] = "";
+
+            if (txtPatientID.Text != "")
+                h["Patient_ID"] = txtPatientID.Text;
+            else
+                h["Errors"] += "PatientID\n";
+
+            if (txtStudyID.SelectedItem != null)
+                h["Study_ID"] = txtStudyID.SelectedItem.ToString();
+            else
+                h["Errors"] += "Study\n";
+
+            if (txtProtocolID.SelectedItem != null)
+                h["Protocol_ID"] = txtProtocolID.SelectedItem.ToString();
+            else
+                h["Errors"] += "Protocol\n";
+
+            if (txtNurse.Text != "")
+                h["Nurse"] = txtNurse.Text;
+            else
+                h["Errors"] += "Nurse\n";
+
+            if (txtPhysician.Text != "")
+                h["Physician"] = txtPhysician.Text;
+            else
+                h["Errors"] += "Physician\n";
+
+            return h;
+        }
+
+        private string buildQueryString2(Hashtable h)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            try
+            {
+                sb.Append("SELECT * from Visit where Patient_ID = '");
+                sb.Append(h["Patient_ID"]);
+                sb.Append("' and Study_ID = '");
+                sb.Append(h["Study_ID"]);
+                sb.Append("' and Protocol_ID = '");
+                sb.Append(h["Protocol_ID"]);
+                sb.Append("' and Nurse = '");
+                sb.Append(h["Nurse"]);
+                sb.Append("' and Physician = '");
+                sb.Append(h["Physician"]);
+                sb.Append("' order by Date desc;");
+            }
+            catch (Exception)
+            {
+
+            }
+            
+            return sb.ToString();
         }
 
         // When the user clicks the "Proceed to Study" button...
         private void btnStudy_Click(object sender, EventArgs e)
         {
+            Hashtable h = validateForm();
+
+            if (h["Errors"].ToString() == "")//if no errors...
+            {
+                RegisterVisit(h);
+            }
+            else
+            {
+                MessageBox.Show("Please complete the following fields:\n" + h["Errors"]);
+            }
+        }
+            
+        private void RegisterVisit(Hashtable h)
+        {
+            string query1 = buildQueryString(h);
+            string query2 = buildQueryString2(h);
+
             try
             {
-                // If Patient and study ID input fields aren't blank...
-                if (txtPatientID.Text != "" && txtStudyID.Text != "")
-                {
-                    // Store inputs into global vars
-                    patientID = txtPatientID.Text;
-                    studyID = txtStudyID.Text;
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                DbCommand.CommandText = query1;
+                DbCommand.ExecuteNonQuery();
+                DbCommand.CommandText = query2;
+                visitID = DbCommand.ExecuteScalar().ToString();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error");
+            }
 
-                    // Create directories to store data locally
-                    if (!Directory.Exists("C:\\Dinamap"))
-                        Directory.CreateDirectory("C:\\Dinamap");
-                    Directory.CreateDirectory("C:\\Dinamap\\" + studyID + "_" + patientID);
-                    Directory.CreateDirectory("C:\\Dinamap\\" + studyID + "_" + patientID + "\\raw_xml");
-                    Directory.CreateDirectory("C:\\Dinamap\\" + studyID + "_" + patientID + "\\queued_sql");
-               
-                    // Open study measurements window
-                    frmMain fMain = new frmMain(patientID, studyID);
+            ProceedToStudy();
+        }
 
-                    // Hide this window
-                    this.Visible = false;
-                    
-                    // Show study measurements window
-                    fMain.Show();
-                }
+        private void ProceedToStudy()
+        {
+            try
+            {
+                // Store inputs into global vars
+                patientID = txtPatientID.Text;
+                
+                // Create directories to store data locally
+                if (!Directory.Exists("C:\\Dinamap"))
+                    Directory.CreateDirectory("C:\\Dinamap");
+                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "_" + patientID);
+                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "_" + patientID + "\\raw_xml");
+                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "_" + patientID + "\\queued_sql");
+           
+                // Open study measurements window
+                frmMain fMain = new frmMain(patientID, visitID);
 
-                // Prompt user to fill input fields if either are blank
-                else
-                {
-                    MessageBox.Show("Please enter Patient ID and Study ID.");
-                }
+                // Hide this window
+                this.Visible = false;
+                
+                // Show study measurements window
+                fMain.Show();
             }
             catch (Exception ex)
             {
@@ -75,6 +195,29 @@ namespace DinamapN
 
         private void frmInit_Load(object sender, EventArgs e)
         {
+            OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+            MyConnection.Open();
+            OdbcCommand DbCommand = MyConnection.CreateCommand();
+            DbCommand.CommandText = "SELECT Title, Protocol_ID from Protocol";
+            OdbcDataReader MyReader = DbCommand.ExecuteReader();
+            if (MyReader != null)
+            {
+                while (MyReader.Read())
+                {
+                    txtProtocolID.Items.Insert(MyReader["Protocol_ID"].ToString().TrimStart("pf"),MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
+                }
+            }
+            DbCommand.CommandText = "SELECT Title, Study_ID from Study";
+            OdbcDataReader MyReader2 = DbCommand.ExecuteReader();
+            if (MyReader != null)
+            {
+                while (MyReader2.Read())
+                {
+                    txtStudyID.Items.Insert(MyReader2["Study_ID"],MyReader2["Title"]);
+                }
+            }
+            txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtProtocolID.DropDownStyle = ComboBoxStyle.DropDownList;
             // User ready to begin inputting info on load
             this.txtFirstName.Focus();
             this.txtFirstName.ScrollToCaret();
@@ -90,6 +233,7 @@ namespace DinamapN
             fStart.Show();
         }
 
+        // End program when user closes window
         private void frmInit_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
