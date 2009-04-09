@@ -200,12 +200,13 @@ namespace DinamapN
                 {
                     while (MyReader.Read())
                     {
-                        txtProtocolID.Items.Insert(Convert.ToInt16(MyReader["Protocol_ID"].ToString().Remove(0, 2)), MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
+                        //txtProtocolID.Items.Insert(Convert.ToInt16(MyReader["Protocol_ID"].ToString().Remove(0, 2)), MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
+                        txtProtocolID.Items.Add(new ListItem(MyReader["Protocol_ID"],MyReader["Title"]));
                     }
                 }
                 DbCommand.CommandText = "SELECT Title, Study_ID from Study";
                 OdbcDataReader MyReader2 = DbCommand.ExecuteReader();
-                if (MyReader != null)
+                if (MyReader2 != null)
                 {
                     while (MyReader2.Read())
                         txtStudyID.Items.Insert(Convert.ToInt16(MyReader2["Study_ID"]), MyReader2["Title"]);
