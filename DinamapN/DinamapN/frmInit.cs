@@ -47,7 +47,7 @@ namespace DinamapN
                 sb.Append("','");
                 sb.Append(h["Protocol_ID"]);
                 sb.Append("','");
-                sb.Append(h[DateTime.Now.ToString("yyyy:MM:dd HH:mm:ss")]);
+                sb.Append(DateTime.Now.ToString("yyyy:MM:dd HH:mm:ss"));
                 sb.Append("','");
                 sb.Append(h["Nurse"]);
                 sb.Append("','");
@@ -73,12 +73,12 @@ namespace DinamapN
                 h["Errors"] += "Patient ID\n";
 
             if (txtProtocolID.SelectedItem != null)
-                h["Protocol_ID"] = txtProtocolID.SelectedItem.ToString();
+                h["Protocol_ID"] = ((KeyValuePair)txtProtocolID.SelectedItem).m_objKey.ToString();
             else
                 h["Errors"] += "Protocol\n";
 
             if (txtStudyID.SelectedItem != null)
-                h["Study_ID"] = txtStudyID.SelectedItem.ToString();
+                h["Study_ID"] = ((KeyValuePair)txtStudyID.SelectedItem).m_objKey.ToString();
             else
                 h["Errors"] += "Study\n";
 
@@ -139,6 +139,8 @@ namespace DinamapN
         {
             string query1 = buildQueryString(h);
             string query2 = buildQueryString2(h);
+            MessageBox.Show(query1);
+            MessageBox.Show(query2);
 
             try
             {
@@ -200,16 +202,25 @@ namespace DinamapN
                 {
                     while (MyReader.Read())
                     {
-                        //txtProtocolID.Items.Insert(Convert.ToInt16(MyReader["Protocol_ID"].ToString().Remove(0, 2)), MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
-                        txtProtocolID.Items.Add(new ListItem(MyReader["Protocol_ID"],MyReader["Title"]));
+                        txtProtocolID.Items.Add(new KeyValuePair(MyReader["Protocol_ID"].ToString().Remove(0,2),MyReader["Protocol_ID"].ToString() + " - " + MyReader["Title"].ToString()));
                     }
                 }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error. Check network connection then go back and try again.");
+            }
+            try
+            {
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = "SELECT Title, Study_ID from Study";
                 OdbcDataReader MyReader2 = DbCommand.ExecuteReader();
                 if (MyReader2 != null)
                 {
                     while (MyReader2.Read())
-                        txtStudyID.Items.Insert(Convert.ToInt16(MyReader2["Study_ID"]), MyReader2["Title"]);
+                        txtStudyID.Items.Add(new KeyValuePair(MyReader2["Study_ID"].ToString(), MyReader2["Title"].ToString()));
                 }
             }
             catch (Exception)
