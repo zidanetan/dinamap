@@ -15,10 +15,6 @@ namespace DinamapN
     public partial class frmInit : Form
     {
         private string patientID;
-        private string studyID;
-        private string protocolID;
-        private string nurse;
-        private string physician;
         private string visitID;
 
         public frmInit()
@@ -60,8 +56,7 @@ namespace DinamapN
                 sb.Append(");");
             }
             catch (Exception)
-            {
-                
+            {   
             }
 
             return sb.ToString();
@@ -75,17 +70,17 @@ namespace DinamapN
             if (txtPatientID.Text != "")
                 h["Patient_ID"] = txtPatientID.Text;
             else
-                h["Errors"] += "PatientID\n";
-
-            if (txtStudyID.SelectedItem != null)
-                h["Study_ID"] = txtStudyID.SelectedItem.ToString();
-            else
-                h["Errors"] += "Study\n";
+                h["Errors"] += "Patient ID\n";
 
             if (txtProtocolID.SelectedItem != null)
                 h["Protocol_ID"] = txtProtocolID.SelectedItem.ToString();
             else
                 h["Errors"] += "Protocol\n";
+
+            if (txtStudyID.SelectedItem != null)
+                h["Study_ID"] = txtStudyID.SelectedItem.ToString();
+            else
+                h["Errors"] += "Study\n";
 
             if (txtNurse.Text != "")
                 h["Nurse"] = txtNurse.Text;
@@ -120,7 +115,6 @@ namespace DinamapN
             }
             catch (Exception)
             {
-
             }
             
             return sb.ToString();
@@ -158,7 +152,7 @@ namespace DinamapN
             }
             catch (Exception)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Error. Check Network Connection.");
             }
 
             ProceedToStudy();
@@ -195,26 +189,31 @@ namespace DinamapN
 
         private void frmInit_Load(object sender, EventArgs e)
         {
-            OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
-            MyConnection.Open();
-            OdbcCommand DbCommand = MyConnection.CreateCommand();
-            DbCommand.CommandText = "SELECT Title, Protocol_ID from Protocol";
-            OdbcDataReader MyReader = DbCommand.ExecuteReader();
-            if (MyReader != null)
+            try
             {
-                while (MyReader.Read())
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                DbCommand.CommandText = "SELECT Title, Protocol_ID from Protocol";
+                OdbcDataReader MyReader = DbCommand.ExecuteReader();
+                if (MyReader != null)
                 {
-                    txtProtocolID.Items.Insert(Convert.ToInt16(MyReader["Protocol_ID"].ToString().Remove(0,2)),MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
+                    while (MyReader.Read())
+                    {
+                        txtProtocolID.Items.Insert(Convert.ToInt16(MyReader["Protocol_ID"].ToString().Remove(0, 2)), MyReader["Protocol_ID"].ToString() + " " + MyReader["Title"].ToString());
+                    }
+                }
+                DbCommand.CommandText = "SELECT Title, Study_ID from Study";
+                OdbcDataReader MyReader2 = DbCommand.ExecuteReader();
+                if (MyReader != null)
+                {
+                    while (MyReader2.Read())
+                        txtStudyID.Items.Insert(Convert.ToInt16(MyReader2["Study_ID"]), MyReader2["Title"]);
                 }
             }
-            DbCommand.CommandText = "SELECT Title, Study_ID from Study";
-            OdbcDataReader MyReader2 = DbCommand.ExecuteReader();
-            if (MyReader != null)
+            catch (Exception)
             {
-                while (MyReader2.Read())
-                {
-                    txtStudyID.Items.Insert(Convert.ToInt16(MyReader2["Study_ID"]),MyReader2["Title"]);
-                }
+                MessageBox.Show("Error. Check network connection then go back and try again.");
             }
             txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
             txtProtocolID.DropDownStyle = ComboBoxStyle.DropDownList;
