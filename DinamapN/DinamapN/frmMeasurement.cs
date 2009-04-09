@@ -17,7 +17,7 @@ namespace DinamapN
         int numMeasurementsFailed;
         int numCommentMarker;
         private string patientID;
-        private string studyID;
+        private string visitID;
         private XmlDocument lastMeasurement = new XmlDocument();
         private OdbcConnection MyConnection;
         
@@ -28,17 +28,17 @@ namespace DinamapN
         }
 
         // Constructor w/ arguments (loaded from FormInit)
-        public frmMeasurement(string patient, string study)
+        public frmMeasurement(string patient, string visit)
         {
             InitializeComponent();
 
-            // Store Patient & Study ID's for later use
+            // Store Patient & Visit ID's for later use
             patientID = patient;
-            studyID = study;
+            visitID = visit;
 
             // Show ID's on form
             lblPatientID.Text = patient;
-            lblStudyID.Text = study;
+            lblVisitID.Text = visit;
 
             // Load reference XML (necessary for first comparison)
             try
@@ -122,7 +122,7 @@ namespace DinamapN
             doc.PreserveWhitespace = false;
             try
             {
-                doc.Save("C:\\Dinamap\\" + studyID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
+                doc.Save("C:\\Dinamap\\" + visitID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
             }
             catch (Exception ex)
             {
@@ -186,10 +186,10 @@ namespace DinamapN
 
             try
             {
-                queryBuilder.Append("INSERT INTO MeasurementsData (Study_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
+                queryBuilder.Append("INSERT INTO MeasurementsData (Visit_ID, Time, SP, DP, MAP, Pulse, Comments) VALUES");
                 queryBuilder.Append("(");
                 queryBuilder.Append("'");
-                queryBuilder.Append(studyID);
+                queryBuilder.Append(visitID);
                 queryBuilder.Append("','");
                 queryBuilder.Append(((DateTime)h["Systolic_blood_pressure_Time_stamp"]).ToString("yyyy:MM:dd HH:mm:ss"));
                 queryBuilder.Append("','");
@@ -351,8 +351,8 @@ namespace DinamapN
             StringBuilder queryBuilder = new StringBuilder();
             queryBuilder.Append("UPDATE MeasurementsData SET Comments = '");
             queryBuilder.Append("@Comment");
-            queryBuilder.Append("' WHERE ((Study_ID = '");
-            queryBuilder.Append(studyID);
+            queryBuilder.Append("' WHERE ((Visit_ID = '");
+            queryBuilder.Append(visitID);
             queryBuilder.Append("') AND (Time = '");
             queryBuilder.Append(commentTime);
             queryBuilder.Append("'));");
@@ -366,7 +366,7 @@ namespace DinamapN
         {
             try
             {
-                StreamWriter output = new StreamWriter("C:\\Dinamap\\" + studyID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                StreamWriter output = new StreamWriter("C:\\Dinamap\\" + visitID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
                 output.WriteLine(statement);
                 output.Close();
             }

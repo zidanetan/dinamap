@@ -61,7 +61,7 @@ namespace DinamapN
             this.cmdStop = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.idPanel = new System.Windows.Forms.Panel();
-            this.lblStudyID = new System.Windows.Forms.Label();
+            this.lblVisitID = new System.Windows.Forms.Label();
             this.lblPatientID = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -278,7 +278,7 @@ namespace DinamapN
             // 
             this.lblNum.AutoSize = true;
             this.lblNum.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNum.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblNum.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblNum.Location = new System.Drawing.Point(180, 40);
             this.lblNum.Name = "lblNum";
             this.lblNum.Size = new System.Drawing.Size(19, 18);
@@ -289,7 +289,7 @@ namespace DinamapN
             // 
             this.lblTime.AutoSize = true;
             this.lblTime.Font = new System.Drawing.Font("Verdana", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblTime.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblTime.Location = new System.Drawing.Point(180, 15);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(86, 18);
@@ -364,7 +364,7 @@ namespace DinamapN
             // idPanel
             // 
             this.idPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.idPanel.Controls.Add(this.lblStudyID);
+            this.idPanel.Controls.Add(this.lblVisitID);
             this.idPanel.Controls.Add(this.lblPatientID);
             this.idPanel.Controls.Add(this.label7);
             this.idPanel.Controls.Add(this.label5);
@@ -373,14 +373,14 @@ namespace DinamapN
             this.idPanel.Size = new System.Drawing.Size(260, 70);
             this.idPanel.TabIndex = 10;
             // 
-            // lblStudyID
+            // lblVisitID
             // 
-            this.lblStudyID.AutoSize = true;
-            this.lblStudyID.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStudyID.Location = new System.Drawing.Point(95, 40);
-            this.lblStudyID.Name = "lblStudyID";
-            this.lblStudyID.Size = new System.Drawing.Size(0, 14);
-            this.lblStudyID.TabIndex = 14;
+            this.lblVisitID.AutoSize = true;
+            this.lblVisitID.Font = new System.Drawing.Font("Verdana", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVisitID.Location = new System.Drawing.Point(95, 40);
+            this.lblVisitID.Name = "lblVisitID";
+            this.lblVisitID.Size = new System.Drawing.Size(0, 14);
+            this.lblVisitID.TabIndex = 14;
             // 
             // lblPatientID
             // 
@@ -407,9 +407,9 @@ namespace DinamapN
             this.label5.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(15, 40);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 16);
+            this.label5.Size = new System.Drawing.Size(61, 16);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Study ID:";
+            this.label5.Text = "Visit ID:";
             // 
             // dinamapConnectedCheckBox
             // 
@@ -504,7 +504,7 @@ namespace DinamapN
         private System.Windows.Forms.Button cmdStop;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel idPanel;
-        private System.Windows.Forms.Label lblStudyID;
+        private System.Windows.Forms.Label lblVisitID;
         private System.Windows.Forms.Label lblPatientID;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
