@@ -297,7 +297,8 @@ namespace DinamapN
                 resultsGrid.Columns[10].Visible = false;
                 resultsGrid.Columns[11].Visible = false;
                 Cursor.Current = Cursors.Default; //Reset cursor
-                
+                resultsGrid.Rows[0].Selected = false;
+
                 // Display message if no results
                 if (resultsGrid.RowCount > 0)
                     txtSearchStatus.Visible = false;
