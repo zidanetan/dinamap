@@ -202,7 +202,7 @@ namespace DinamapN
                 {
                     while (MyReader.Read())
                     {
-                        txtProtocolID.Items.Add(new KeyValuePair(MyReader["Protocol_ID"].ToString().Remove(0,2),MyReader["Protocol_ID"].ToString() + " - " + MyReader["Title"].ToString()));
+                        txtProtocolID.Items.Add(new KeyValuePair(MyReader["Protocol_ID"].ToString(),MyReader["Protocol_ID"].ToString() + " - " + MyReader["Title"].ToString()));
                     }
                 }
             }
