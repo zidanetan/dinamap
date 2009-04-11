@@ -16,7 +16,6 @@ namespace DinamapN
         int numMeasurementsSuccessful;
         int numMeasurementsFailed;
         int numCommentMarker;
-        private string patientID;
         private string visitID;
         private XmlDocument lastMeasurement = new XmlDocument();
         private OdbcConnection MyConnection;
@@ -28,17 +27,12 @@ namespace DinamapN
         }
 
         // Constructor w/ arguments (loaded from FormInit)
-        public frmMeasurement(string patient, string visit)
+        public frmMeasurement(string visit)
         {
             InitializeComponent();
 
-            // Store Patient & Visit ID's for later use
-            patientID = patient;
+            // Store Visit ID's for later use
             visitID = visit;
-
-            // Show ID's on form
-            //lblPatientID.Text = patient;
-            //lblVisitID.Text = visit;
 
             // Load reference XML (necessary for first comparison)
             try
@@ -121,7 +115,7 @@ namespace DinamapN
             doc.PreserveWhitespace = false;
             try
             {
-                doc.Save("C:\\Dinamap\\" + visitID + "_" + patientID + "\\raw_xml\\" + numMeasurements + ".xml");
+                doc.Save("C:\\Dinamap\\" + visitID + "\\raw_xml\\" + numMeasurements + ".xml");
             }
             catch (Exception ex)
             {
@@ -380,7 +374,7 @@ namespace DinamapN
         {
             try
             {
-                StreamWriter output = new StreamWriter("C:\\Dinamap\\" + visitID + "_" + patientID + "\\queued_sql\\" + "queued_sql.sql", true);
+                StreamWriter output = new StreamWriter("C:\\Dinamap\\" + visitID + "\\queued_sql\\" + "queued_sql.sql", true);
                 output.WriteLine(statement);
                 output.Close();
             }
