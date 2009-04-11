@@ -171,7 +171,7 @@ namespace DinamapN
                     // Show measurement with "failed" icon and field
                 else
                 {
-                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.error1,
+                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.error,
                                         ((DateTime) h["Systolic_blood_pressure_Time_stamp"]),
                                         h["Systolic_blood_pressure_Value"],
                                         h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", false);
