@@ -322,6 +322,7 @@ namespace DinamapN
                         insertCommand.ExecuteNonQuery();
                         MyConnection.Close();
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Green;
+                        MessageBox.Show(insertCommand.CommandText);
                     }
                     // Save locally if unsuccessful
                     catch (Exception ex)
