@@ -335,7 +335,8 @@ namespace DinamapN
                     catch (Exception ex)
                     {
                         commentText = commentText.Replace("'", "''");
-                        saveLocalSQL(insertCommand.CommandText.Replace("?", ("'" + commentText + "'")));
+                        string saveSQL = insertCommand.CommandText.Replace("?", ("'" + commentText + "'"));
+                        saveLocalSQL(saveSQL);
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                     }
                 }
