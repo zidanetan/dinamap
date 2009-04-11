@@ -17,22 +17,25 @@ namespace DinamapN
         private string patientID;
         private string visitID;
 
+        // Constructor for new patient
         public frmInit()
         {
             InitializeComponent();
+            patientID = "";
         }
 
+        // Constructor for existing patien
         public frmInit(String patient)
         {
             InitializeComponent();
             patientID = patient;
-            this.txtPatientID.ReadOnly = true;
-            this.txtPatientID.Text = patientID;
+            // Make sure user cannot lookup a patient
             this.panel1.Enabled = false;
             this.resultsGrid.Enabled = false;
         }
 
-        private string buildQueryString(Hashtable h)
+        // Creates an SQL insert statement for the Visit table from the hashtable.
+        private string buildVisitInsertString(Hashtable h)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -55,22 +58,23 @@ namespace DinamapN
                 sb.Append("'");
                 sb.Append(");");
             }
-            catch (Exception)
-            {   
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error building insert statement string for Visit: " + ex.ToString());
             }
-
             return sb.ToString();
         }
 
+        // Fill a hashtable with form values, make sure they're filled out.
         private Hashtable validateForm()
         {
             Hashtable h = new Hashtable();
             h["Errors"] = "";
 
-            if (txtPatientID.Text != "")
-                h["Patient_ID"] = txtPatientID.Text;
+            if (patientID != "")
+                h["Patient_ID"] = patientID;
             else
-                h["Errors"] += "Patient ID\n";
+                h["Errors"] += "Patient\n";
 
             if (txtProtocolID.SelectedItem != null)
                 h["Protocol_ID"] = ((KeyValuePair)txtProtocolID.SelectedItem).m_objKey.ToString();
@@ -82,12 +86,12 @@ namespace DinamapN
             else
                 h["Errors"] += "Study\n";
 
-            if (txtNurse.SelectedItem != "")
+            if (txtNurse.SelectedItem != null)
                 h["Nurse"] = txtNurse.SelectedItem;
             else
                 h["Errors"] += "Nurse\n";
 
-            if (txtPhysician.SelectedItem != "")
+            if (txtPhysician.SelectedItem != null)
                 h["Physician"] = txtPhysician.SelectedItem;
             else
                 h["Errors"] += "Physician\n";
@@ -95,7 +99,8 @@ namespace DinamapN
             return h;
         }
 
-        private string buildQueryString2(Hashtable h)
+        // Creates an SQL query statement for the Visit talbe from the hashtable
+        private string buildVisitQueryString(Hashtable h)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -113,41 +118,44 @@ namespace DinamapN
                 sb.Append(h["Physician"]);
                 sb.Append("' order by Date desc;");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                MessageBox.Show("Error building query statement string for Visit: " + ex.ToString());
             }
-            
             return sb.ToString();
         }
 
         // When the user clicks the "Proceed to Study" button...
         private void btnStudy_Click(object sender, EventArgs e)
         {
-            Hashtable h = validateForm();
+            Hashtable h = validateForm();  // Build hashtable from form entries
 
+            // If no errors...
             if (h["Errors"].ToString() == "")//if no errors...
             {
-                RegisterVisit(h);
+                RegisterVisit(h);   // Create "visit" instance on DB
             }
+            // If errors, then alert the user
             else
             {
                 MessageBox.Show("Please complete the following fields:\n" + h["Errors"]);
             }
         }
             
+        // Upload visit data & pull auto-generated Visit ID
         private void RegisterVisit(Hashtable h)
         {
-            string query1 = buildQueryString(h);
-            string query2 = buildQueryString2(h);
+            string insertStatement = buildVisitInsertString(h);
+            string queryStatement = buildVisitQueryString(h);
             
             try
             {
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = query1;
+                DbCommand.CommandText = insertStatement;
                 DbCommand.ExecuteNonQuery();
-                DbCommand.CommandText = query2;
+                DbCommand.CommandText = queryStatement;
                 visitID = DbCommand.ExecuteScalar().ToString();
             }
             catch (Exception)
@@ -158,22 +166,21 @@ namespace DinamapN
             ProceedToStudy();
         }
 
+        // Open study window, create local storage directories
         private void ProceedToStudy()
         {
             try
             {
-                // Store inputs into global vars
-                patientID = txtPatientID.Text;
                 
                 // Create directories to store data locally
                 if (!Directory.Exists("C:\\Dinamap"))
                     Directory.CreateDirectory("C:\\Dinamap");
-                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "_" + patientID);
-                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "_" + patientID + "\\raw_xml");
-                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "_" + patientID + "\\queued_sql");
+                Directory.CreateDirectory("C:\\Dinamap\\" + visitID);
+                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "\\raw_xml");
+                Directory.CreateDirectory("C:\\Dinamap\\" + visitID + "\\queued_sql");
            
                 // Open study measurements window
-                frmMain fMain = new frmMain(patientID, visitID);
+                frmMain fMain = new frmMain(visitID);
 
                 // Hide this window
                 this.Visible = false;
@@ -187,20 +194,52 @@ namespace DinamapN
             }
         }
 
+        // When the form loads...
         private void frmInit_Load(object sender, EventArgs e)
         {
+            fillDropdowns();
+
+            // User ready to begin inputting info on load
+            this.txtFirstName.Focus();
+            this.txtFirstName.ScrollToCaret();
+        }
+
+        // Fill all the drop down menus with DB queried info
+        private void fillDropdowns()
+        {
+            txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtProtocolID.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtNurse.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtPhysician.DropDownStyle = ComboBoxStyle.DropDownList;
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
-                MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = "SELECT Title, Protocol_ID from Protocol";
-                OdbcDataReader MyReader = DbCommand.ExecuteReader();
-                if (MyReader != null)
+                OdbcDataReader studyReader = executePullDownQuery("SELECT Title, Study_ID from Study");
+                if (studyReader != null)
                 {
-                    while (MyReader.Read())
+                    while (studyReader.Read())
+                        txtStudyID.Items.Add(new KeyValuePair(studyReader["Study_ID"].ToString(), studyReader["Title"].ToString()));
+                }
+
+                OdbcDataReader nurseReader = executePullDownQuery("SELECT VUNET_ID from Nurse");
+                if (nurseReader != null)
+                {
+                    while (nurseReader.Read())
+                        txtNurse.Items.Add(nurseReader["VUNET_ID"].ToString());
+                }
+
+                OdbcDataReader physicianReader = executePullDownQuery("SELECT VUNET_ID from Physician");
+                if (physicianReader != null)
+                {
+                    while (physicianReader.Read())
+                        txtPhysician.Items.Add(physicianReader["VUNET_ID"].ToString());
+                }
+
+                OdbcDataReader protocolReader = executePullDownQuery("SELECT Title, Protocol_ID from Protocol");
+                if (protocolReader != null)
+                {
+                    while (protocolReader.Read())
                     {
-                        txtProtocolID.Items.Add(new KeyValuePair(MyReader["Protocol_ID"].ToString(),MyReader["Protocol_ID"].ToString() + " - " + MyReader["Title"].ToString()));
+                        txtProtocolID.Items.Add(new KeyValuePair(protocolReader["Protocol_ID"].ToString(), protocolReader["Protocol_ID"].ToString() + " - " + protocolReader["Title"].ToString()));
                     }
                 }
             }
@@ -208,64 +247,23 @@ namespace DinamapN
             {
                 MessageBox.Show("Error. Check network connection then go back and try again.");
             }
+        }
+
+        private OdbcDataReader executePullDownQuery(string query)
+        {
             try
             {
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = "SELECT Title, Study_ID from Study";
-                OdbcDataReader MyReader2 = DbCommand.ExecuteReader();
-                if (MyReader2 != null)
-                {
-                    while (MyReader2.Read())
-                        txtStudyID.Items.Add(new KeyValuePair(MyReader2["Study_ID"].ToString(), MyReader2["Title"].ToString()));
-                }
+                DbCommand.CommandText = query;
+                OdbcDataReader MyReader = DbCommand.ExecuteReader();
+                return MyReader;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error. Check network connection then go back and try again.");
+                return null;
             }
-            try
-            {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
-                MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = "SELECT VUNET_ID from Nurse";
-                OdbcDataReader MyReader3 = DbCommand.ExecuteReader();
-                if (MyReader3 != null)
-                {
-                    while (MyReader3.Read())
-                        txtNurse.Items.Add(MyReader3["VUNET_ID"].ToString());
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error. Check network connection then go back and try again.");
-            }
-            try
-            {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
-                MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = "SELECT VUNET_ID from Physician";
-                OdbcDataReader MyReader4 = DbCommand.ExecuteReader();
-                if (MyReader4 != null)
-                {
-                    while (MyReader4.Read())
-                        txtPhysician.Items.Add(MyReader4["VUNET_ID"].ToString());
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Error. Check network connection then go back and try again.");
-            }
-            txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
-            txtProtocolID.DropDownStyle = ComboBoxStyle.DropDownList;
-            txtNurse.DropDownStyle = ComboBoxStyle.DropDownList;
-            txtPhysician.DropDownStyle = ComboBoxStyle.DropDownList;
-            // User ready to begin inputting info on load
-            this.txtFirstName.Focus();
-            this.txtFirstName.ScrollToCaret();
         }
 
         // When the user clicks the "Back" button...
@@ -347,7 +345,7 @@ namespace DinamapN
 
                 // Display message if no results
                 if (resultsGrid.RowCount > 0)
-                    txtSearchStatus.Visible = false;
+                    txtSearchStatus.Text = "Click on a patient to select.";
                 else
                     txtSearchStatus.Text = "No results found!";
             }
@@ -360,8 +358,11 @@ namespace DinamapN
         // When the user clicks any data grid cell...
         private void resultsGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // If not the header row...
-                txtPatientID.Text = resultsGrid.Rows[e.RowIndex].Cells[0].FormattedValue.ToString(); // Pull "Patient ID"
+            if (e.RowIndex >= 0) // If not the header row... 
+            {
+                patientID = resultsGrid.Rows[e.RowIndex].Cells[0].FormattedValue.ToString(); // Pull "Patient ID"
+                txtSearchStatus.Visible = false;
+            }   
         }
 
         // When the user presses a key inside an input field...
@@ -371,5 +372,5 @@ namespace DinamapN
                 this.btnLookup_Click(sender, e); // "Press" the lookup button
         }
 
-    }
+   }
 }
