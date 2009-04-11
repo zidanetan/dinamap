@@ -335,15 +335,19 @@ namespace DinamapN
                     catch (Exception ex)
                     {
                         commentText = commentText.Replace("'", "''");
-                        string saveSQL = insertCommand.CommandText.Replace("?", ("'" + commentText + "'"));
-                        saveLocalSQL(saveSQL);
+                        string sqlText = insertCommand.CommandText;
+                        sqlText = sqlText.Replace("?", "'" + commentText + "'");
+                        saveLocalSQL(sqlText);
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                     }
                 }
                 // Save locally if measurement failed.
                 else if (valueUploadStatus.Equals("False") && !commentText.Equals(""))
                 {
-                    saveLocalSQL(insertCommand.CommandText);
+                    commentText = commentText.Replace("'", "''");
+                    string sqlText = insertCommand.CommandText;
+                    sqlText = sqlText.Replace("?", "'" + commentText + "'");
+                    saveLocalSQL(sqlText);
                     mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                 }
                 mGrid.Rows[i].Cells[5].ReadOnly = true;
