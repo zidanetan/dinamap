@@ -37,8 +37,8 @@ namespace DinamapN
             visitID = visit;
 
             // Show ID's on form
-            lblPatientID.Text = patient;
-            lblVisitID.Text = visit;
+            //lblPatientID.Text = patient;
+            //lblVisitID.Text = visit;
 
             // Load reference XML (necessary for first comparison)
             try
@@ -322,12 +322,13 @@ namespace DinamapN
                         insertCommand.ExecuteNonQuery();
                         MyConnection.Close();
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Green;
-                        MessageBox.Show(insertCommand.CommandText);
+                        MessageBox.Show(insertCommand.ToString());
                     }
                     // Save locally if unsuccessful
                     catch (Exception ex)
                     {
-                        saveLocalSQL(insertCommand.CommandText);
+                        commentText = commentText.Replace("'", "''");
+                        saveLocalSQL(insertCommand.CommandText.Replace("?", ("'" + commentText + "'")));
                         mGrid.Rows[i].Cells[5].Style.BackColor = Color.Red;
                     }
                 }
@@ -347,12 +348,12 @@ namespace DinamapN
         {
             OdbcCommand updateComment = MyConnection.CreateCommand();
             string commentText = inputRow.Cells[5].FormattedValue.ToString(); // Grab comment from row
-            commentText = commentText.Replace("'", "''"); // Correct for SQL format
+            //commentText = commentText.Replace("'", "''"); // Correct for SQL format
             string commentTime = ((DateTime)inputRow.Cells[1].Value).ToString("yyyy:MM:dd HH:mm:ss"); // Grab date from row, convert for SQL
             StringBuilder queryBuilder = new StringBuilder();
-            queryBuilder.Append("UPDATE MeasurementsData SET Comments = '");
-            queryBuilder.Append("@Comment");
-            queryBuilder.Append("' WHERE ((Visit_ID = '");
+            queryBuilder.Append("UPDATE MeasurementsData SET Comments = ");
+            queryBuilder.Append("?");
+            queryBuilder.Append(" WHERE ((Visit_ID = '");
             queryBuilder.Append(visitID);
             queryBuilder.Append("') AND (Time = '");
             queryBuilder.Append(commentTime);
