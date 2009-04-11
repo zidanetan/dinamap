@@ -50,13 +50,13 @@ namespace DinamapN
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtProtocolID = new System.Windows.Forms.ComboBox();
             this.txtStudyID = new System.Windows.Forms.ComboBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.txtNurse = new System.Windows.Forms.ComboBox();
-            this.txtPhysician = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.txtPhysician = new System.Windows.Forms.ComboBox();
+            this.txtNurse = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.resultsGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -227,7 +227,7 @@ namespace DinamapN
             this.resultsGrid.ReadOnly = true;
             this.resultsGrid.RowHeadersVisible = false;
             this.resultsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.resultsGrid.Size = new System.Drawing.Size(472, 157);
+            this.resultsGrid.Size = new System.Drawing.Size(472, 175);
             this.resultsGrid.TabIndex = 1;
             this.resultsGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.resultsGrid_CellClick);
             // 
@@ -236,7 +236,7 @@ namespace DinamapN
             this.txtSearchStatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.txtSearchStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSearchStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearchStatus.Location = new System.Drawing.Point(12, 332);
+            this.txtSearchStatus.Location = new System.Drawing.Point(12, 331);
             this.txtSearchStatus.Name = "txtSearchStatus";
             this.txtSearchStatus.ReadOnly = true;
             this.txtSearchStatus.Size = new System.Drawing.Size(472, 20);
@@ -286,6 +286,16 @@ namespace DinamapN
             this.panel2.Size = new System.Drawing.Size(364, 134);
             this.panel2.TabIndex = 105;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 18);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Study Criteria:";
+            // 
             // txtProtocolID
             // 
             this.txtProtocolID.FormattingEnabled = true;
@@ -315,32 +325,6 @@ namespace DinamapN
             this.panel3.Size = new System.Drawing.Size(364, 123);
             this.panel3.TabIndex = 106;
             // 
-            // txtNurse
-            // 
-            this.txtNurse.FormattingEnabled = true;
-            this.txtNurse.Location = new System.Drawing.Point(100, 36);
-            this.txtNurse.Name = "txtNurse";
-            this.txtNurse.Size = new System.Drawing.Size(251, 21);
-            this.txtNurse.TabIndex = 108;
-            // 
-            // txtPhysician
-            // 
-            this.txtPhysician.FormattingEnabled = true;
-            this.txtPhysician.Location = new System.Drawing.Point(100, 85);
-            this.txtPhysician.Name = "txtPhysician";
-            this.txtPhysician.Size = new System.Drawing.Size(251, 21);
-            this.txtPhysician.TabIndex = 109;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Verdana", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 18);
-            this.label1.TabIndex = 25;
-            this.label1.Text = "Study Criteria:";
-            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -350,6 +334,22 @@ namespace DinamapN
             this.label10.Size = new System.Drawing.Size(127, 18);
             this.label10.TabIndex = 105;
             this.label10.Text = "Administrator:";
+            // 
+            // txtPhysician
+            // 
+            this.txtPhysician.FormattingEnabled = true;
+            this.txtPhysician.Location = new System.Drawing.Point(100, 85);
+            this.txtPhysician.Name = "txtPhysician";
+            this.txtPhysician.Size = new System.Drawing.Size(251, 21);
+            this.txtPhysician.TabIndex = 109;
+            // 
+            // txtNurse
+            // 
+            this.txtNurse.FormattingEnabled = true;
+            this.txtNurse.Location = new System.Drawing.Point(100, 36);
+            this.txtNurse.Name = "txtNurse";
+            this.txtNurse.Size = new System.Drawing.Size(251, 21);
+            this.txtNurse.TabIndex = 108;
             // 
             // frmInit
             // 
