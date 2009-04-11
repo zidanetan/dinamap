@@ -209,7 +209,6 @@
     </Content>
     <Content Include="Health-care-shield.ico" />
     <None Include="Resources\error.png" />
-    <None Include="Resources\error1.png" />
     <None Include="Resources\erro1.bmp" />
     <EmbeddedResource Include="Resources\blank.png">
       <CustomToolNamespace>images</CustomToolNamespace>
