@@ -82,13 +82,13 @@ namespace DinamapN
             else
                 h["Errors"] += "Study\n";
 
-            if (txtNurse.Text != "")
-                h["Nurse"] = txtNurse.Text;
+            if (txtNurse.SelectedItem != "")
+                h["Nurse"] = txtNurse.SelectedItem;
             else
                 h["Errors"] += "Nurse\n";
 
-            if (txtPhysician.Text != "")
-                h["Physician"] = txtPhysician.Text;
+            if (txtPhysician.SelectedItem != "")
+                h["Physician"] = txtPhysician.SelectedItem;
             else
                 h["Errors"] += "Physician\n";
 
@@ -139,9 +139,7 @@ namespace DinamapN
         {
             string query1 = buildQueryString(h);
             string query2 = buildQueryString2(h);
-            MessageBox.Show(query1);
-            MessageBox.Show(query2);
-
+            
             try
             {
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
@@ -227,8 +225,44 @@ namespace DinamapN
             {
                 MessageBox.Show("Error. Check network connection then go back and try again.");
             }
+            try
+            {
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                DbCommand.CommandText = "SELECT VUNET_ID from Nurse";
+                OdbcDataReader MyReader3 = DbCommand.ExecuteReader();
+                if (MyReader3 != null)
+                {
+                    while (MyReader3.Read())
+                        txtNurse.Items.Add(MyReader3["VUNET_ID"].ToString());
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error. Check network connection then go back and try again.");
+            }
+            try
+            {
+                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                MyConnection.Open();
+                OdbcCommand DbCommand = MyConnection.CreateCommand();
+                DbCommand.CommandText = "SELECT VUNET_ID from Physician";
+                OdbcDataReader MyReader4 = DbCommand.ExecuteReader();
+                if (MyReader4 != null)
+                {
+                    while (MyReader4.Read())
+                        txtPhysician.Items.Add(MyReader4["VUNET_ID"].ToString());
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error. Check network connection then go back and try again.");
+            }
             txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
             txtProtocolID.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtNurse.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtPhysician.DropDownStyle = ComboBoxStyle.DropDownList;
             // User ready to begin inputting info on load
             this.txtFirstName.Focus();
             this.txtFirstName.ScrollToCaret();
