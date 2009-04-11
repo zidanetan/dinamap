@@ -208,11 +208,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Health-care-shield.ico" />
-    <Content Include="Resources\error1.png" />
+    <None Include="Resources\error.png" />
+    <None Include="Resources\error1.png" />
+    <None Include="Resources\erro1.bmp" />
     <EmbeddedResource Include="Resources\blank.png">
       <CustomToolNamespace>images</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\error.png">
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\successful.png">
     </EmbeddedResource>
