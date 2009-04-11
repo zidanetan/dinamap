@@ -10,7 +10,6 @@ namespace DinamapN
 {
     public partial class frmMain : Form
     {
-        private string patientID;
         private string visitID;
 
         public frmMain()
@@ -18,10 +17,9 @@ namespace DinamapN
             InitializeComponent();
         }
 
-        public frmMain(string patient, string visit)
+        public frmMain(string visit)
         {
             InitializeComponent();
-            patientID = patient;
             visitID = visit;
         }
 
@@ -56,7 +54,7 @@ namespace DinamapN
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-                frmMeasurement newMDIChild = new frmMeasurement(patientID, visitID);
+                frmMeasurement newMDIChild = new frmMeasurement(visitID);
 
                 scanMeasurementToolStripMenuItem.Enabled = true;
                 newMDIChild.MdiParent = this;
