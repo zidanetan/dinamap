@@ -63,7 +63,7 @@ namespace DinamapN
                     "Please check power, connection, or ensure that USB-serial adapter driver is installed.");
             else
             {
-                int interval = 1000; // Set time interval for measurements (10 seconds)
+                int interval = 30000; // Set time interval for measurements (10 seconds)
                 measurementTimer.Enabled = true; // Enable timer
                 measurementTimer.Interval = interval; // Assign interval to timer
                 measurementTimer.Start(); // Begin timer
@@ -85,9 +85,9 @@ namespace DinamapN
                 currentMeasurement = Tool.Dina_GetStateOff();
 
             // If pulled measurement is not the same as the last one, handle it
-            if (currentMeasurement.InnerText != lastMeasurement.InnerText)
+            if (currentMeasurement.InnerText != lastMeasurement.InnerText && currentMeasurement != null && lastMeasurement != null)
             {
-                Hashtable h = this.handleResponse();
+                this.handleResponse();
             }
         }
 
@@ -102,7 +102,7 @@ namespace DinamapN
         }
 
         // When a new measurement is found...
-        private Hashtable handleResponse()
+        private void handleResponse()
         {
             Hashtable h = new Hashtable();
             if (dinamapConnectedCheckBox.Checked)
@@ -113,7 +113,6 @@ namespace DinamapN
             this.saveLocalXML(lastMeasurement);
             h = responseToHash(lastMeasurement);
             this.saveMySQL(h);
-            return h;
         }
 
         // Saves XML from measurement locally
@@ -157,26 +156,33 @@ namespace DinamapN
         public void writeToGrid(bool success, Hashtable h)
         {
             // Show measurement with "success" icon and field
-            if (success)
+            //MessageBox.Show(h.Count.ToString());
+            
+            if (h.Count != 0)
             {
-                this.mGrid.Rows.Add(DinamapN.Properties.Resources.successful, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
-                    h["Systolic_blood_pressure_Value"],
-                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", true);
-                numMeasurementsSuccessful++;
+                if (success == true)
+                {
+                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.successful,
+                                        ((DateTime) h["Systolic_blood_pressure_Time_stamp"]),
+                                        h["Systolic_blood_pressure_Value"],
+                                        h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", true);
+                    numMeasurementsSuccessful++;
+                }
+                    // Show measurement with "failed" icon and field
+                else
+                {
+                    this.mGrid.Rows.Add(DinamapN.Properties.Resources.error1,
+                                        ((DateTime) h["Systolic_blood_pressure_Time_stamp"]),
+                                        h["Systolic_blood_pressure_Value"],
+                                        h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", false);
+                    numMeasurementsFailed++;
+                }
+                // Update measurement stats and display
+                numMeasurements++;
+                lblNum.Text = numMeasurements.ToString();
+                toolStripStatusLabelNumSuccessful.Text = numMeasurementsSuccessful.ToString();
+                toolStripStatusLabelNumFailed.Text = numMeasurementsFailed.ToString();
             }
-            // Show measurement with "failed" icon and field
-            else
-            {
-                this.mGrid.Rows.Add(DinamapN.Properties.Resources.error, ((DateTime)h["Systolic_blood_pressure_Time_stamp"]),
-                    h["Systolic_blood_pressure_Value"],
-                    h["Diastolic_blood_pressure_Value"], h["Pulse_Value"], "", false);
-                numMeasurementsFailed++;
-            }
-            // Update measurement stats and display
-            numMeasurements++;
-            lblNum.Text = numMeasurements.ToString();
-            toolStripStatusLabelNumSuccessful.Text = numMeasurementsSuccessful.ToString();
-            toolStripStatusLabelNumFailed.Text = numMeasurementsFailed.ToString();
         }
 
         // Constructs query from hashtable built from a successful measurement
@@ -203,12 +209,14 @@ namespace DinamapN
                 queryBuilder.Append("','");
                 queryBuilder.Append("'");
                 queryBuilder.Append(");");
+                return queryBuilder.ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error building SQL query string: " + ex.ToString());
+                //MessageBox.Show("Error building SQL query string: " + ex.ToString());
+                return "";
             }
-            return queryBuilder.ToString();
+            
         }
 
         // Build hash from XML data
