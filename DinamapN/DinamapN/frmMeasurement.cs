@@ -251,6 +251,11 @@ namespace DinamapN
         // Upon loading form...
         private void frmMeasurement_Load(object sender, EventArgs e)
         {
+            //Disable these two commands to debug without a Dinamap
+            dinamapConnectedCheckBox.Checked = true;
+            dinamapConnectedCheckBox.Visible = false;
+
+            // Initialize global vars
             cmdStart.Enabled = true;
             cmdStop.Enabled = false;
             numMeasurements = 0;
