@@ -17,6 +17,7 @@ namespace DinamapN
 
         private void button2_Click(object sender, EventArgs e)
         {
+            this.panel1.Visible = true;
             frmInit fInit = new frmInit();
 
             this.Visible = false;
