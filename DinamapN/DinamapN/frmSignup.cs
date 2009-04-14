@@ -25,21 +25,11 @@ namespace DinamapN
             txtFName.Select();
         }
 
-        //User clicks Back button
-        private void button1_Click(object sender, EventArgs e)
-        {
-            frmStart fStart = new frmStart();
-
-            fStart.Show();
-
-            this.Visible = false;
-        }
-
         //Save Patient registration to Database
         private void saveDB(Hashtable h)
         {
             
-            string query = buildQueryString(h);
+            string query = buildInsertStatement(h);
             try
             {
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
@@ -59,7 +49,7 @@ namespace DinamapN
         //move on to frmInit
         private void continueSignup(Hashtable h)
         {
-            string query = buildQueryString2(h);//build query string
+            string query = buildQueryStatement(h);//build query string
 
             try//patient should already exist in DB
             {
@@ -82,7 +72,7 @@ namespace DinamapN
 
 
         //create SQL INSERT statement with Patient info for new patients
-        private string buildQueryString(Hashtable h)
+        private string buildInsertStatement(Hashtable h)
         {
             StringBuilder sb = new StringBuilder();
             
@@ -130,7 +120,7 @@ namespace DinamapN
         }
 
         //Build query string to see if patient already exists in DB
-        private string buildQueryString2(Hashtable h)
+        private string buildQueryStatement(Hashtable h)
         {
             StringBuilder sb2 = new StringBuilder();
 
@@ -174,7 +164,7 @@ namespace DinamapN
         private void RegisterPatient(Hashtable h)
         {
             //check if patient entry already exists in database
-            string query = buildQueryString2(h);//build query string
+            string query = buildQueryStatement(h);//build query string
 
             //connect to DB and send query
             try
@@ -201,39 +191,58 @@ namespace DinamapN
         //Check for mandatory fields and formatting errors
         private Hashtable validateForm()
         {
+            clearHighlights();
             Hashtable h = new Hashtable();
             h["Errors"] = "";
 
             if (txtFName.Text != "")
                 h["First_Name"] = txtFName.Text;
             else
+            {
                 h["Errors"] += "First Name\n";
+                txtFName.BackColor = Color.Yellow;
+            }
 
             if (txtLName.Text != "")
                 h["Last_Name"] = txtLName.Text;
             else
+            {
                 h["Errors"] += "Last Name\n";
+                txtLName.BackColor = Color.Yellow;
+            }
 
             if (txtGender.SelectedItem != null)
                 h["Gender"] = txtGender.SelectedItem.ToString();
             else
+            {
                 h["Errors"] += "Gender\n";
+                txtGender.BackColor = Color.Yellow;
+            }
 
             if (txtDOB.MaskCompleted)
                 h["DOB"] = txtDOB.Text;
             else
+            {
                 h["Errors"] += "DOB\n";
+                txtDOB.BackColor = Color.Yellow;
+            }
 
             if (txtEth.SelectedItem != null)
                 h["Ethnicity"] = txtEth.SelectedItem.ToString();
             else
+            {
                 h["Errors"] += "Ethnicity\n";
+                txtEth.BackColor = Color.Yellow;
+            }
 
             if (txtSSN.Text != "   -  -")
                 if (txtSSN.Text.Remove(6, 1).Remove(3, 1).Length == 9)
                     h["SSN"] = txtSSN.Text.Remove(6, 1).Remove(3, 1);
                 else
+                {
                     h["Errors"] += "SSN Length\n";
+                    txtSSN.BackColor = Color.Yellow;
+                }
             else
                 h["SSN"] = txtSSN.Text.Remove(6, 1).Remove(3, 1);
             h["Diagnosis"] = txtDiag.Text;
@@ -255,5 +264,26 @@ namespace DinamapN
             if(e.Equals(Keys.Enter))
                 btnRegister_Click(null, null);
         }
+
+        // User clicks back button
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            // Hide this window and show the initial window
+            frmStart fStart = new frmStart();
+            fStart.Show();
+            this.Visible = false;
+        }
+
+        private void clearHighlights()
+        {
+            txtFName.BackColor = Color.White;
+            txtLName.BackColor = Color.White;
+            txtGender.BackColor = Color.White;
+            txtDOB.BackColor = Color.White;
+            txtEth.BackColor = Color.White;
+            txtSSN.BackColor = Color.White;
+        }
+
+
     }
 }
