@@ -197,7 +197,8 @@ namespace DinamapN
         // When the form loads...
         private void frmInit_Load(object sender, EventArgs e)
         {
-            fillDropdowns();
+            if(fillDropdowns()==false)
+                MessageBox.Show("Error. Check network connection then go back and try again.");
 
             // User ready to begin inputting info on load
             this.txtFirstName.Focus();
@@ -205,8 +206,10 @@ namespace DinamapN
         }
 
         // Fill all the drop down menus with DB queried info
-        private void fillDropdowns()
+        private bool fillDropdowns()
         {
+            bool success = true;
+
             txtStudyID.DropDownStyle = ComboBoxStyle.DropDownList;
             txtProtocolID.DropDownStyle = ComboBoxStyle.DropDownList;
             txtNurse.DropDownStyle = ComboBoxStyle.DropDownList;
@@ -219,6 +222,8 @@ namespace DinamapN
                     while (studyReader.Read())
                         txtStudyID.Items.Add(new KeyValuePair(studyReader["Study_ID"].ToString(), studyReader["Title"].ToString()));
                 }
+                else
+                    success = false;
 
                 OdbcDataReader nurseReader = executePullDownQuery("SELECT VUNET_ID from Nurse");
                 if (nurseReader != null)
@@ -226,6 +231,8 @@ namespace DinamapN
                     while (nurseReader.Read())
                         txtNurse.Items.Add(nurseReader["VUNET_ID"].ToString());
                 }
+                else
+                    success = false;
 
                 OdbcDataReader physicianReader = executePullDownQuery("SELECT VUNET_ID from Physician");
                 if (physicianReader != null)
@@ -233,6 +240,8 @@ namespace DinamapN
                     while (physicianReader.Read())
                         txtPhysician.Items.Add(physicianReader["VUNET_ID"].ToString());
                 }
+                else
+                    success = false;
 
                 OdbcDataReader protocolReader = executePullDownQuery("SELECT Title, Protocol_ID from Protocol");
                 if (protocolReader != null)
@@ -242,11 +251,14 @@ namespace DinamapN
                         txtProtocolID.Items.Add(new KeyValuePair(protocolReader["Protocol_ID"].ToString(), protocolReader["Protocol_ID"].ToString() + " - " + protocolReader["Title"].ToString()));
                     }
                 }
+                else
+                    success = false;
             }
             catch (Exception)
             {
-                MessageBox.Show("Error. Check network connection then go back and try again.");
+                success = false;
             }
+            return success;
         }
 
         private OdbcDataReader executePullDownQuery(string query)
@@ -255,6 +267,7 @@ namespace DinamapN
             {
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
+
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 OdbcDataReader MyReader = DbCommand.ExecuteReader();
