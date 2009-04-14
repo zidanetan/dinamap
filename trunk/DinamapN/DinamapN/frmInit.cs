@@ -304,16 +304,17 @@ namespace DinamapN
             object DOB = maskedTxtDOB.ValidateText();
  
             // Validate date-of-birth, return an error to user if not valid
-            if ((maskedTxtDOB.Text.ToString() != "  /  /") && (DOB == null))
+            if (maskedTxtDOB.Text.ToString() != "  /  /")
             {
-                txtSearchStatus.Text = "Please enter DOB in MM/DD/YYYY " +
-                    "form or leave blank (name-only search)";
-                maskedTxtDOB.BackColor = Color.Yellow;
-                return;
-            }
-            else
-            {
-                dateOfBirth = (DateTime)DOB;
+                if (DOB == null)
+                {
+                    txtSearchStatus.Text = "Please enter DOB in MM/DD/YYYY " +
+                        "form or leave blank (name-only search)";
+                    maskedTxtDOB.BackColor = Color.Yellow;
+                    return;
+                }
+                else
+                    dateOfBirth = (DateTime)DOB;
             }
 
             Cursor.Current = Cursors.WaitCursor;    // Trigger hourglass
