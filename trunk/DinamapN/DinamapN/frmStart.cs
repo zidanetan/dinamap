@@ -17,9 +17,14 @@ namespace DinamapN
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.panel1.Visible = true;
-            frmInit fInit = new frmInit();
+            this.panel2.Enabled = false;
+            panel1.Focus();
 
+            this.panel1.Visible = true;
+            this.label1.Visible = true;
+            this.pictureBox1.Visible = true;
+            this.panel1.Refresh();
+            frmInit fInit = new frmInit();
             this.Visible = false;
 
             fInit.Show();
@@ -37,6 +42,11 @@ namespace DinamapN
         private void frmStart_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
+        }
+
+        private void frmStart_Load(object sender, EventArgs e)
+        {
+
         }
 
     }
