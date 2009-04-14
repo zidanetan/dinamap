@@ -285,45 +285,43 @@ namespace DinamapN
         // When the user clicks the "Lookup" button...
         private void btnLookup_Click(object sender, EventArgs e)
         {
+            txtSearchStatus.Visible = false;
+            txtSearchStatus.Text = "Searching...";
+            txtSearchStatus.Visible = true;
+
             // If no data inputted...
             if (txtFirstName.Text.Equals("") && txtLastName.Text.Equals("") && maskedTxtDOB.Text.Equals("  /  /"))
             {
-                txtSearchStatus.Visible = true;         // Trigger message
                 txtSearchStatus.Text = "Please enter data before searching!";
                 return; // exit
             }
+            
+            maskedTxtDOB.BackColor = Color.White;
+
+            // Grab date-of-birth from textbox
+            DateTime dateOfBirth = new DateTime();
+            maskedTxtDOB.ValidatingType = typeof(System.DateTime);
+            object DOB = maskedTxtDOB.ValidateText();
+ 
+            // Validate date-of-birth, return an error to user if not valid
+            if ((maskedTxtDOB.Text.ToString() != "  /  /") && (DOB == null))
+            {
+                txtSearchStatus.Text = "Please enter DOB in MM/DD/YYYY " +
+                    "form or leave blank (name-only search)";
+                maskedTxtDOB.BackColor = Color.Yellow;
+                return;
+            }
+            else
+            {
+                dateOfBirth = (DateTime)DOB;
+            }
+
             Cursor.Current = Cursors.WaitCursor;    // Trigger hourglass
-            txtSearchStatus.Visible = true;         // Trigger "searching" message
-            txtSearchStatus.Text = "Searching records...";
-            DateTime dateOfBirth;   //for converting from input to SQL
-            string query;           //overall search query string
-            StringBuilder queryBuilder = new StringBuilder();     //for building query string
+
             try
             {
-                //Construct query from inputs (first and last name to begin)
-                queryBuilder.Append("Select * from patient where First_Name LIKE '");
-                queryBuilder.Append(this.txtFirstName.Text);
-                queryBuilder.Append("%' AND Last_Name LIKE '");
-                queryBuilder.Append(this.txtLastName.Text);
-                queryBuilder.Append("%'");
-                //Validate DOB input
-                if (DateTime.TryParse(maskedTxtDOB.Text.ToString(), out dateOfBirth)){
-                    //Add DOB to query if found to be valid, convert to proper form
-                    queryBuilder.Append(" AND DOB = '");
-                    queryBuilder.Append(dateOfBirth.ToString("yyyy:MM:dd"));
-                    queryBuilder.Append("';");
-                }
-                //Ignore if blank (don't add to query)
-                else if (maskedTxtDOB.Text.ToString() == "  /  /")
-                    queryBuilder.Append(";");
-                //If improper format and not blank, prompt to correct and exit
-                else {
-                    MessageBox.Show("Please correct DOB time format.  Should be MM/DD/YYYY");
-                    Cursor.Current = Cursors.Default;
-                    txtSearchStatus.Visible = false;
-                    return;
-                }
-                query = queryBuilder.ToString();    //Compile query to one string
+ 
+                string query = buildPatientQuery(dateOfBirth);
                 resultsGrid.DataSource = bindingSource1; // Bind grid view to database 
                 OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2"); // Define database connection
                 OdbcDataAdapter dataAdapter = new OdbcDataAdapter(query, MyConnection.ConnectionString); // Define query and bind
@@ -372,5 +370,26 @@ namespace DinamapN
                 this.btnLookup_Click(sender, e); // "Press" the lookup button
         }
 
+        private string buildPatientQuery(DateTime DOB)
+        {
+            StringBuilder queryBuilder = new StringBuilder();     //for building query string
+            //Construct query from inputs (first and last name to begin)
+            queryBuilder.Append("Select * from patient where First_Name LIKE '");
+            queryBuilder.Append(this.txtFirstName.Text);
+            queryBuilder.Append("%' AND Last_Name LIKE '");
+            queryBuilder.Append(this.txtLastName.Text);
+            queryBuilder.Append("%'");
+            //Validate DOB input
+            if (maskedTxtDOB.Text.ToString() == "  /  /")
+                queryBuilder.Append(";");
+            else
+            {
+                //Add DOB to query if found to be valid, convert to proper form
+                queryBuilder.Append(" AND DOB = '");
+                queryBuilder.Append(DOB.ToString("yyyy:MM:dd"));
+                queryBuilder.Append("';");
+            }
+            return queryBuilder.ToString();
+        }
    }
 }
