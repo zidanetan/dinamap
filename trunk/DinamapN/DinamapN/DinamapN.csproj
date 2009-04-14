@@ -208,6 +208,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Health-care-shield.ico" />
+    <None Include="Resources\bigrotation2.gif" />
     <None Include="Resources\error.png" />
     <None Include="Resources\erro1.bmp" />
     <EmbeddedResource Include="Resources\blank.png">

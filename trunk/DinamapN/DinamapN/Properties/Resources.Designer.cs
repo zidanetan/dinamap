@@ -60,6 +60,13 @@ namespace DinamapN.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap bigrotation2 {
+            get {
+                object obj = ResourceManager.GetObject("bigrotation2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap blank {
             get {
                 object obj = ResourceManager.GetObject("blank", resourceCulture);
