@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>DINAMAP - Monitoring Program
+
+Designed by VU Senior Design Team, 2009:
+John Dlugokecki
+Robbie Rutherford
+Steven Searcy
+Arif Mohd Zahari
+
+Sponsor:
+Carlos Orozco, CRC Informatics Manager
+
+
+For more information view Online Help page</value>
+  </data>
 </root>
