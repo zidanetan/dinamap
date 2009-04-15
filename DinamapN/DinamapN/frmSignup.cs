@@ -50,13 +50,11 @@ namespace DinamapN
         //move on to frmInit
         private void continueSignup(Hashtable h)
         {
-            string query = buildQueryStatement(h);//build query string
-
+            OdbcCommand DbCommand = new OdbcCommand();
             try//patient should already exist in DB
             {
                 MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = query;
+                DbCommand = buildQueryStatement(h);
                 string patientID = DbCommand.ExecuteScalar().ToString();
                 MyConnection.Close();
 
@@ -124,36 +122,40 @@ namespace DinamapN
         }
 
         //Build query string to see if patient already exists in DB
-        private string buildQueryStatement(Hashtable h)
+        private OdbcCommand buildQueryStatement(Hashtable h)
         {
-            StringBuilder sb2 = new StringBuilder();
+            OdbcCommand dbcommand = MyConnection.CreateCommand();
+            StringBuilder sb = new StringBuilder();
 
             try
             {
                 //Construct query from inputs (first and last name to begin)
-                sb2.Append("Select * from patient where First_Name = '");
-                sb2.Append(txtFName.Text);
-                sb2.Append("' AND Last_Name = '");
-                sb2.Append(txtLName.Text);
-                sb2.Append("'");
-                sb2.Append(" AND DOB = ");
-                sb2.Append("STR_TO_DATE('");
-                sb2.Append(txtDOB.Text);
-                sb2.Append("','%m/%d/%Y')");
-            }
+                sb.Append("Select * from patient where First_Name = ");
+                sb.Append("?");
+                sb.Append(" AND Last_Name = ");
+                sb.Append("?");
+                sb.Append(" AND DOB = ");
+                sb.Append("STR_TO_DATE('");
+                sb.Append(h["DOB"]);
+                sb.Append("','%m/%d/%Y')");
 
+                dbcommand.CommandText = sb.ToString();
+
+                dbcommand.Parameters.Add("@First_Name", OdbcType.Text).Value = h["First_Name"];
+                dbcommand.Parameters.Add("@Last_Name", OdbcType.Text).Value = h["Last_Name"];
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Error in buildQueryStatement: \n" + ex.ToString());
             }
-            return sb2.ToString();
+            return dbcommand;
         }
 
         
         //User clicks Register Patient button
         private void btnRegister_Click(object sender, EventArgs e)
         {
-            Hashtable h = validateForm();
+            Hashtable h = validateForm(); // collect form data into hash
            
             if(h["Errors"].ToString() == "")//if no errors...
             {
@@ -165,25 +167,24 @@ namespace DinamapN
             }
         }
 
+        // Upload form information to database after checking to see
+        // if information corresponds to an existing patient.
         private void RegisterPatient(Hashtable h)
         {
-            //check if patient entry already exists in database
-            string query = buildQueryStatement(h);//build query string
-
+            OdbcCommand DbCommand = new OdbcCommand();
             //connect to DB and send query
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+                //check if patient entry already exists in database
                 MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = query;
+                DbCommand = buildQueryStatement(h);
                 if (DbCommand.ExecuteScalar() == null || DbCommand.ExecuteScalar().ToString() == "")
-                {//patient is new
+                {//patient is new, commit data
                     MyConnection.Close();
                     saveDB(h);
                 }
                 else
-                {//patient already exists in DB
+                {//patient already exists in DB, kick out error
                     MyConnection.Close();
                     MessageBox.Show("Patient already registered.\nGo back and try Existing Patient Login.");
                 }
@@ -194,13 +195,15 @@ namespace DinamapN
             }
         }
 
-        //Check for mandatory fields and formatting errors
+        //Check for mandatory fields and formatting errors, return a hash
+        //table with all field entries plus any errors.  Highlight fields with errors
         private Hashtable validateForm()
         {
             clearHighlights();
             Hashtable h = new Hashtable();
             h["Errors"] = "";
 
+            // Check that mandatory fields were filled
             if (txtFName.Text != "")
                 h["First_Name"] = txtFName.Text;
             else
@@ -225,6 +228,7 @@ namespace DinamapN
                 txtGender.BackColor = Color.Yellow;
             }
 
+            // Do a special check for DOB
             if (validateDOB())
                 h["DOB"] = txtDOB.Text;
             else
@@ -241,6 +245,7 @@ namespace DinamapN
                 txtEth.BackColor = Color.Yellow;
             }
 
+            // Do special check for SSN (all numbers filled)
             if (txtSSN.Text != "   -  -")
                 if (txtSSN.Text.Remove(6, 1).Remove(3, 1).Length == 9)
                     h["SSN"] = txtSSN.Text.Remove(6, 1).Remove(3, 1);
@@ -251,25 +256,30 @@ namespace DinamapN
                 }
             else
                 h["SSN"] = txtSSN.Text.Remove(6, 1).Remove(3, 1);
+
+            // Simply copy non-required fields
             h["VUH"] = txtVUH.Text;
             h["Diagnosis"] = txtDiag.Text;
             h["Other_Diagnosis"] = txtODiag.Text;
             h["Diagnosis_Questionable"] = txtQuestionable.Checked;
+            h["Comments"] = txtComments.Text;
+
+            // Convert string boolean to integer for checkbox
             if (h["Diagnosis_Questionable"].ToString() == "False")
                 h["Diagnosis_Questionable"] = "0";
             else
                 h["Diagnosis_Questionable"] = "1";
-            h["Comments"] = txtComments.Text;
-
+            
             return h;
         }
 
+        // Close application when form's closed
         private void frmSignup_FormClosed_1(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
 
-
+        // Enter key at any point attempts registration
         private void frmSignup_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(e.Equals(Keys.Enter))
@@ -285,6 +295,7 @@ namespace DinamapN
             this.Visible = false;
         }
 
+        // Clear all fields of highlights indicating errors
         private void clearHighlights()
         {
             txtFName.BackColor = Color.White;
@@ -295,6 +306,7 @@ namespace DinamapN
             txtSSN.BackColor = Color.White;
         }
 
+        // Check that DOB field was filled out without issues.
         private Boolean validateDOB()
         {
             if (txtDOB.Text.ToString() == "  /  /")
@@ -310,14 +322,13 @@ namespace DinamapN
             else
             {
                 dateOfBirth = (DateTime)DOB;
+                // Even if valide date, DOB cannot be future date
                 if (dateOfBirth > DateTime.Now)
                     return false;
                 else
                     return true;
             }
         }
-
-
 
     }
 }
