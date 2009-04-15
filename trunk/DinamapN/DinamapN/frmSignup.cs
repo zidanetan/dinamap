@@ -12,6 +12,8 @@ namespace DinamapN
 {
     public partial class frmSignup : Form
     {
+        OdbcConnection MyConnection;
+
         public frmSignup()
         {
             InitializeComponent();
@@ -20,6 +22,8 @@ namespace DinamapN
         //Gender and Ethnicity have drop-down menus
         private void frmSignup_Load(object sender, EventArgs e)
         {
+            MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
+
             txtGender.DropDownStyle = ComboBoxStyle.DropDownList;
             txtEth.DropDownStyle = ComboBoxStyle.DropDownList;
             txtFName.Select();
@@ -28,15 +32,12 @@ namespace DinamapN
         //Save Patient registration to Database
         private void saveDB(Hashtable h)
         {
-            
-            string query = buildInsertStatement(h);
             try
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
-                OdbcCommand DbCommand = MyConnection.CreateCommand();
-                DbCommand.CommandText = query;
+                OdbcCommand DbCommand = buildInsertStatement(h);
                 DbCommand.ExecuteNonQuery();
+                MyConnection.Close();
                 continueSignup(h);
             }
             catch (Exception ex)
@@ -53,70 +54,73 @@ namespace DinamapN
 
             try//patient should already exist in DB
             {
-                OdbcConnection MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
                 MyConnection.Open();
                 OdbcCommand DbCommand = MyConnection.CreateCommand();
                 DbCommand.CommandText = query;
                 string patientID = DbCommand.ExecuteScalar().ToString();
+                MyConnection.Close();
 
                 //continue on to next form
                 frmInit fInit = new frmInit(patientID);
                 fInit.Show();
                 this.Visible = false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Error in continueSignup:\n" + ex.ToString());
             }
         }
 
 
         //create SQL INSERT statement with Patient info for new patients
-        private string buildInsertStatement(Hashtable h)
+        private OdbcCommand buildInsertStatement(Hashtable h)
         {
+            OdbcCommand dbcommand = MyConnection.CreateCommand();
             StringBuilder sb = new StringBuilder();
             
             try
             {
                 sb.Append("INSERT INTO Patient (Last_Name, First_Name, Gender, Ethnicity, Comments, VUH, DOB, SSN, Diagnosis, Other_Diagnosis, Diagnosis_Questionable) VALUES");
                 sb.Append("(");
-                sb.Append("'");
-                sb.Append(h["Last_Name"]);
-                sb.Append("','");
-                sb.Append(h["First_Name"]);
-                sb.Append("','");
+                sb.Append("?");
+                sb.Append(",");
+                sb.Append("?");
+                sb.Append(",'");
                 sb.Append(h["Gender"]);
                 sb.Append("','");
                 sb.Append(h["Ethnicity"]);
-                sb.Append("','");
-                sb.Append(h["Comments"]);
-                sb.Append("','");
-                sb.Append(h["VUH"]);
-                sb.Append("',STR_TO_DATE('");
+                sb.Append("',");
+                sb.Append("?");
+                sb.Append(",");
+                sb.Append("?");
+                sb.Append(",STR_TO_DATE('");
                 sb.Append(h["DOB"]);
                 sb.Append("','%m/%d/%Y'),'");
                 sb.Append(h["SSN"]);
-                sb.Append("','");
-                sb.Append(h["Diagnosis"]);
-                sb.Append("','");
-                sb.Append(h["Other_Diagnosis"]);
-                sb.Append("','");
-
-                if (h["Diagnosis_Questionable"].ToString() == "False")
-                    h["Diagnosis_Questionable"] = "0";
-                else
-                    h["Diagnosis_Questionable"] = "1";
-
+                sb.Append("',");
+                sb.Append("?");
+                sb.Append(",");
+                sb.Append("?");
+                sb.Append(",'");
                 sb.Append(h["Diagnosis_Questionable"]);
                 sb.Append("'");
                 sb.Append(");");
+
+                dbcommand.CommandText = sb.ToString();
+                dbcommand.Parameters.Add("@Last_Name", OdbcType.Text).Value = h["Last_Name"];
+                dbcommand.Parameters.Add("@First_Name", OdbcType.Text).Value = h["First_Name"];
+                dbcommand.Parameters.Add("@Comments", OdbcType.Text).Value = h["Comments"];
+                dbcommand.Parameters.Add("@VUH", OdbcType.Text).Value = h["VUH"];
+                dbcommand.Parameters.Add("@Diagnosis", OdbcType.Text).Value = h["Diagnosis"];
+                dbcommand.Parameters.Add("@Other_Diagnosis", OdbcType.Text).Value = h["Other_Diagnosis"];
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-            
+                MessageBox.Show("Error in buildInsertStatement: \n" + ex.ToString());
             }
 
-            return sb.ToString();
+            return dbcommand;
         }
 
         //Build query string to see if patient already exists in DB
@@ -138,9 +142,9 @@ namespace DinamapN
                 sb2.Append("','%m/%d/%Y')");
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                MessageBox.Show("Error in buildQueryStatement: \n" + ex.ToString());
             }
             return sb2.ToString();
         }
@@ -175,16 +179,18 @@ namespace DinamapN
                 DbCommand.CommandText = query;
                 if (DbCommand.ExecuteScalar() == null || DbCommand.ExecuteScalar().ToString() == "")
                 {//patient is new
+                    MyConnection.Close();
                     saveDB(h);
                 }
                 else
                 {//patient already exists in DB
+                    MyConnection.Close();
                     MessageBox.Show("Patient already registered.\nGo back and try Existing Patient Login.");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Error");
+                MessageBox.Show("Error in RegisterPatient: \n" + ex.ToString());
             }
         }
 
@@ -248,6 +254,10 @@ namespace DinamapN
             h["Diagnosis"] = txtDiag.Text;
             h["Other_Diagnosis"] = txtODiag.Text;
             h["Diagnosis_Questionable"] = txtQuestionable.Checked;
+            if (h["Diagnosis_Questionable"].ToString() == "False")
+                h["Diagnosis_Questionable"] = "0";
+            else
+                h["Diagnosis_Questionable"] = "1";
             h["Comments"] = txtComments.Text;
 
             return h;
