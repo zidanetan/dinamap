@@ -225,7 +225,7 @@ namespace DinamapN
                 txtGender.BackColor = Color.Yellow;
             }
 
-            if (txtDOB.MaskCompleted)
+            if (validateDOB())
                 h["DOB"] = txtDOB.Text;
             else
             {
@@ -293,6 +293,29 @@ namespace DinamapN
             txtEth.BackColor = Color.White;
             txtSSN.BackColor = Color.White;
         }
+
+        private Boolean validateDOB()
+        {
+            if (txtDOB.Text.ToString() == "  /  /")
+                return false;
+            // Grab date-of-birth from textbox
+            DateTime dateOfBirth = new DateTime();
+            txtDOB.ValidatingType = typeof(System.DateTime);
+            object DOB = txtDOB.ValidateText();
+
+            // Validate date-of-birth, return an error to user if not valid
+            if (DOB == null)
+                return false;
+            else
+            {
+                dateOfBirth = (DateTime)DOB;
+                if (dateOfBirth > DateTime.Now)
+                    return false;
+                else
+                    return true;
+            }
+        }
+
 
 
     }
