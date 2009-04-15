@@ -258,12 +258,12 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Default Company Name"
+        "Manufacturer" = "8:Dinamap Monitor Program"
         "ARPHELPTELEPHONE" = "8:"
-        "ARPHELPLINK" = "8:"
+        "ARPHELPLINK" = "8:http://eecs.vanderbilt.edu/Courses/eece295/2008-2009/GCRC-Dinamap/index.php"
         "Title" = "8:DinamapSetup"
         "Subject" = "8:"
-        "ARPCONTACT" = "8:Default Company Name"
+        "ARPCONTACT" = "8:Dinamap Monitor Program"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
@@ -372,7 +372,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1E8B65C1495745D89C661C8245E92AED"
             {
-            "Name" = "8:Shortcut to Primary output from DinamapN (Active)"
+            "Name" = "8:Dinamap Monitor Program"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -386,7 +386,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_B759E9E438BD4EEBB261A27BEBE72AA1"
             {
-            "Name" = "8:Shortcut to Primary output from DinamapN (Active)"
+            "Name" = "8:Dinamap Monitor Program"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
