@@ -251,6 +251,7 @@ namespace DinamapN
                 }
             else
                 h["SSN"] = txtSSN.Text.Remove(6, 1).Remove(3, 1);
+            h["VUH"] = txtVUH.Text;
             h["Diagnosis"] = txtDiag.Text;
             h["Other_Diagnosis"] = txtODiag.Text;
             h["Diagnosis_Questionable"] = txtQuestionable.Checked;
