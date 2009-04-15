@@ -14,28 +14,32 @@ namespace DinamapN
     {
         OdbcConnection MyConnection;
 
+        // Constructor
         public frmSignup()
         {
             InitializeComponent();
         }
 
-        //Gender and Ethnicity have drop-down menus
+        // Upon loading form...
         private void frmSignup_Load(object sender, EventArgs e)
         {
             MyConnection = new OdbcConnection("DSN=dinamapMySQL2");
 
+            //Gender and Ethnicity have drop-down menus
             txtGender.DropDownStyle = ComboBoxStyle.DropDownList;
             txtEth.DropDownStyle = ComboBoxStyle.DropDownList;
+            // Begin input at first name       
             txtFName.Select();
         }
 
         //Save Patient registration to Database
         private void saveDB(Hashtable h)
         {
+            OdbcCommand DbCommand = new OdbcCommand();
             try
             {
                 MyConnection.Open();
-                OdbcCommand DbCommand = buildInsertStatement(h);
+                DbCommand = buildInsertStatement(h);
                 DbCommand.ExecuteNonQuery();
                 MyConnection.Close();
                 continueSignup(h);
@@ -55,6 +59,7 @@ namespace DinamapN
             {
                 MyConnection.Open();
                 DbCommand = buildQueryStatement(h);
+                // Grab patientID from previously created entry
                 string patientID = DbCommand.ExecuteScalar().ToString();
                 MyConnection.Close();
 
@@ -68,7 +73,6 @@ namespace DinamapN
                 MessageBox.Show("Error in continueSignup:\n" + ex.ToString());
             }
         }
-
 
         //create SQL INSERT statement with Patient info for new patients
         private OdbcCommand buildInsertStatement(Hashtable h)
@@ -121,7 +125,8 @@ namespace DinamapN
             return dbcommand;
         }
 
-        //Build query string to see if patient already exists in DB
+        //Build SQL query to see if patient already exists in DB (or
+        //to retrieve index of registered patient)
         private OdbcCommand buildQueryStatement(Hashtable h)
         {
             OdbcCommand dbcommand = MyConnection.CreateCommand();
@@ -150,7 +155,6 @@ namespace DinamapN
             }
             return dbcommand;
         }
-
         
         //User clicks Register Patient button
         private void btnRegister_Click(object sender, EventArgs e)
