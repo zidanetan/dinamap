@@ -33,10 +33,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.lblTitle01 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -82,16 +82,6 @@
             this.panel2.Size = new System.Drawing.Size(497, 86);
             this.panel2.TabIndex = 7;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Location = new System.Drawing.Point(0, -2);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(497, 75);
-            this.panel1.TabIndex = 5;
-            this.panel1.Visible = false;
-            // 
             // lblTitle01
             // 
             this.lblTitle01.AutoSize = true;
@@ -131,6 +121,17 @@
             this.button1.Text = "Register New Patient";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Location = new System.Drawing.Point(0, -2);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(497, 75);
+            this.panel1.TabIndex = 5;
+            this.panel1.Visible = false;
             // 
             // frmStart
             // 
